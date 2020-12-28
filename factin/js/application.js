@@ -1,0 +1,64 @@
+$(document).ready(function(){
+
+    var direccionActual = $('.directionUri').html();
+	$('.directionUri').html(seeDirection(direccionActual));
+	
+	loadDatatables();
+    
+});
+
+function seeDirection($urls ='/home')
+{
+    switch($urls)
+    {
+        case '/factin/home':
+            return 'Inicio';
+            break;
+        case '/factin/access':
+            return 'Configuración >> Acceso >> Roles';
+			break;
+		case '/factin/permission':
+			return 'Configuración >> Acceso >> Permisos';
+			break;
+		case '/factin/users':
+			return 'Configuración >> Acceso >> Usuarios';
+			break;
+		case '/factin/locations':
+			return 'Configuración >> Ubicaciones >> Departamentos';
+			break;
+		case '/factin/municipalities':
+			return 'Configuración >> Ubicaciones >> Municipios';
+			break;
+		case '/factin/corporate-information':
+			return 'Configuración >> Empresa >> Información Corporativa';
+			break;
+		case '/factin/corporate-image':
+			return 'Configuración >> Empresa >> Imagen Corporativa';
+			break;
+    }
+}
+
+function loadDatatables(){
+	$('#tableDatatable').css('font-size','15px');
+	$('#tableDatatable').DataTable({
+		language: {
+			processing:     "Procesamiento en curso...",
+			search: 		"Buscar:",
+			lengthMenu:    	"Mostrar _MENU_ registros",
+			info:           "Mostrando _START_ a _END_ de _TOTAL_ registros. ",
+			infoEmpty:      "Mostrando dato 0 a 0 de 0 registros",	
+			emptyTable:     "No hay registros disponibles",
+			infoFiltered:   "Filtrado de _MAX_ elementos totales",
+			infoPostFix:    "",
+			loadingRecords: "Cargando...",
+			zeroRecords:    "No hay registros para mostrar",
+			infoFiltered:   "Filtrado de _MAX_ registros",
+			paginate: {
+				first:      "|<",
+				previous:   "<",
+				next:       ">",
+				last:       ">|"
+			}
+		},
+	});
+}

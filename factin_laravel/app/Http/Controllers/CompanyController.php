@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\Location;
+use App\Models\Municipalities;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -10,20 +13,21 @@ class CompanyController extends Controller
     {
         $this->middleware('auth');
     }
-
-    /* ===============================================================================================
-			MODULO CREACION INFORMACION CORPORATIVA (CONFIGURACION)
-    =============================================================================================== */
-
+    
     function companyinfoindex()
     {
-        return view('partials.Management.information');
+        $company = Company::select(
+            'companies.*',
+            'locations.*',
+            'municipalities.*'
+        )
+        ->join('locations','locations.depid','locations.depname')
+        ->join('municipalities','municipalities.munid','municipalities.munname')
+        ->first();
+        $location = Location::all();
+        $municipality = Municipalities::all();
+        return view('partials.Management.information', compact('company','location','municipality'));
     }
-
-
-    /* ===============================================================================================
-			MODULO CREACION IMAGEN CORPORATIVA (CONFIGURACION)
-    =============================================================================================== */
 
     function companyimaindex()
     {

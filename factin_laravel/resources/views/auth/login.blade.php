@@ -14,7 +14,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right bg-warining"> {{ __('Correo') }} <span class="icon-opsgenie"></span></label>                           
+                            <label for="name" class="col-md-4 col-form-label text-md-right bg-warining"> {{ __('Correo') }} <span class="icon-invoiceninja"></span></label>                           
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>

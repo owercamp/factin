@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Location;
 use App\Models\Municipalities;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
@@ -16,17 +17,18 @@ class CompanyController extends Controller
     
     function companyinfoindex()
     {
+        $departament = Location::all();
+        $municipality = Municipalities::all();
         $company = Company::select(
             'companies.*',
             'locations.*',
             'municipalities.*'
         )
-        ->join('locations','locations.depid','locations.depname')
-        ->join('municipalities','municipalities.munid','municipalities.munname')
+        ->join('locations','locations.depid','=','companies.comdepid')
+        ->join('municipalities','municipalities.munid','=','companies.communid')
         ->first();
-        $location = Location::all();
-        $municipality = Municipalities::all();
-        return view('partials.Management.information', compact('company','location','municipality'));
+        
+        return view('partials.Management.information', compact('company','departament','municipality'));
     }
 
     function companyimaindex()

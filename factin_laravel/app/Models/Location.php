@@ -17,4 +17,9 @@ class Location extends Model
     ];
     
     public $timestamps = true;
+
+    public function municipalities()
+    {
+        return $this->hasMany(Municipalities::class);
+    }
 }

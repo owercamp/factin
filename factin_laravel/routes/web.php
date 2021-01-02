@@ -45,5 +45,8 @@ route::post('/municipalities/update', 'LocationController@municipalityupdate')->
 route::post('/municipalities/delete', 'LocationController@municipalitydelete')->name('municipalities.delete');
 //ruta información coporativa
 route::get('/corporate-information', 'CompanyController@companyinfoindex')->name('company.information');
+route::post('/corporate-information/save', 'CompanyController@companyinfosave')->name('company.save');
+route::post('/corporate-information/update', 'CompanyController@companyinfosave')->name('company.update');
+route::post('/corporate-information/delete', 'CompanyController@companyinfodelete')->name('company.delete');
 //ruta imagen coporativa
 route::get('/corporate-image', 'CompanyController@companyimaindex')->name('company.image');

@@ -23,6 +23,9 @@
 .marge-list {
     margin: 2% 5%;
 }
+.padding-config{
+    padding: 3% 12%;
+}
 a {
     padding: 1.5%;
     margin: 0.5%;
@@ -110,4 +113,6 @@ a {
     background: #bbca62;
     border-radius: 6px;
 }
-
+.border-personalice{
+    border-right: 2px double var(--orange);
+}

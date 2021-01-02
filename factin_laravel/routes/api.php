@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Municipalities;
 use Illuminate\Http\Request;
 
 /*
@@ -16,3 +17,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//obtencion de los municipíos apartir de un mdepartamento
+Route::get('getMunicipalities',function(Request $request){
+    $municipality = Municipalities::where('mundepid',trim($request->DepId))->orderBy('munname','asc')->get();
+    return response()->json($municipality);
+})->name('getMunicipalities');
+
+

@@ -20,6 +20,6 @@ class Municipalities extends Model
     public $timestamps = true;
 
     public function departament(){
-        return $this->belongsTo(Location::class, 'depid');
+        return $this->belongsTo(Location::class, 'mundepid');
     }
 }

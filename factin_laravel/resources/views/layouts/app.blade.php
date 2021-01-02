@@ -112,7 +112,7 @@
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('js/sweetalert.js')}}"></script>
-    <script src="{{asset('js/DataTables/dataTables.min.js')}}"></script>
+    <script src="{{asset('js/DataTables/datatables.min.js')}}"></script>
     <script src="{{asset('js/DataTables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/DataTables/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('js/DataTables/dataTables.bootstrap4.min.js')}}"></script>

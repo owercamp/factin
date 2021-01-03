@@ -12,7 +12,7 @@
     <div class="dropdown-divider form-divider"></div>
     <li class="nav-link nav-config-user text-primary">
         <span class="icon-image"></span>
-        <a class="text-primary" href="#">{{__('Usuarios Clientes')}}</a>
+        <a class="text-primary" href="{{route('usersclient.index')}}">{{__('Usuarios Clientes')}}</a>
     </li>
 </ul>
 <div class="col-9 left-modal">

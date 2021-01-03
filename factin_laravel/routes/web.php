@@ -11,6 +11,9 @@
 |
 */
 //
+
+use App\Models\Product;
+
 Route::get('/', function () {
     return view('auth.login');    
 });
@@ -56,3 +59,14 @@ route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdatei
 route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');
 //rutas colaboradores
 route::get('/collaborator', 'CollaboratorController@collaboratorindex')->name('collaborator.index');
+//rutas usuarios clientes
+route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('usersclient.index');
+//rutas productos
+route::get('/product', 'ProductController@productindex')->name('product.index');
+route::post('/product/save','ProductController@productsave')->name('product.save');
+route::post('/product/update','ProductController@productupdate')->name('product.update');
+route::post('/product/delete','ProductController@productdelete')->name('product.delete');
+//rutas modulos productos
+route::get('/module-product', 'ProductController@moduleproductindex')->name('module.index');
+//rutas configuracion modulos producto
+route::get('/config-module-product', 'ProductController@configmoduleproductindex')->name('config.index');

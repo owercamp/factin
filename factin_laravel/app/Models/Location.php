@@ -23,4 +23,9 @@ class Location extends Model
         return $this->hasMany('App\Models\Municipalities');
     }
 
+    public function collaborators()
+    {
+        return $this->hasMany('App\Models\Collaborator');
+    }
+
 }

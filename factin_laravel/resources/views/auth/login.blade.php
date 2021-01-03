@@ -17,7 +17,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right bg-warining"> {{ __('Correo') }} <span class="icon-invoiceninja"></span></label>                           
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@correo.com.co">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }} <span class="icon-redux"></span></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="**********">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

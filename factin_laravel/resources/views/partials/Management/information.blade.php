@@ -323,6 +323,22 @@
 
 @section('ScriptZone')
 	<script>
+		
+		//consulta de departamento
+		$('#DepName').on('change',function(e){
+			var Departament = e.target.value;
+			$('#MunName').empty();
+			$('#MunName').append("<option value=''>Seleccione un Municipio</option>");
+			if(Departament != '')
+			{
+				$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
+					for(var i=0; i<objectMunicipality.length;i++){
+						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
+					}
+				})
+			}
+		});
+		
 		$('.newcompany-link').on('click',function(){
 			$('#newcompany-modal').modal();
 		});
@@ -403,20 +419,6 @@
 		})
 
 
-		//consulta de departamento
-		$('#DepName').on('change',function(e){
-			var Departament = e.target.value;
-			$('#MunName').empty();
-			$('#MunName').append("<option value=''>Seleccione un Municipio</option>");
-			if(Departament != '')
-			{
-				$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
-					for(var i=0; i<objectMunicipality.length;i++){
-						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
-					}
-				})
-			}
-		});
 
 	</script>
 	@if(session('SuccessCreation'))

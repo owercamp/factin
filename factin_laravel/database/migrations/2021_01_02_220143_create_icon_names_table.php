@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIconsTable extends Migration
+class CreateIconNamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateIconsTable extends Migration
      */
     public function up()
     {
-        Schema::create('icons', function (Blueprint $table) {
-            $table->Increments('ico_id');
-            $table->string('ico_qr');
-            $table->string('ico_name');
+        Schema::create('icon_names', function (Blueprint $table) {
+            $table->Increments('icon_id');
+            $table->string('icon_name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateIconsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('icons');
+        Schema::dropIfExists('icon_names');
     }
 }

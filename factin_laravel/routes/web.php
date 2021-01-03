@@ -50,3 +50,7 @@ route::post('/corporate-information/update', 'CompanyController@companyinfosave'
 route::post('/corporate-information/delete', 'CompanyController@companyinfodelete')->name('company.delete');
 //ruta imagen coporativa
 route::get('/corporate-image', 'CompanyController@companyimaindex')->name('company.image');
+route::post('/corporate-image/save', 'CompanyController@companyimasave')->name('image.save');
+route::post('/corporate-image/updatecode', 'CompanyController@companyimaupdatecode')->name('image.update.code');
+route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdateimage')->name('image.update.image');
+route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\icon_name;
 use App\Models\Municipalities;
 use Illuminate\Http\Request;
 
@@ -23,5 +24,4 @@ Route::get('getMunicipalities',function(Request $request){
     $municipality = Municipalities::where('mundepid',trim($request->DepId))->orderBy('munname','asc')->get();
     return response()->json($municipality);
 })->name('getMunicipalities');
-
 

@@ -323,29 +323,14 @@
 
 @section('ScriptZone')
 	<script>
-		
-		//consulta de departamento
-		$('#DepName').on('change',function(e){
-			var Departament = e.target.value;
-			$('#MunName').empty();
-			$('#MunName').append("<option value=''>Seleccione un Municipio</option>");
-			if(Departament != '')
-			{
-				$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
-					for(var i=0; i<objectMunicipality.length;i++){
-						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
-					}
-				})
-			}
-		});
-		
+				
 		$('.newcompany-link').on('click',function(){
 			$('#newcompany-modal').modal();
 		});
-
+		
 		$('.editCompany-link').on('click',function(e){
 			Swal.fire({
-                title: 'Desea editar este registro?',
+				title: 'Desea editar este registro?',
                 icon: 'info',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -354,7 +339,7 @@
                 cancelButtonText: 'No',
                 showClass: {
                 popup: 'animate__animated animate__flipInX'
-                },
+			},
                 hideClass: {
                 popup: 'animate__animated animate__flipOutX'
                 },
@@ -379,8 +364,8 @@
 					$('input[name=comPhone2_Edit]').val(Phone2);
 					$('input[name=comEmail_Edit]').val(Email);
 					$('#newcompanyEdit-modal').modal();
-                    }
-                })			
+				}
+			})			
 		});
 		// llama al formulario de eliminación
 		$('.deleteCompany-link').on('click',function(e){
@@ -406,10 +391,10 @@
 				confirmButtonText: 'Si, Eliminar',
 				cancelButtonText: 'No',
 				showClass: {
-				popup: 'animate__animated animate__flipInX'
+					popup: 'animate__animated animate__flipInX'
 				},
 				hideClass: {
-				popup: 'animate__animated animate__flipOutX'
+					popup: 'animate__animated animate__flipOutX'
 				},
 			}).then((result) => {
 				if (result.isConfirmed) {
@@ -417,9 +402,22 @@
 				}
 			})
 		})
-
-
-
+		
+		//consulta de departamento
+		$('#DepName').on('change',function(e){
+			var Departament = e.target.value;
+			$('#MunName').empty();
+			$('#MunName').append("<option value=''>Seleccione un Municipio</option>");
+			if(Departament != '')
+			{
+				$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
+					for(var i=0; i<objectMunicipality.length;i++){
+						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
+					}
+				})
+			}
+		});
+		
 	</script>
 	@if(session('SuccessCreation'))
 	<script>

@@ -20,6 +20,7 @@ class Location extends Model
 
     public function municipalities()
     {
-        return $this->hasMany(Municipalities::class);
+        return $this->hasMany('App\Models\Municipalities');
     }
+
 }

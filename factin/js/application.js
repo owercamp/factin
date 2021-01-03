@@ -35,6 +35,8 @@ function seeDirection($urls ='/home')
 		case '/factin/corporate-image':
 			return 'Configuración >> Empresa >> Imagen Corporativa';
 			break;
+		case '/factin/collaborator':
+			return 'Administración >> Recursos Humanos >> Colaboradores';
     }
 }
 

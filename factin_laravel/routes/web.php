@@ -54,3 +54,5 @@ route::post('/corporate-image/save', 'CompanyController@companyimasave')->name('
 route::post('/corporate-image/updatecode', 'CompanyController@companyimaupdatecode')->name('image.update.code');
 route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdateimage')->name('image.update.image');
 route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');
+//rutas colaboradores
+route::get('/collaborator', 'CollaboratorController@collaboratorindex')->name('collaborator.index');

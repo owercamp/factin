@@ -6,12 +6,12 @@
 @section('modules')
 <ul class="col-2 text-center flex-justified">
     <li class="nav-link nav-config-user text-primary">
-        <span class="icon-list-alt"></span>
+        <span class="icon-joomla"></span>
         <a class="text-primary" href="{{route('collaborator.index')}}">{{__('Colaboradores')}}</a>
     </li>
     <div class="dropdown-divider form-divider"></div>
     <li class="nav-link nav-config-user text-primary">
-        <span class="icon-image"></span>
+        <span class="icon-street-view"></span>
         <a class="text-primary" href="{{route('usersclient.index')}}">{{__('Usuarios Clientes')}}</a>
     </li>
 </ul>

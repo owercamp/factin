@@ -59,6 +59,9 @@ route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdatei
 route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');
 //rutas colaboradores
 route::get('/collaborator', 'CollaboratorController@collaboratorindex')->name('collaborator.index');
+route::post('/collaborator/save', 'CollaboratorController@collaboratorsave')->name('collaborator.save');
+route::post('/collaborator/update', 'CollaboratorController@collaboratorupdate')->name('collaborator.update');
+route::post('/collaborator/delete', 'CollaboratorController@collaboratordelete')->name('collaborator.delete');
 //rutas usuarios clientes
 route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('usersclient.index');
 //rutas productos

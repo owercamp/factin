@@ -27,7 +27,11 @@ class Collaborator extends Model
 
     public function departament()
     {
-        return $this->belongsTo('App\Models\Location');
+        return $this->belongsTo(Location::class, 'depid');
+    }
+    public function municipality()
+    {
+        return $this->belongsTo(Municipalities::class, 'munid');
     }
     
 }

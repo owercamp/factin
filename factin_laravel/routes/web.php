@@ -68,5 +68,8 @@ route::post('/product/update','ProductController@productupdate')->name('product.
 route::post('/product/delete','ProductController@productdelete')->name('product.delete');
 //rutas modulos productos
 route::get('/module-product', 'ProductController@moduleproductindex')->name('module.index');
+route::post('/module-product/save', 'ProductController@moduleproductsave')->name('module.save');
+route::post('/module-product/update', 'ProductController@moduleproductupdate')->name('module.update');
+route::post('/module-product/delete', 'ProductController@moduleproductdelete')->name('module.delete');
 //rutas configuracion modulos producto
 route::get('/config-module-product', 'ProductController@configmoduleproductindex')->name('config.index');

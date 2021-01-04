@@ -156,7 +156,7 @@
                                 <button type="submit" class="btn btn-edit form-control-sm my-3">GUARDAR CAMBIOS</button>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-delete form-control-sm my-3">CANCELAR</button>
+                                <button type="button" class="btn btn-delete form-control-sm my-3" data-dismiss="modal">CANCELAR</button>
                             </div>
                         </div>
                     </form>
@@ -204,7 +204,7 @@
                                 <button type="submit" class="btn btn-edit form-control-sm my-3">GUARDAR CAMBIOS</button>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-delete form-control-sm my-3">CANCELAR</button>
+                                <button type="button" class="btn btn-delete form-control-sm my-3" data-dismiss="modal">CANCELAR</button>
                             </div>
                         </div>
                     </form>

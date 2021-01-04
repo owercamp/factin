@@ -16,7 +16,15 @@ class CollaboratorController extends Controller
 
     function collaboratorindex()
     {
-        return view('partials.HumanResources.collaborators');
+        $departament = Location::all();
+        $municipality = Municipalities::all();
+        $collaborators = Collaborator::select(
+            'collaborators.*', 'municipalities.*', 'locations.*'
+        )
+        ->join('locations','locations.depid','=','collaborators.col_dep')
+        ->join('municipalities','municipalities.munid','=','collaborators.col_mun')
+        ->get();        
+        return view('partials.HumanResources.collaborators', compact('collaborators'));
     }
     function usersclientindex()
     {

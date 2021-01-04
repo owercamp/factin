@@ -20,12 +20,12 @@ class Location extends Model
 
     public function municipalities()
     {
-        return $this->hasMany('App\Models\Municipalities');
+        return $this->belongsTo(Municipalities::class, 'munid');
     }
 
-    public function collaborators()
+    public function collaborator()
     {
-        return $this->hasMany('App\Models\Collaborator');
+        return $this->belongsTo(Collaborator::class, 'id');
     }
 
 }

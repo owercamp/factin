@@ -37,6 +37,14 @@ function seeDirection($urls ='/home')
 			break;
 		case '/factin/collaborator':
 			return 'Administración >> Recursos Humanos >> Colaboradores';
+		case '/factin/users-clients':
+			return 'Administración >> Recursos Humanos >> Usuarios Clientes';
+		case '/factin/product':
+			return 'Administración >> Tipos de Productos >> Productos';
+		case '/factin/module-product':
+			return 'Administración >> Tipos de Productos >> Modulos Productos';
+		case '/factin/config-module-product':
+			return 'Administración >> Tipos de Productos >> Configuración Modulos Productos';
     }
 }
 

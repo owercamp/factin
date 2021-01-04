@@ -40,7 +40,6 @@
                     <th>NOMBRES COMPLETO</th>
                     <th>IDENTIFICACION</th>
 					<th>DEPARTAMENTO</th>
-					<th>MUNICIPIO</th>
 					<th>DIRECCION</th>
 					<th>TELEFONOS</th>
 					<th>CORREO</th>
@@ -49,8 +48,33 @@
 					<th>ACCIONES</th>
                 </tr>
             </thead>
-            <tbody>				
-                
+            <tbody>
+                @php
+                    $row = 1;
+                @endphp				
+                @foreach ($collaborators as $item)
+                    <th>{{$row++}}</th>
+                    <th>{{$item->col_name}}</th>
+                    <th>{{$item->col_ide}}</th>
+                    <th>{{$item->departament->depname}} - {{$item->municipality->munname}}</th>
+                    <th>{{$item->col_adr}}</th>
+                    <th>{{$item->col_ph1}} - {{$item->col_ph2}}</th>
+                    <th>{{$item->col_ema}}</th>
+                    <th>{{$item->col_pho}}</th>
+                    <th>{{$item->col_fir}}</th>
+                    <th>
+                        <a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
+                            <span class="icon-magic"></span>
+                            <span hidden>{{ $item->id }}</span>
+                            <span hidden>{{ $item->col_name }}</span>
+                        </a>
+                        <a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
+                            <span class="icon-proxmox"></span>
+                            <span hidden>{{ $item->id }}</span>
+                            <span hidden>{{ $item->col_name }}</span>
+                        </a>
+                    </th>
+                @endforeach
             </tbody>
         </table>
 	</div>

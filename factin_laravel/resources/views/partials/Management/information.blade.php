@@ -235,7 +235,7 @@
 									<div class="col-md-3">
 										<div class="form-group">
 											<small class="text-muted">DEPARTAMENTO:</small>
-											<select id="DepName" name="comDepid_Edit" class="form-control form-control-sm" required>
+											<select id="DepName_Edit" name="comDepid_Edit" class="form-control form-control-sm" required>
 												<option value="">Seleccione un Departamento</option>
 												@foreach ($departament as $item)
 												<option value="{{$item->depid}}">{{$item->depname}}</option>
@@ -246,7 +246,7 @@
 									<div class="col-md-3">
 										<div class="form-group">
 											<small class="text-muted">MUNICIPIO</small>
-											<select id="MunName" name="comMunid_Edit" class="form-control form-control-sm" required>
+											<select id="MunName_Edit" name="comMunid_Edit" class="form-control form-control-sm" required>
 												{{-- api de busqueda que carga los municipios segun departamento en ScriptZone ↓ --}}
 											</select>
 										</div>
@@ -359,7 +359,7 @@
 					$('input[name=comNit_Edit]').val(Nit);
 					$('input[name=comAddress_Edit]').val(Address);
 					$('select[name=comDepid_Edit]').val(Departament);
-					
+					$('select[name=comMunid_Edit]').val(Municipality);
 					$('input[name=comPhone1_Edit]').val(Phone1);
 					$('input[name=comPhone2_Edit]').val(Phone2);
 					$('input[name=comEmail_Edit]').val(Email);
@@ -367,6 +367,7 @@
 				}
 			})			
 		});
+
 		// llama al formulario de eliminación
 		$('.deleteCompany-link').on('click',function(e){
 			e.preventDefault();
@@ -411,6 +412,21 @@
 			if(Departament != '')
 			{
 				$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
+					for(var i=0; i<objectMunicipality.length;i++){
+						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
+					}
+				})
+			}
+		});
+
+		//consulta de departamento
+		$('#DepName_Edit').on('change',function(e){
+			var DepartamentSelect = e.target.value;
+			$('#MunName_Edit').empty();
+			$('#MunName_Edit').append("<option value=''>Seleccione un Municipio</option>");
+			if(DepartamentSelect != '')
+			{
+				$.get("{{route('getMunicipalities')}}",{DepId: DepartamentSelect},function(objectMunicipality){
 					for(var i=0; i<objectMunicipality.length;i++){
 						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
 					}

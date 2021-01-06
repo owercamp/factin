@@ -76,3 +76,8 @@ route::post('/module-product/update', 'ProductController@moduleproductupdate')->
 route::post('/module-product/delete', 'ProductController@moduleproductdelete')->name('module.delete');
 //rutas configuracion modulos producto
 route::get('/config-module-product', 'ProductController@configmoduleproductindex')->name('config.index');
+//rutas servicios
+route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('services.index');
+route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');
+route::post('/services-type/update', 'TypeServiceController@typeserviceupdate')->name('services.update');
+route::post('/services-type/delete', 'TypeServiceController@typeservicedelete')->name('services.delete');

@@ -45,6 +45,8 @@ function seeDirection($urls ='/home')
 			return 'Administración >> Tipos de Productos >> Modulos Productos';
 		case '/factin/config-module-product':
 			return 'Administración >> Tipos de Productos >> Configuración Modulos Productos';
+		case '/factin/services-type':
+			return 'Administración >> Tipos de Servicios >> Servicios';
     }
 }
 

@@ -60,7 +60,7 @@
                                 <ul class="dropdown-menu row-cols-1 text-center">
                                     <li><a href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a></li>
                                     <li><a href="{{route('product.index')}}">TIPO DE PRODUCTOS</a></li>
-                                    <li><a href="#">TIPO DE SERVICIOS</a></li>
+                                    <li><a href="{{route('services.index')}}">TIPO DE SERVICIOS</a></li>
                                 </ul>
                             </div>
                             <div class="dropdown">

@@ -14,6 +14,15 @@
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/datatables.bootstrap.min.css')}}">
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('js/sweetalert.js')}}"></script>
+    <script src="{{asset('js/DataTables/datatables.min.js')}}"></script>
+    <script src="{{asset('js/DataTables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/DataTables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/DataTables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('js/application.js')}}"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
     <title>@yield('title')</title>
@@ -108,15 +117,7 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/popper.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('js/sweetalert.js')}}"></script>
-    <script src="{{asset('js/DataTables/datatables.min.js')}}"></script>
-    <script src="{{asset('js/DataTables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('js/DataTables/dataTables.bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/DataTables/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('js/application.js')}}"></script>
+    
     @yield('ScriptZone')
 </body>
 </html>

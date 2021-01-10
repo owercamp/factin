@@ -1,10 +1,10 @@
-$(document).ready(function(){
+$(function(){
 
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));
 	
 	loadDatatables();
-    
+	
 });
 
 function seeDirection($urls ='/home')

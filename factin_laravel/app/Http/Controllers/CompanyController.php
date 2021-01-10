@@ -33,16 +33,19 @@ class CompanyController extends Controller
         
         return view('partials.Management.information', compact('company','departament','municipality'));
     }
+
     function companyinfosave(Request $request)
     {
+        $nit = trim($request->comNit1).'-'.trim($request->comNit2);
         $validate = Company::where('comsocial',$this->fu($request->comSocial))
-        ->where('comnit',$this->fu($request->comNit))
+        ->where('comnit',$this->fu($request->$nit))
         ->first();
         if($validate == null)
         {
+            $nitnew = trim($request->comNit1).'-'.trim($request->comNit2);
             Company::create([
                 'comsocial'=> $this->fu($request->comSocial),
-                'comnit' => $this->fu($request->comNit),
+                'comnit' => $this->fu($nitnew),
                 'comdepid' => trim($request->comDepid),
                 'communid' => trim($request->comMunid),
                 'comaddress' => $this->lower($request->comAddress),
@@ -55,6 +58,35 @@ class CompanyController extends Controller
             return redirect()->route('company.information')->with('SecondaryCreation','la información ya existe');
         }
     }
+
+    function companyinfoupdate(Request $request)
+    {
+        $validate = Company::where('comsocial',$this->fu($request->comSocial_Edit))
+        ->where('comid','!=',trim($request->comId_Edit))
+        ->first();
+        if($validate == null)
+        {
+            $search = Company::find($request->comId_Edit);
+            if($search != null)
+            {
+                $search->comsocial = $this->fu($request->comSocial_Edit);
+                $search->comnit = trim($request->comNit_Edit);
+                $search->comdepid = trim($request->comDepid_Edit);
+                $search->communid = trim($request->comMunid_Edit);
+                $search->comaddress = $this->fu($request->comAddress_Edit);
+                $search->comphone1 = trim($request->comPhone1_Edit);
+                $search->comphone2 = trim($request->comPhone2_Edit);
+                $search->comemail = $this->fu($request->comEmail_Edit);
+                $search->save();
+                return redirect()->route('company.information')->with('PrimaryCreation','Información actualizada');
+            }else{
+                return redirect()->route('company.information')->with('SecondaryCreation','NoEncontrado');
+            }
+        }else{
+            return redirect()->route('company.information')->with('SecondaryCreation','la informacion registrada no ha cambiado');
+        }
+    }
+
     function companyinfodelete(Request $request)
     {
         $validation = Company::find(trim($request->comid_Delete));

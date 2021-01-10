@@ -20,12 +20,12 @@ class TypeServiceController extends Controller
 
     function typeservicesave(Request $request)
     {
-        $validate = TypeService::where('ts_name',$this->fu($request->ts_name))->first();
+        $validate = TypeService::where('ts_name',$this::upper($request->ts_name))->first();
         if($validate == null)
         {
             TypeService::create([
                 $newservices = $request->service_name,
-                'ts_name' => $this->fu($request->service_name)
+                'ts_name' => $this::upper($request->service_name)
             ]);
                 return redirect()->route('services.index')->with('SuccessCreation', 'Producto '.$newservices.' creado satisfactoriamente');
         }else{
@@ -35,7 +35,7 @@ class TypeServiceController extends Controller
 
     function typeserviceupdate(Request $request)
     {
-        $validateData = TypeService::where('ts_name',$this->fu($request->service_name_Edit))
+        $validateData = TypeService::where('ts_name',$this::upper($request->service_name_Edit))
         ->where('ts_id','!=',trim($request->serviceid_Edit))
         ->first();
         if($validateData == null)
@@ -43,7 +43,7 @@ class TypeServiceController extends Controller
             $valida = TypeService::find($request->serviceid_Edit);
             if($valida != null)
             {
-                $valida->ts_name = $this->fu($request->service_name_Edit);
+                $valida->ts_name = $this::upper($request->service_name_Edit);
                 $valida->save();
                 return redirect()->route('services.index')->with('PrimaryCreation','Servicio '.$this::upper($request->service_name_Edit).' actualizado');
             }else{
@@ -59,7 +59,7 @@ class TypeServiceController extends Controller
         $validate = TypeService::where(trim($request->serviceid_Delete));        
         if($validate != null)
         {
-            $name = $this->fu($request->service_name_Delete);
+            $name = $this::upper($request->service_name_Delete);
             TypeService::findOrFail($request->serviceid_Delete)->delete();
             return redirect()->route('services.index')->with('WarningCreation','Producto '.$name.' eliminado');
         }else{

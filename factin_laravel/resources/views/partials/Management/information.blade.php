@@ -135,10 +135,10 @@
 				<div class="modal-body">
 					<form action="{{route('company.save')}}" method="POST">
 						@csrf
-						<div class="row">
+						<div class="row" style="margin: 0% 6%">
 							<div class="col-md-12">
 								<div class="row">
-									<div class="col-md-8">
+									<div class="col-md-6">
 										<div class="form-group">
 											<small class="text-muted">RAZON SOCIAL:</small>
 											<input type="text" name="comSocial" maxlength="50" class="form-control form-control-sm" placeholder="Razon Social" required>
@@ -147,7 +147,13 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<small class="text-muted">NIT:</small>
-											<input type="text" name="comNit" maxlength="12" class="form-control form-control-sm" placeholder="NIT Compañia" required>											
+											<input type="text" name="comNit1" maxlength="9" class="form-control form-control-sm" placeholder="NIT Compañia" required>
+										</div>
+									</div>									
+									<div class="col-md-2">
+										<div class="form-group">
+											<small class="text-muted">DV:</small>
+											<input type="text" name="comNit2" maxlength="1" class="form-control form-control-sm" placeholder="DV" required>											
 										</div>
 									</div>
 								</div>
@@ -213,12 +219,12 @@
 					<h4 class="margin-auto">INFORMACION CORPORATIVA</h4>
 				</div>
 				<div class="modal-body">
-					<form action="#" method="POST">
+					<form action="{{route('company.update')}}" method="POST">
 						@csrf
-						<div class="row">
+						<div class="row"  style="margin: 0% 6%">
 							<div class="col-md-12">
 								<div class="row">
-									<div class="col-md-8">
+									<div class="col-md-6">
 										<div class="form-group">
 											<small class="text-muted">RAZON SOCIAL:</small>
 											<input type="text" name="comSocial_Edit" maxlength="50" class="form-control form-control-sm" placeholder="Razon Social" required>
@@ -227,7 +233,13 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<small class="text-muted">NIT:</small>
-											<input type="text" name="comNit_Edit" maxlength="12" class="form-control form-control-sm" placeholder="NIT Compañia" required>											
+											<input type="text" name="comNit1_Edit" maxlength="9" class="form-control form-control-sm" placeholder="NIT Compañia" required>
+										</div>
+									</div>									
+									<div class="col-md-2">
+										<div class="form-group">
+											<small class="text-muted">DV:</small>
+											<input type="text" name="comNit2_Edit" maxlength="1" class="form-control form-control-sm" placeholder="DV" required>											
 										</div>
 									</div>
 								</div>
@@ -323,7 +335,7 @@
 
 @section('ScriptZone')
 	<script>
-				
+		
 		$('.newcompany-link').on('click',function(){
 			$('#newcompany-modal').modal();
 		});
@@ -346,7 +358,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 					e.preventDefault();
-					var Social,Nit,Departament,Municipality,Address,Phone1,Phone2,Email;
+					var conid,Social,Nit,Departament,Municipality,Address,Phone1,Phone2,Email;
+					conid = $(this).find('span:nth-child(2)').text();
 					Social = $(this).find('span:nth-child(3)').text();
 					Nit = $(this).find('span:nth-child(4)').text();
 					Departament = $(this).find('span:nth-child(5)').text();
@@ -355,11 +368,27 @@
 					Phone1 = $(this).find('span:nth-child(8)').text();
 					Phone2 = $(this).find('span:nth-child(9)').text();
 					Email = $(this).find('span:nth-child(10)').text();
+					var separateChar = Nit.split('-');
+					$('input[name=comId_Edit]').val(conid);
 					$('input[name=comSocial_Edit]').val(Social);
-					$('input[name=comNit_Edit]').val(Nit);
+					$('input[name=comNit1_Edit]').val(separateChar[0]);
+					$('input[name=comNit2_Edit]').val(separateChar[1]);
 					$('input[name=comAddress_Edit]').val(Address);
 					$('select[name=comDepid_Edit]').val(Departament);
-					$('select[name=comMunid_Edit]').val(Municipality);
+					$('select[name=comMunid_Edit]').empty();
+					$('select[name=comMunid_Edit]').append("<option value=''>Seleccione un Municipio</option>");
+					$.get("{{route('getMunicipalities')}}",{DepId: Departament},function(objectMunicipality){
+						var counts = Object.keys(objectMunicipality).length;
+						if(counts > 0){
+							for(var i=0; i<counts;i++){
+								if(objectMunicipality[i]['munid'] == Municipality){
+									$('select[name=comMunid_Edit]').append("<option value='"+objectMunicipality[i]['munid']+"' selected>"+objectMunicipality[i]['munname']+"</option>");
+								}else{
+									$('select[name=comMunid_Edit]').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
+								}
+							}
+						}
+					});
 					$('input[name=comPhone1_Edit]').val(Phone1);
 					$('input[name=comPhone2_Edit]').val(Phone2);
 					$('input[name=comEmail_Edit]').val(Email);
@@ -428,7 +457,7 @@
 			{
 				$.get("{{route('getMunicipalities')}}",{DepId: DepartamentSelect},function(objectMunicipality){
 					for(var i=0; i<objectMunicipality.length;i++){
-						$('#MunName').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
+						$('select[name=comMunid_Edit]').append("<option value='"+objectMunicipality[i]['munid']+"'>"+objectMunicipality[i]['munname']+"</option>");
 					}
 				})
 			}

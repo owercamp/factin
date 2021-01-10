@@ -49,7 +49,7 @@ route::post('/municipalities/delete', 'LocationController@municipalitydelete')->
 //ruta información coporativa
 route::get('/corporate-information', 'CompanyController@companyinfoindex')->name('company.information');
 route::post('/corporate-information/save', 'CompanyController@companyinfosave')->name('company.save');
-route::post('/corporate-information/update', 'CompanyController@companyinfosave')->name('company.update');
+route::post('/corporate-information/update', 'CompanyController@companyinfoupdate')->name('company.update');
 route::post('/corporate-information/delete', 'CompanyController@companyinfodelete')->name('company.delete');
 //ruta imagen coporativa
 route::get('/corporate-image', 'CompanyController@companyimaindex')->name('company.image');
@@ -75,7 +75,10 @@ route::post('/module-product/save', 'ProductController@moduleproductsave')->name
 route::post('/module-product/update', 'ProductController@moduleproductupdate')->name('module.update');
 route::post('/module-product/delete', 'ProductController@moduleproductdelete')->name('module.delete');
 //rutas configuracion modulos producto
-route::get('/config-module-product', 'ProductController@configmoduleproductindex')->name('config.index');
+route::get('/config-module-product', 'ProductConfigController@configmoduleproductindex')->name('config.index');
+route::post('/config-module-product/save', 'ProductConfigController@configmoduleproductsave')->name('config.save');
+route::post('/config-module-product/update', 'ProductConfigController@configmoduleproductupdate')->name('config.update');
+route::post('/config-module-product/delete', 'ProductConfigController@configmoduleproductdelete')->name('config.delete');
 //rutas servicios
 route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('services.index');
 route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');

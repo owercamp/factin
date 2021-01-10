@@ -142,7 +142,8 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
+	
     {{-- formulario de eliminación --}}
 	<div class="modal fade" id="deleteCreationPro-modal">
 		<div class="modal-dialog" style="font-size: 12px;">
@@ -171,6 +172,7 @@
 			</div>
 		</div>
 	</div>
+
 @endsection
 
 @section('ScriptZone')

@@ -64,6 +64,49 @@ class CollaboratorController extends Controller
         
     }
 
+    function collaboratorupdate(Request $request)
+    {
+        $colaborator = Collaborator::where('col_name',$this->fu($request->col_name_Edit))
+        ->where('id','!=',trim($request->id_Edit))
+        ->first();
+        if($colaborator == null)
+        {
+            $validate = Collaborator::find($request->id_Edit);
+            if($validate != null)
+            {
+                $photo = $request->col_pho_Edit2;
+                if($request->hasFile('col_pho_Edit')){
+                    $filephoto = $request->file('col_pho_Edit');
+                    $photo = time().$filephoto->getClientOriginalName();
+                    $filephoto->move('public_photo'.'/photo/', $photo);
+                }
+                $signature = $request->col_fir_Edit2;
+                if($request->hasFile('col_fir_Edit')){
+                    $filefir = $request->file('col_fir_Edit');
+                    $signature = time().$filefir->getClientOriginalName();
+                    $filefir->move('public_signature'.'/signature/', $signature);
+                }
+                $validate->col_name = $this->fu($request->col_name_Edit);
+                $validate->col_ide = $this->fu($request->col_ide_Edit);
+                $validate->col_dep = trim($request->col_dep_Edit);
+                $validate->col_mun = trim($request->col_mun_Edit);
+                $validate->col_adr = $this->fu($request->col_adr_Edit);
+                $validate->col_ph1 = trim($request->col_ph1_Edit);
+                $validate->col_ph2 = trim($request->col_ph2_Edit);
+                $validate->col_ema = $this->fu($request->col_ema_Edit);
+                $validate->col_pho = $photo;
+                $validate->col_fir = $signature;
+                $validate->save();
+                return redirect()->route('collaborator.index')->with('PrimaryCreation','Colaborador '.$this::upper($request->col_name_Edit).' fue actualizado');
+            }else{
+                return redirect()->route('collaborator.index')->with('SecondaryCreation','NoEncontrado');
+            }
+        }else{
+            return redirect()->route('collaborator.index')->with('SecondaryCreation','Colaborador '.$this::upper($request->col_name_Edit).' ya esta registrado');
+        }
+        
+    }
+
     function collaboratordelete(Request $request)
     {
         $validate = Collaborator::find(trim($request->id_Delete));

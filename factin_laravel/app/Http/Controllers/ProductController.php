@@ -123,9 +123,4 @@ class ProductController extends Controller
             return redirect()->route('module.index')->with('SecondDelete', 'NoEncontrado');
         }
     }
-
-    function configmoduleproductindex()
-    {
-        return view('partials.ProductType.configproduct');
-    }
 }

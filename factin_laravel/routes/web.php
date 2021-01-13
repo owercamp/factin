@@ -84,3 +84,8 @@ route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('se
 route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');
 route::post('/services-type/update', 'TypeServiceController@typeserviceupdate')->name('services.update');
 route::post('/services-type/delete', 'TypeServiceController@typeservicedelete')->name('services.delete');
+
+route::get('/Factin-Web', 'PortfolioController@factinwebindex')->name('factin.index');
+route::get('/Software', 'PortfolioController@softwareindex')->name('software.index');
+route::get('/Hardware', 'PortfolioController@hardwareindex')->name('hardware.index');
+route::get('/Technical-Support', 'PortfolioController@technicalsupportindex')->name('support.index');

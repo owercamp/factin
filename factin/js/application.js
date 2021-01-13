@@ -5,6 +5,8 @@ $(function(){
 	
 	loadDatatables();
 	
+	gsap.from(".directionUri",{duration: 8, opacity: 0.1, delay: 1});
+
 });
 
 function seeDirection($urls ='/home')
@@ -47,6 +49,14 @@ function seeDirection($urls ='/home')
 			return 'Administración >> Tipos de Productos >> Configuración Modulos Productos';
 		case '/factin/services-type':
 			return 'Administración >> Tipos de Servicios >> Servicios';
+		case '/factin/Factin-Web':
+			return 'Comercial >> Portafolio >> Factin Web';
+		case '/factin/Software':
+			return 'Comercial >> Portafolio >> Software';
+		case '/factin/Hardware':
+			return 'Comercial >> Portafolio >> Hardware';
+		case '/factin/Technical-Support':
+			return 'Comercial >> Portafolio >> Soporte Técnico';
     }
 }
 

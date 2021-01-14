@@ -5,7 +5,8 @@ $(function(){
 	
 	loadDatatables();
 	
-	gsap.from(".directionUri",{duration: 8, opacity: 0.1, delay: 1});
+	gsap.from(".directionUri",{duration: 10, opacity: 0.1});
+	gsap.to(".directionUri",{duration: 10, color:'#0676a4', delay: 6});
 
 });
 

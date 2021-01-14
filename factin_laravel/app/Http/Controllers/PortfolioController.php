@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portfolio;
+use App\Models\Product;
+use App\Models\ProductConfig;
 use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
@@ -13,7 +16,16 @@ class PortfolioController extends Controller
 
     function factinwebindex()
     {
-        return view('partials.Portfolio.FactinWeb');
+        $configpro = ProductConfig::all();
+        $product = Product::all();
+        $factin = Portfolio::select(
+            'portfolios.*','product_configs.*','products.*'
+        )
+        ->join('product_configs','product_configs.pc_id','=','portfolios.cpro_id')
+        ->join('products','products.pro_id','=','product_configs.pc_typepro')
+        ->get();
+        // return $factin;
+        return view('partials.Portfolio.FactinWeb', compact('factin','product','configpro'));
     }
 
     function softwareindex()

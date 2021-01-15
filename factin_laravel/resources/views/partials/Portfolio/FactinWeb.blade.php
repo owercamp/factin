@@ -48,7 +48,7 @@
 				<tr>
 					<td>{{$row++}}</td>
 					<td>{{$item->pro_name}}</td>
-					<td><b>{{number_format($item->price,2,',','.')}}</b></td>
+					<td><b>{{number_format($item->price,0,',','.')}}</b></td>
 					<td>
 						<a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
 							<span class="icon-magic"></span>
@@ -79,13 +79,13 @@
 	@endphp
 	{{-- creación de mi formulario de creación documento --}}
 	<div class="modal fade" id="newCreationWeb-modal">
-		<div class="modal-dialog" style="font-size: 12px;"> <!-- modal-lg -->
+		<div class="modal-dialog" style="font-size: 15px;"> <!-- modal-lg -->
 			<div class="modal-content">
 				<div class="modal-header text-justify">
 					<h6>NUEVO PORTAFOLIO WEB</h6>
 				</div>
 				<div class="modal-body">
-					<form action="#" method="POST">
+					<form action="{{route('factin.save')}}" method="POST">
 						@csrf
 						<div class="row">
 							<div class="col-md-12 container-sm">
@@ -95,8 +95,14 @@
 											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>											
 											<select name="porweb" class="form-control form-control-sm" required>
 												<option value="">Seleccione Producto</option>
-												
+												@foreach ($factin as $productitem)
+													<option value="{{$productitem->pc_id}}">{{$productitem->pro_name}}</option>
+												@endforeach
 											</select>
+										</div>
+										<div class="form-group">
+											<small class="text-muted">PRECIO:</small>
+											<input type="text" name="porprice" id="priceMoney" class="form-control form-control-sm">
 										</div>
 									</div>
 								</div>
@@ -112,11 +118,98 @@
     </div>
 @endsection
 
-@section('scripts')
+@section('ScriptZone')
 	<script>
 		// Llama al formulario modal de creación
 		$('.newProductWeb-link').on('click',function(){
 			$('#newCreationWeb-modal').modal();
         });
 	</script>
+	@if(session('SuccessCreation'))
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: '¡creado con exito!',
+			timer: 3000,
+			timerProgressBar: true,
+			showConfirmButton: false,
+			showClass: {
+			popup: 'animate__animated animate__flipInX'
+			},
+			hideClass: {
+			popup: 'animate__animated animate__flipOutX'
+			}
+		})
+	</script>
+	@endif
+	@if(session('SecondaryCreation'))
+	<script>
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops..',
+			text: '¡configuración existente!',
+			timer: 3000,
+			timerProgressBar: true,
+			showConfirmButton: false,
+			showClass: {
+			popup: 'animate__animated animate__flipInX'
+			},
+			hideClass: {
+			popup: 'animate__animated animate__flipOutX'
+			}
+		})
+	</script>
+	@endif
+	@if (session('SecondCreation') == "NoEncontrado")
+		<script>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops..',
+				text: 'configuración no encontrado',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
+	@if (session('PrimaryCreation'))
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '¡actualizado con exito!',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>		
+	@endif
+	@if (session('WarningCreation'))
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '¡eliminado con exito!',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+				popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
 @endsection

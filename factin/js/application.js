@@ -1,5 +1,7 @@
 $(function(){
 
+	$('#priceMoney').maskMoney();
+
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));
 	

@@ -28,6 +28,27 @@ class PortfolioController extends Controller
         return view('partials.Portfolio.FactinWeb', compact('factin','product','configpro'));
     }
 
+    function factinwebsave(Request $request)
+    {
+        $validate = Portfolio::where('cpro_id',$this->fu($request->porweb))
+        ->where('price',trim($request->porprice))
+        ->first();
+        if ($validate == null) {
+            $precio = $this->fu($request->porprice);
+            $clearprice = str_replace('.','',$precio);
+            Portfolio::create([
+                'cpro_id' => trim($request->porweb),
+                'price' => trim($clearprice)
+            ]);
+                return redirect()->route('factin.index')->with('SuccessCreation', 'Registro exitoso');
+        } else {
+            return redirect()->route('factin.index')->with('SecondaryCreation','Registro '.$this::upper($request->porweb).' existente');
+        }
+        
+        
+        
+    }
+
     function softwareindex()
     {
         return view('partials.Portfolio.Software');

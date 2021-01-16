@@ -5,7 +5,7 @@
 	<div>
 		<div class="row border-bottom">
 			<div class="col-md-4">
-				<h6 class="navbar-brand">Factin Web</h6>
+				<h6 class="navbar-brand">FACTIN WEB</h6>
 			</div>
 			<div  class="col-md-4 text-center">
 				<button type="button" title="Registrar" class="btn-success form-control-sm newProductWeb-link"><b>Nuevo</b></button>
@@ -54,11 +54,15 @@
 							<span class="icon-magic"></span>
 							<span hidden>{{ $item->por_id }}</span>
 							<span hidden>{{ $item->pro_name }}</span>
+							<span hidden>{{ $item->price }}</span>
+							<span hidden>{{ $item->cpro_id}}</span>
 						</a>
 						<a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
 							<span class="icon-proxmox"></span>
 							<span hidden>{{ $item->por_id }}</span>
 							<span hidden>{{ $item->pro_name }}</span>
+							<span hidden>{{ $item->price }}</span>
+							<span hidden>{{ $item->cpro_id}}</span>
 						</a>
 					</td>
 				</tr>
@@ -95,14 +99,14 @@
 											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>											
 											<select name="porweb" class="form-control form-control-sm" required>
 												<option value="">Seleccione Producto</option>
-												@foreach ($factin as $productitem)
-													<option value="{{$productitem->pc_id}}">{{$productitem->pro_name}}</option>
+												@foreach ($configpro as $item)
+													<option value="{{$item->pc_id}}">{{$item->pro_name}}</option>
 												@endforeach
 											</select>
 										</div>
 										<div class="form-group">
 											<small class="text-muted">PRECIO:</small>
-											<input type="text" name="porprice" id="priceMoney" class="form-control form-control-sm">
+											<input type="text" name="porprice" id="priceMoney" class="form-control form-control-sm" required>
 										</div>
 									</div>
 								</div>
@@ -115,15 +119,160 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
+	
+	{{-- creación de mi formulario de edicion --}}
+	<div class="modal fade" id="newEditWeb-modal">
+		<div class="modal-dialog" style="font-size: 15px;"> <!-- modal-lg -->
+			<div class="modal-content">
+				<div class="modal-header text-justify">
+					<h6>EDITAR PORTAFOLIO WEB</h6>
+				</div>
+				<div class="modal-body">
+					<form action="{{route('factin.update')}}" method="POST">
+						@csrf
+						<div class="row">
+							<div class="col-md-12 container-sm">
+								<div class="row justify-content-center">
+									<div class="col-md-6">
+										<div class="form-group">
+											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>											
+											<select name="porweb_Edit" class="form-control form-control-sm" required>
+												@foreach ($configpro as $productitem)
+													<option value="{{$productitem->pc_id}}">{{$productitem->pro_name}}</option>
+												@endforeach
+											</select>
+										</div>
+										<div class="form-group">
+											<small class="text-muted">PRECIO:</small>
+											<input type="text" name="porprice_Edit" id="priceMoney_Edit" class="form-control form-control-sm" required>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row border-top mt-3 text-center">
+							<div class="col-md-6">
+								<input type="hidden" class="form-control form-control-sm" name="por_id_Edit" readonly required>
+								<button type="submit" class="btn btn-edit form-control-sm my-3">GUARDAR CAMBIOS</button>
+							</div>
+							<div class="col-md-6">
+								<button type="button" class="btn btn-delete mx-3 form-control-sm my-3" data-dismiss="modal">CANCELAR</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{-- creación de mi formulario de eliminación --}}
+	<div class="modal fade" id="newDeleteWeb-modal">
+		<div class="modal-dialog" style="font-size: 15px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6>ELIMINACION PORTAFOLIO WEB</h6>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<small class="text-muted">NOMBRE DEL PORTAFOLIO WEB</small><br>
+                            <span class="text-muted"><b class="porweb_Delete"></b></span><br>
+                            <small class="text-muted">PRECIO</small><br>
+							<span class="text-muted"><b class="porprice_Delete"></b></span><br>							
+						</div>
+					</div>
+					<div class="row mt-3 border-top text-center">
+						<form action="{{route('factin.delete')}}" method="POST" class="col-md-6 DeleteSend">
+							@csrf
+							<input type="hidden" class="form-control form-control-sm" name="por_id_Delete" readonly required>
+							<button type="submit" class="btn btn-edit form-control-sm my-3">ELIMINAR</button>
+						</form>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-delete mx-3 form-control-sm my-3" data-dismiss="modal">CANCELAR</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 @endsection
 
 @section('ScriptZone')
 	<script>
 		// Llama al formulario modal de creación
-		$('.newProductWeb-link').on('click',function(){
+		$('.newProductWeb-link').click(function () { 
 			$('#newCreationWeb-modal').modal();
-        });
+		});
+		//Llama al formulario de edicion
+		$('.editCreation-link').click(function(e){
+			Swal.fire({
+				title: 'Desea editar este registro?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#f58f4d',
+                confirmButtonText: 'Si, editar',
+                cancelButtonText: 'No',
+                showClass: {
+                popup: 'animate__animated animate__flipInX'
+			},
+                hideClass: {
+                popup: 'animate__animated animate__flipOutX'
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+					e.preventDefault();
+					var porid, porweb, porprice;
+					porid = $(this).find('span:nth-child(2)').text();
+					porweb = $(this).find('span:nth-child(5)').text();
+					porprice = $(this).find('span:nth-child(4)').text();
+					$('input[name=por_id_Edit]').val(porid);
+					$('select[name=porweb_Edit]').val(porweb);
+					$('input[name=porprice_Edit]').val(porprice);
+					$('#newEditWeb-modal').modal();
+				}
+			})			
+		});
+		
+		// Llama al formulario de eliminación
+		$('.deleteCreation-link').click(function(e){			
+            e.preventDefault();
+            var iddel, webdel, pricedel;
+            iddel = $(this).find('span:nth-child(2)').text();
+			webdel = $(this).find('span:nth-child(3)').text();
+			pricedel = $(this).find('span:nth-child(4)').text();
+			$('input[name=por_id_Delete]').val(iddel);
+            $('.porweb_Delete').text(webdel);             
+			$('.porprice_Delete').text(pricedel);
+			$('#newDeleteWeb-modal').modal();					
+		});
+		
+		// envia el formulario de eliminación
+		$('.DeleteSend').submit('click', function(e){
+			e.preventDefault();
+			Swal.fire({
+				title: '¡¡Eliminación!!',
+				text: "Desea continuar con la eliminación",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#f58f4d',
+				confirmButtonText: 'Si, Eliminar',
+				cancelButtonText: 'No',
+				showClass: {
+				popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				},
+			}).then((result) => {
+				if (result.isConfirmed) {
+					this.submit();
+				}
+			})
+		});
+
 	</script>
 	@if(session('SuccessCreation'))
 	<script>
@@ -165,7 +314,7 @@
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops..',
-				text: 'configuración no encontrado',
+				text: 'Producto Web no encontrado',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,

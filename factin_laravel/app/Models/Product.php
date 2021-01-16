@@ -16,8 +16,4 @@ class Product extends Model
 
     public $timestamps = true;
     
-    public function configpro()
-    {
-        return $this->belongsTo(ProductConfig::class, 'pc_id');
-    }
 }

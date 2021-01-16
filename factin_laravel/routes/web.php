@@ -84,12 +84,24 @@ route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('se
 route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');
 route::post('/services-type/update', 'TypeServiceController@typeserviceupdate')->name('services.update');
 route::post('/services-type/delete', 'TypeServiceController@typeservicedelete')->name('services.delete');
-
+//rutas Factin web
 route::get('/Factin-Web', 'PortfolioController@factinwebindex')->name('factin.index');
 route::post('/Factin-Web/save', 'PortfolioController@factinwebsave')->name('factin.save');
-
+route::post('/Factin-Web/update', 'PortfolioController@factinwebupdate')->name('factin.update');
+route::post('/Factin-Web/delete', 'PortfolioController@factinwebdelete')->name('factin.delete');
+//rutas Software
 route::get('/Software', 'PortfolioController@softwareindex')->name('software.index');
+route::post('/Software/save', 'PortfolioController@softwaresave')->name('software.save');
+route::post('/Software/update', 'PortfolioController@softwareupdate')->name('software.update');
+route::post('/Software/delete', 'PortfolioController@softwaredelete')->name('software.delete');
 
+//rutas Hardware
 route::get('/Hardware', 'PortfolioController@hardwareindex')->name('hardware.index');
-
+route::post('/Hardware/save', 'PortfolioController@hardwaresave')->name('hardware.save');
+route::post('/Hardware/update', 'PortfolioController@hardwareupdate')->name('hardware.update');
+route::post('/Hardware/delete', 'PortfolioController@hardwaredelete')->name('hardware.delete');
+//rutas Soporte Tecnico
 route::get('/Technical-Support', 'PortfolioController@technicalsupportindex')->name('support.index');
+route::post('/Technical-Support/save', 'PortfolioController@technicalsupportsave')->name('support.save');
+route::post('/Technical-Support/update', 'PortfolioController@technicalsupportupdate')->name('support.update');
+route::post('/Technical-Support/delete', 'PortfolioController@technicalsupportdelete')->name('support.delete');

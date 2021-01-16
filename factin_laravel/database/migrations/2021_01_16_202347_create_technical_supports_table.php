@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePortfoliosTable extends Migration
+class CreateTechnicalSupportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePortfoliosTable extends Migration
      */
     public function up()
     {
-        Schema::create('portfolios', function (Blueprint $table) {
-            $table->Increments('por_id');
+        Schema::create('technical_supports', function (Blueprint $table) {
+            $table->Increments('id');
             $table->integer('cpro_id')->unsigned();
             $table->foreign('cpro_id')->references('pc_id')->on('product_configs');
-            $table->decimal('price',40,0);
+            $table->decimal('tsprice',40,0);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreatePortfoliosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('technical_supports');
     }
 }

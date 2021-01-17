@@ -26,82 +26,89 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //ruta Accesos
 Route::get('/access','AccessController@accessindex')->name('access.roles');
-route::post('/access/save', 'AccessController@accesssave')->name('access.save');
-route::post('/access/update', 'AccessController@accessupdate')->name('access.update');
-route::post('/access/delete', 'AccessController@accessdelete')->name('access.delete');
+Route::post('/access/save', 'AccessController@accesssave')->name('access.save');
+Route::post('/access/update', 'AccessController@accessupdate')->name('access.update');
+Route::post('/access/delete', 'AccessController@accessdelete')->name('access.delete');
 
 //ruta Permisos
-route::get('/permission', 'AccessController@permissionindex')->name('access.permission');
+Route::get('/permission', 'AccessController@permissionindex')->name('access.permission');
 
 //ruta usuarios
-route::get('/users','AccessController@usersindex')->name('access.users');
+Route::get('/users','AccessController@usersindex')->name('access.users');
 
 //ruta Ubicaciones
-route::get('/locations', 'LocationController@locationindex')->name('location.located');
-route::post('/locations/save', 'LocationController@locationsave')->name('location.save');
-route::post('/locations/update', 'LocationController@locationupdate')->name('location.update');
-route::post('/locations/delete', 'LocationController@locationdelete')->name('location.delete');
+Route::get('/locations', 'LocationController@locationindex')->name('location.located');
+Route::post('/locations/save', 'LocationController@locationsave')->name('location.save');
+Route::post('/locations/update', 'LocationController@locationupdate')->name('location.update');
+Route::post('/locations/delete', 'LocationController@locationdelete')->name('location.delete');
 //ruta Permisos
-route::get('/municipalities', 'LocationController@municipalityindex')->name('municipalities.municipality');
-route::post('/municipalities/save', 'LocationController@municipalitysave')->name('municipalities.save');
-route::post('/municipalities/update', 'LocationController@municipalityupdate')->name('municipalities.update');
-route::post('/municipalities/delete', 'LocationController@municipalitydelete')->name('municipalities.delete');
+Route::get('/municipalities', 'LocationController@municipalityindex')->name('municipalities.municipality');
+Route::post('/municipalities/save', 'LocationController@municipalitysave')->name('municipalities.save');
+Route::post('/municipalities/update', 'LocationController@municipalityupdate')->name('municipalities.update');
+Route::post('/municipalities/delete', 'LocationController@municipalitydelete')->name('municipalities.delete');
 //ruta información coporativa
-route::get('/corporate-information', 'CompanyController@companyinfoindex')->name('company.information');
-route::post('/corporate-information/save', 'CompanyController@companyinfosave')->name('company.save');
-route::post('/corporate-information/update', 'CompanyController@companyinfoupdate')->name('company.update');
-route::post('/corporate-information/delete', 'CompanyController@companyinfodelete')->name('company.delete');
+Route::get('/corporate-information', 'CompanyController@companyinfoindex')->name('company.information');
+Route::post('/corporate-information/save', 'CompanyController@companyinfosave')->name('company.save');
+Route::post('/corporate-information/update', 'CompanyController@companyinfoupdate')->name('company.update');
+Route::post('/corporate-information/delete', 'CompanyController@companyinfodelete')->name('company.delete');
 //ruta imagen coporativa
-route::get('/corporate-image', 'CompanyController@companyimaindex')->name('company.image');
-route::post('/corporate-image/save', 'CompanyController@companyimasave')->name('image.save');
-route::post('/corporate-image/updatecode', 'CompanyController@companyimaupdatecode')->name('image.update.code');
-route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdateimage')->name('image.update.image');
-route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');
+Route::get('/corporate-image', 'CompanyController@companyimaindex')->name('company.image');
+Route::post('/corporate-image/save', 'CompanyController@companyimasave')->name('image.save');
+Route::post('/corporate-image/updatecode', 'CompanyController@companyimaupdatecode')->name('image.update.code');
+Route::post('/corporate-image/updateimage', 'CompanyController@companyimaupdateimage')->name('image.update.image');
+Route::post('/corporate-image/delete', 'CompanyController@companyimadelete')->name('image.delete');
 //rutas colaboradores
-route::get('/collaborator', 'CollaboratorController@collaboratorindex')->name('collaborator.index');
-route::post('/collaborator/save', 'CollaboratorController@collaboratorsave')->name('collaborator.save');
-route::post('/collaborator/update', 'CollaboratorController@collaboratorupdate')->name('collaborator.update');
-route::post('/collaborator/delete', 'CollaboratorController@collaboratordelete')->name('collaborator.delete');
+Route::get('/collaborator', 'CollaboratorController@collaboratorindex')->name('collaborator.index');
+Route::post('/collaborator/save', 'CollaboratorController@collaboratorsave')->name('collaborator.save');
+Route::post('/collaborator/update', 'CollaboratorController@collaboratorupdate')->name('collaborator.update');
+Route::post('/collaborator/delete', 'CollaboratorController@collaboratordelete')->name('collaborator.delete');
 //rutas usuarios clientes
-route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('usersclient.index');
+Route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('usersclient.index');
 //rutas productos
-route::get('/product', 'ProductController@productindex')->name('product.index');
-route::post('/product/save','ProductController@productsave')->name('product.save');
-route::post('/product/update','ProductController@productupdate')->name('product.update');
-route::post('/product/delete','ProductController@productdelete')->name('product.delete');
+Route::get('/product', 'ProductController@productindex')->name('product.index');
+Route::post('/product/save','ProductController@productsave')->name('product.save');
+Route::post('/product/update','ProductController@productupdate')->name('product.update');
+Route::post('/product/delete','ProductController@productdelete')->name('product.delete');
 //rutas modulos productos
-route::get('/module-product', 'ProductController@moduleproductindex')->name('module.index');
-route::post('/module-product/save', 'ProductController@moduleproductsave')->name('module.save');
-route::post('/module-product/update', 'ProductController@moduleproductupdate')->name('module.update');
-route::post('/module-product/delete', 'ProductController@moduleproductdelete')->name('module.delete');
+Route::get('/module-product', 'ProductController@moduleproductindex')->name('module.index');
+Route::post('/module-product/save', 'ProductController@moduleproductsave')->name('module.save');
+Route::post('/module-product/update', 'ProductController@moduleproductupdate')->name('module.update');
+Route::post('/module-product/delete', 'ProductController@moduleproductdelete')->name('module.delete');
 //rutas configuracion modulos producto
-route::get('/config-module-product', 'ProductConfigController@configmoduleproductindex')->name('config.index');
-route::post('/config-module-product/save', 'ProductConfigController@configmoduleproductsave')->name('config.save');
-route::post('/config-module-product/update', 'ProductConfigController@configmoduleproductupdate')->name('config.update');
-route::post('/config-module-product/delete', 'ProductConfigController@configmoduleproductdelete')->name('config.delete');
+Route::get('/config-module-product', 'ProductConfigController@configmoduleproductindex')->name('config.index');
+Route::post('/config-module-product/save', 'ProductConfigController@configmoduleproductsave')->name('config.save');
+Route::post('/config-module-product/update', 'ProductConfigController@configmoduleproductupdate')->name('config.update');
+Route::post('/config-module-product/delete', 'ProductConfigController@configmoduleproductdelete')->name('config.delete');
 //rutas servicios
-route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('services.index');
-route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');
-route::post('/services-type/update', 'TypeServiceController@typeserviceupdate')->name('services.update');
-route::post('/services-type/delete', 'TypeServiceController@typeservicedelete')->name('services.delete');
+Route::get('/services-type', 'TypeServiceController@typeserviceindex')->name('services.index');
+Route::post('/services-type/save', 'TypeServiceController@typeservicesave')->name('services.save');
+Route::post('/services-type/update', 'TypeServiceController@typeserviceupdate')->name('services.update');
+Route::post('/services-type/delete', 'TypeServiceController@typeservicedelete')->name('services.delete');
 //rutas Factin web
-route::get('/Factin-Web', 'PortfolioController@factinwebindex')->name('factin.index');
-route::post('/Factin-Web/save', 'PortfolioController@factinwebsave')->name('factin.save');
-route::post('/Factin-Web/update', 'PortfolioController@factinwebupdate')->name('factin.update');
-route::post('/Factin-Web/delete', 'PortfolioController@factinwebdelete')->name('factin.delete');
+Route::get('/Factin-Web', 'PortfolioController@factinwebindex')->name('factin.index');
+Route::post('/Factin-Web/save', 'PortfolioController@factinwebsave')->name('factin.save');
+Route::post('/Factin-Web/update', 'PortfolioController@factinwebupdate')->name('factin.update');
+Route::post('/Factin-Web/delete', 'PortfolioController@factinwebdelete')->name('factin.delete');
 //rutas Software
-route::get('/Software', 'PortfolioController@softwareindex')->name('software.index');
-route::post('/Software/save', 'PortfolioController@softwaresave')->name('software.save');
-route::post('/Software/update', 'PortfolioController@softwareupdate')->name('software.update');
-route::post('/Software/delete', 'PortfolioController@softwaredelete')->name('software.delete');
-
+Route::get('/Software', 'PortfolioController@softwareindex')->name('software.index');
+Route::post('/Software/save', 'PortfolioController@softwaresave')->name('software.save');
+Route::post('/Software/update', 'PortfolioController@softwareupdate')->name('software.update');
+Route::post('/Software/delete', 'PortfolioController@softwaredelete')->name('software.delete');
 //rutas Hardware
-route::get('/Hardware', 'PortfolioController@hardwareindex')->name('hardware.index');
-route::post('/Hardware/save', 'PortfolioController@hardwaresave')->name('hardware.save');
-route::post('/Hardware/update', 'PortfolioController@hardwareupdate')->name('hardware.update');
-route::post('/Hardware/delete', 'PortfolioController@hardwaredelete')->name('hardware.delete');
+Route::get('/Hardware', 'PortfolioController@hardwareindex')->name('hardware.index');
+Route::post('/Hardware/save', 'PortfolioController@hardwaresave')->name('hardware.save');
+Route::post('/Hardware/update', 'PortfolioController@hardwareupdate')->name('hardware.update');
+Route::post('/Hardware/delete', 'PortfolioController@hardwaredelete')->name('hardware.delete');
 //rutas Soporte Tecnico
-route::get('/Technical-Support', 'PortfolioController@technicalsupportindex')->name('support.index');
-route::post('/Technical-Support/save', 'PortfolioController@technicalsupportsave')->name('support.save');
-route::post('/Technical-Support/update', 'PortfolioController@technicalsupportupdate')->name('support.update');
-route::post('/Technical-Support/delete', 'PortfolioController@technicalsupportdelete')->name('support.delete');
+Route::get('/Technical-Support', 'PortfolioController@technicalsupportindex')->name('support.index');
+Route::post('/Technical-Support/save', 'PortfolioController@technicalsupportsave')->name('support.save');
+Route::post('/Technical-Support/update', 'PortfolioController@technicalsupportupdate')->name('support.update');
+Route::post('/Technical-Support/delete', 'PortfolioController@technicalsupportdelete')->name('support.delete');
+// rutas oprtunidad de negocio
+Route::get('/Business-Opportunity', 'BusinessController@businessoportunityindex')->name('oportunity.index');
+// rutas seguimiento de negocios
+Route::get('/Business-Tracking', 'BusinessController@businesstrackingindex')->name('tracking.index');
+// rutas indicadores de exito
+Route::get('/Success-Indicators', 'BusinessController@businessindicatorsindex')->name('indicators.index');
+// rutas archivos de negocios
+Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name('archive.index');

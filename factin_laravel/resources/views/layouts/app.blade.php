@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/datatables.bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery-ui.theme.min.css')}}">
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
@@ -22,6 +24,7 @@
     <script src="{{asset('js/DataTables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('js/DataTables/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('js/DataTables/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/greensockjs.js')}}"></script>
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script src="{{asset('js/jquery.maskMoney.js')}}"></script>
@@ -80,7 +83,7 @@
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu row-cols-1 text-center">
                                     <li><a href="{{route('factin.index')}}">PORTAFOLIO</a></li>
-                                    <li><a href="#">PLAN DE MERCADEO</a></li>
+                                    <li><a href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a></li>
                                     <li><a href="#">CLIENTES POTENCIALES</a></li>
                                     <li><a href="#">CONTRATACIÓN</a></li>
                                 </ul>

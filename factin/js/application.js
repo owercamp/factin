@@ -3,14 +3,17 @@ $(function(){
 	$('#priceMoney').maskMoney();
 	$('#priceMoney_Edit').maskMoney();
 
+	
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));
 	
 	loadDatatables();
 	
+	
 	gsap.from(".directionUri",{duration: 10, opacity: 0.1});
 	gsap.to(".directionUri",{duration: 10, color:'#0676a4', delay: 6});
-
+	
+	$('.datepicker').datepicker();
 });
 
 function seeDirection($urls ='/home')
@@ -61,6 +64,14 @@ function seeDirection($urls ='/home')
 			return 'Comercial >> Portafolio >> Hardware';
 		case '/factin/Technical-Support':
 			return 'Comercial >> Portafolio >> Soporte Técnico';
+		case '/factin/Business-Opportunity':
+			return 'Comercial >> Plan de Mercadeo >> Oportunidad de Negocio';
+		case '/factin/Business-Tracking':
+			return 'Comercial >> Plan de Mercadeo >> Seguimiento de Negocio';
+		case '/factin/Business-Archive':
+			return 'Comercial >> Plan de Mercadeo >> Archivo de Negocios';
+		case '/factin/Success-Indicators':
+			return 'Comercial >> Plan de Mercadeo >> Indicadores de Exito';
     }
 }
 

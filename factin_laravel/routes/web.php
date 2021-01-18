@@ -106,6 +106,7 @@ Route::post('/Technical-Support/update', 'PortfolioController@technicalsupportup
 Route::post('/Technical-Support/delete', 'PortfolioController@technicalsupportdelete')->name('support.delete');
 // rutas oprtunidad de negocio
 Route::get('/Business-Opportunity', 'BusinessController@businessoportunityindex')->name('oportunity.index');
+route::post('/Business-Opportunity/New', 'BusinessController@businessoportunitynew')->name('oportunity.new');
 // rutas seguimiento de negocios
 Route::get('/Business-Tracking', 'BusinessController@businesstrackingindex')->name('tracking.index');
 // rutas indicadores de exito

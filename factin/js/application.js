@@ -2,7 +2,9 @@ $(function(){
 
 	$('#priceMoney').maskMoney();
 	$('#priceMoney_Edit').maskMoney();
-
+	$('#OpPhono').mask('(000) 000-0000');
+	$('#OpWhats').mask('(000) 000-0000')
+	
 	
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));
@@ -13,7 +15,11 @@ $(function(){
 	gsap.from(".directionUri",{duration: 10, opacity: 0.1});
 	gsap.to(".directionUri",{duration: 10, color:'#0676a4', delay: 6});
 	
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({
+		dateFormat: 'DD, dd-MM-yy',
+		showAnim: "blind"
+	});
+
 });
 
 function seeDirection($urls ='/home')

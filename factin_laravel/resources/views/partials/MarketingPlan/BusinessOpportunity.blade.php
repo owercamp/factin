@@ -136,6 +136,8 @@
             text: '¿Desea ver los registros en la tabla seguimiento del negocio?',
             showDenyButton: true,
             showCancelButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
             confirmButtonColor: '#3085d6',
             denyButtonColor: '#f58f4d',
             confirmButtonText: `Si`,

@@ -116,7 +116,6 @@ a {
 .border-personalice{
     border-right: 2px double var(--orange);
 }
-
 #formlist{
     column-count:2;
     column-gap: 20%;

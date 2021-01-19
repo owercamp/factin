@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BusinessTracking;
 use App\Models\Location;
+use App\Models\Municipalities;
 use Illuminate\Http\Request;
 
 class BusinessController extends Controller
@@ -50,11 +51,12 @@ class BusinessController extends Controller
 
     function businesstrackingindex()
     {
+        $departament = Location::all();
+        $municipality = Municipalities::all();
         $business = BusinessTracking::select('business_trackings.*','locations.*','municipalities.*')
         ->join('locations','locations.depid','=','business_trackings.bt_dep')
         ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
-        
-        return view('partials.MarketingPlan.BusinessTracking', compact('business'));
+        return view('partials.MarketingPlan.BusinessTracking', compact('business','departament','municipality'));
     }
 
     function businessindicatorsindex()

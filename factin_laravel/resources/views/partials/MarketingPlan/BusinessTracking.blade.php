@@ -4,7 +4,7 @@
 @section('info')
 	<div>
 		<div class="row border-bottom">
-			<div class="col-md-4">
+			<div class="col-md-8">
 				<h6 class="navbar-brand">SEGUIMIENTO DE NEGOCIOS</h6>
 			</div>
 			<div class="col-md-4">
@@ -51,7 +51,7 @@
 						<th>{{$item->bt_social}}</th>
 						<th>{{$item->bt_con}}</th>
 						<th>{{$item->munname}}</th>
-						<th id="OpPhono">{{0}}{{$item->bt_pho}}</th>
+						<th>{{$item->bt_pho}}</th>
 						<th>
 							<a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
 								<span class="icon-magic"></span>
@@ -68,7 +68,10 @@
 								<span hidden>{{$item->bt_Obs}}</span>
 							</a>
 							<a href="#" title="Bitacora" class="btn-delete form-control-sm BitacoraCreation-link">
-								<span class="icon-list-alt"></span>								
+								<span class="icon-list-alt"></span>
+								<span hidden>{{$item->bt_id}}</span>
+								<span hidden>{{$item->bt_social}}</span>
+								<span hidden>{{$item->bt_con}}</span>								
 							</a>
 							<a href="#" title="Aprobar" class="btn-edit form-control-sm AprobarCreation-link">
 								<span class="icon-check"></span>								
@@ -102,7 +105,7 @@
 					<h6>EDICION SEGUMIENTO DE NEGOCIO</h6>
 				</div>
 				<div class="modal-body">
-					<form action="#" method="POST">
+					<form action="{{route('tracking.update')}}" method="POST">
 						@csrf
 						<div class="card-body border">
 							<div class="row">
@@ -156,13 +159,13 @@
 										<div class="col-md-2">
 											<div class="form-group">
 												<small class="text-muted">TELEFONO:</small>
-												<input type="text" id="OpPhono_Edit" name="OpTel_Edit" placeholder="(091) 123-4567" maxlength="10" class="form-control form-control-sm" required>
+												<input type="text" name="OpTel_Edit" maxlength="10" class="form-control form-control-sm" required>
 											</div>
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
 												<small class="text-muted">WHATSAPP:</small>
-												<input type="text" id="OpWhats_Edit" name="OpWhat_Edit" placeholder="(123) 456-7890" maxlength="10" class="form-control form-control-sm">
+												<input type="text" name="OpWhat_Edit" maxlength="10" class="form-control form-control-sm">
 											</div>
 										</div>
 									</div>
@@ -174,7 +177,7 @@
 											</div>
 											<div class="form-group">
 												<input type="hidden" class="form-control form-control-sm" name="Opid_Edit" readonly required>
-												<button type="submit" class="btn btn-edit" style="margin: 5% 35%">ALMACENAR</button>
+												<button type="submit" class="btn btn-edit" style="margin: 5% 35%">ACTUALIZAR</button>
 											</div>
 										</div>
 										<div class="col-md-8">
@@ -193,11 +196,59 @@
 			</div>
 		</div>
 	</div>
+
+	{{-- creacion de mi formulario bitacora --}}
+	<div class="modal fade" id="newBitacora-modal">
+		<div class="modal-dialog modal-lg" style="font-size: 15px">
+			<div class="modal-content">
+				<div class="modal-header text-justify">
+					<h3 style="padding-top: 2%">NUEVA BITACORA</h3>
+				</div>
+				<div class="modal-body">
+					<form action="" method="POST">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="text-muted">RAZON SOCIAL</small>
+									<input type="text" name="social" class="form-control form-control-sm" disabled>
+									<small class="text-muted">CONTACTO</small>
+									<input type="text" name="contacto" class="form-control form-control-sm" disabled>
+									<input type="hidden" name="sid" class="form-control form-control-sm" readonly required>
+									<div class="form-group" style="padding: 8% 15%">
+										<button type="submit" class="btn btn-success">Agregar Bitacora</button>
+										<button data-dismiss="modal" class="btn btn-delete" style="margin: 5% 15%">Cancelar</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<small class="text-muted">BITACORA</small>
+									<textarea name="Bitacora" id="Bitacora" cols="30" rows="10" class="form-control form-control-sm"></textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 @endsection
 
 @section('ScriptZone')
 	<script>
 		
+		$('.BitacoraCreation-link').click(function () {
+			var id, RSocial, Contact;
+			id = $(this).find('span:nth-child(2)').text();
+			RSocial = $(this).find('span:nth-child(3)').text();
+			Contact = $(this).find('span:nth-child(4)').text();
+			$('input[name=social]').val(RSocial);
+			$('input[name=sid]').val(id);
+			$('input[name=contacto]').val(Contact);
+			$('#newBitacora-modal').modal();
+		});
+
+
 		// consulta municipios dependiendo de el departamento
 		$('#DepName').change(function(e){
 			var Departament = e.target.value;
@@ -273,43 +324,6 @@
 			})			
 		});
 		
-		// Llama al formulario de eliminación
-		// $('.deleteCreation-link').click(function(e){			
-        //     e.preventDefault();
-        //     var iddel, webdel, pricedel;
-        //     iddel = $(this).find('span:nth-child(2)').text();
-		// 	webdel = $(this).find('span:nth-child(3)').text();
-		// 	pricedel = $(this).find('span:nth-child(4)').text();
-		// 	$('input[name=por_id_Delete]').val(iddel);
-        //     $('.porweb_Delete').text(webdel);             
-		// 	$('.porprice_Delete').text(pricedel);
-		// 	$('#newDeleteWeb-modal').modal();					
-		// });
-		
-		// envia el formulario de eliminación
-		// $('.DeleteSend').submit('click', function(e){
-		// 	e.preventDefault();
-		// 	Swal.fire({
-		// 		title: '¡¡Eliminación!!',
-		// 		text: "Desea continuar con la eliminación",
-		// 		icon: 'warning',
-		// 		showCancelButton: true,
-		// 		confirmButtonColor: '#3085d6',
-		// 		cancelButtonColor: '#f58f4d',
-		// 		confirmButtonText: 'Si, Eliminar',
-		// 		cancelButtonText: 'No',
-		// 		showClass: {
-		// 		popup: 'animate__animated animate__flipInX'
-		// 		},
-		// 		hideClass: {
-		// 		popup: 'animate__animated animate__flipOutX'
-		// 		},
-		// 	}).then((result) => {
-		// 		if (result.isConfirmed) {
-		// 			this.submit();
-		// 		}
-		// 	})
-		// });
 
 	</script>
 	@if(session('SuccessCreation'))

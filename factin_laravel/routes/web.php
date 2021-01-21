@@ -109,6 +109,7 @@ Route::get('/Business-Opportunity', 'BusinessController@businessoportunityindex'
 route::post('/Business-Opportunity/New', 'BusinessController@businessoportunitynew')->name('oportunity.new');
 // rutas seguimiento de negocios
 Route::get('/Business-Tracking', 'BusinessController@businesstrackingindex')->name('tracking.index');
+Route::post('/Business-Tracking/update', 'BusinessController@businesstrackingapdate')->name('tracking.update');
 // rutas indicadores de exito
 Route::get('/Success-Indicators', 'BusinessController@businessindicatorsindex')->name('indicators.index');
 // rutas archivos de negocios

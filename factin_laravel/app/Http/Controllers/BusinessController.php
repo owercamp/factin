@@ -24,13 +24,7 @@ class BusinessController extends Controller
     {
         $validate = BusinessTracking::where('bt_social',$this::upper($request->OpSocial))
         ->where('bt_con',$this::upper($request->OpCon))->first();
-        if($validate == null){
-            $phone = $this->fu($request->OpTel);
-            $clearObj = array("(",")","-"," ");
-            $myphone = str_replace($clearObj,'',$phone);
-            $whatsapp = $this->fu($request->OpWhat);
-            $clearObjW = array("(",")","-"," ");
-            $mywhatsapp = str_replace($clearObjW,'',$whatsapp);            
+        if($validate == null){                       
             BusinessTracking::create([
                 'bt_date' => $this->fu($request->OpDate),
                 'bt_social' => $this::upper($request->OpSocial),
@@ -38,8 +32,8 @@ class BusinessController extends Controller
                 'bt_mun' => trim($request->OpMun),
                 'bt_adr' => trim($request->OpDir),
                 'bt_con' => $this::upper($request->OpCon),
-                'bt_pho' => $myphone,
-                'bt_What' => $mywhatsapp,
+                'bt_pho' => $this->fu($request->OpTel),
+                'bt_What' => $this->fu($request->OpWhat),
                 'bt_ema' => trim($request->OpEma),
                 'bt_Obs' => $this->fu($request->OpObs)
             ]);
@@ -57,6 +51,35 @@ class BusinessController extends Controller
         ->join('locations','locations.depid','=','business_trackings.bt_dep')
         ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
         return view('partials.MarketingPlan.BusinessTracking', compact('business','departament','municipality'));
+    }
+
+    function businesstrackingapdate(Request $request)
+    {
+        $validatecompany = BusinessTracking::where('bt_social',$this::upper($request->OpSocial_Edit))
+        ->where('bt_id','!=',trim($request->Opid_Edit))->first();
+        if($validatecompany == null)
+        {
+            $updated = BusinessTracking::find($request->Opid_Edit);
+            if($updated != null)
+            {
+                $updated->bt_date = $this->fu($request->OpDate_Edit);
+                $updated->bt_social = $this::upper($request->OpSocial_Edit);
+                $updated->bt_dep = trim($request->OpDep_Edit);
+                $updated->bt_mun = trim($request->OpMun_Edit);
+                $updated->bt_adr = trim($request->OpDir_Edit);
+                $updated->bt_con = $this::upper($request->OpCon_Edit);
+                $updated->bt_pho = $this->fu($request->OpTel_Edit);
+                $updated->bt_What = $this->fu($request->OpWhat_Edit);
+                $updated->bt_ema = trim($request->OpEma_Edit);
+                $updated->bt_Obs = $this->fu($request->OpObs_Edit);
+                $updated->save();
+                return redirect()->route('tracking.index')->with('PrimaryCreation','Actualización de '.$this::upper($request->OpSocial_Edit).' exitoso');
+            }else{
+                return redirect()->route('tracking.index')->with('SecondaryCreation','NoEncontrado');
+            }
+        }else{
+            return redirect()->route('tracking.index')->with('SecondaryCreation','No se pudo actualizar '.$this::upper($request->OpSocial_Edit));
+        }
     }
 
     function businessindicatorsindex()

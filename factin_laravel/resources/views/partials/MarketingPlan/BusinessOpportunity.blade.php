@@ -63,13 +63,13 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <small class="text-muted">TELEFONO:</small>
-                                        <input type="text" id="OpPhono" name="OpTel" placeholder="(091) 123-4567" maxlength="10" class="form-control form-control-sm" required>
+                                        <input type="text" name="OpTel" maxlength="10" class="form-control form-control-sm" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <small class="text-muted">WHATSAPP:</small>
-                                        <input type="text" id="OpWhats" name="OpWhat" placeholder="(123) 456-7890" maxlength="10" class="form-control form-control-sm">
+                                        <input type="text" name="OpWhat" maxlength="10" class="form-control form-control-sm">
                                     </div>
                                 </div>
                             </div>

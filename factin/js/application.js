@@ -2,11 +2,6 @@ $(function(){
 
 	$('#priceMoney').maskMoney();
 	$('#priceMoney_Edit').maskMoney();
-	$('#OpPhono').mask('(000) 000-0000');
-	$('#OpWhats').mask('(000) 000-0000');
-	$('#OpPhono_Edit').mask('(000) 000-0000');
-	$('#OpWhats_Edit').mask('(000) 000-0000');
-	
 	
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));

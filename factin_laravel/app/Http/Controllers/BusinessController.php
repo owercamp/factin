@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BusinessTracking;
 use App\Models\Location;
 use App\Models\Municipalities;
+use App\Models\Teken;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BusinessController extends Controller
@@ -82,6 +84,47 @@ class BusinessController extends Controller
         }
     }
 
+    function tekensindex(Request $request)
+    {
+        $NonNull = $request->sid;
+        if($NonNull != null){            
+            Teken::create([
+                'tk_date' => trim($request->datelocale),
+                'tk_social' => trim($request->sid),
+                'tk_teken' => trim($request->Bitacora)
+            ]);
+            return redirect()->route('tracking.index')->with('SuccessCreation','Bitacora almacenada');
+        }else{
+            return redirect()->route('tracking.index')->with('SecondaryCreation','No se pudo almacenar la bitacora');
+        }
+    }
+    
+    function tekenupdatestatusapproved(Request $request)
+    {
+        $validate = BusinessTracking::find($request->bt_id_status);
+        if ($validate != null) {
+            $name = BusinessTracking::find($request->bt_id_status);
+            $validate->bt_status = 'APROBADO';
+            $validate->save();
+            return redirect()->route('tracking.index')->with('PrimaryCreation','Estado de aprobación de '.$this::upper($name->bt_social).' se actualizo a aprobado');
+        }else{
+            return redirect()->route('tracking.index')->with('SecondCreation','NoEncontrado');
+        }        
+    }
+
+    function tekenupdatestatusnonapproved(Request $request)
+    {
+        $MyValidate = BusinessTracking::find($request->bt_status_denied);
+        if ($MyValidate != null) {
+            $name = BusinessTracking::find($request->bt_status_denied);
+            $MyValidate->bt_status = 'NO APROBADO';
+            $MyValidate->save();
+            return redirect()->route('tracking.index')->with('WarningCreation','Estado de aprobación de '.$this::upper($name->bt_social).' se actualizo a no aprobado');
+        }else{
+            return redirect()->route('tracking.index')->with('SecondCreation','NoEncontrado');
+        }
+    }
+
     function businessindicatorsindex()
     {
         return view('partials.MarketingPlan.SuccessIndicators');
@@ -89,6 +132,13 @@ class BusinessController extends Controller
 
     function businessarchiveindex()
     {
-        return view('partials.MarketingPlan.BusinessArchive');
+        $departament = Location::all();
+        $municipality = Municipalities::all();
+        $business = BusinessTracking::select('business_trackings.*','locations.*','municipalities.*')
+        ->join('locations','locations.depid','=','business_trackings.bt_dep')
+        ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
+        return view('partials.MarketingPlan.BusinessArchive', compact('business','departament','municipality'));
     }
+
+    
 }

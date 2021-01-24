@@ -110,6 +110,9 @@ route::post('/Business-Opportunity/New', 'BusinessController@businessoportunityn
 // rutas seguimiento de negocios
 Route::get('/Business-Tracking', 'BusinessController@businesstrackingindex')->name('tracking.index');
 Route::post('/Business-Tracking/update', 'BusinessController@businesstrackingapdate')->name('tracking.update');
+Route::post('/Business-Teken', 'BusinessController@tekensindex')->name('teken.index');
+Route::post('/Bussiness-Tracking/status-approved', 'BusinessController@tekenupdatestatusapproved')->name('status.approved');
+Route::post('/Bussiness-Tracking/status-non-approved', 'BusinessController@tekenupdatestatusnonapproved')->name('status.non-approved');
 // rutas indicadores de exito
 Route::get('/Success-Indicators', 'BusinessController@businessindicatorsindex')->name('indicators.index');
 // rutas archivos de negocios

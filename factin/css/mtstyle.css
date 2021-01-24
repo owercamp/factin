@@ -26,6 +26,9 @@
 .padding-config{
     padding: 3% 12%;
 }
+.btn-width{
+    width: 150px;
+}
 a {
     padding: 1.5%;
     margin: 0.5%;

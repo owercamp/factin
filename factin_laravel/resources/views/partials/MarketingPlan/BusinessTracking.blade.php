@@ -46,6 +46,7 @@
 					$row = 1;
 				@endphp
 				@foreach ($business as $item)
+					@if ($item->bt_status == null)						
 					<tr>
 						<th>{{$row++}}</th>
 						<th>{{$item->bt_social}}</th>
@@ -70,17 +71,28 @@
 							<a href="#" title="Bitacora" class="btn-delete form-control-sm BitacoraCreation-link">
 								<span class="icon-list-alt"></span>
 								<span hidden>{{$item->bt_id}}</span>
+								<span hidden>{{$item->bt_date}}</span>
 								<span hidden>{{$item->bt_social}}</span>
-								<span hidden>{{$item->bt_con}}</span>								
-							</a>
-							<a href="#" title="Aprobar" class="btn-edit form-control-sm AprobarCreation-link">
-								<span class="icon-check"></span>								
-							</a>
+								<span hidden>{{$item->bt_dep}}</span>
+								<span hidden>{{$item->bt_mun}}</span>
+								<span hidden>{{$item->bt_adr}}</span>
+								<span hidden>{{$item->bt_con}}</span>
+								<span hidden>{{$item->bt_pho}}</span>
+								<span hidden>{{$item->bt_What}}</span>
+								<span hidden>{{$item->bt_ema}}</span>
+								<span hidden>{{$item->bt_Obs}}</span>								
+							</a>							
+							<a  href="#" title="Aprobar" class="btn-edit form-control-sm AprobarCreation-link">								
+								<span class="icon-check"></span>
+								<span hidden>{{$item->bt_id}}</span>																																
+							</a>							
 							<a href="#" title="No Aprobar" class="btn-delete form-control-sm NoAprobarCreation-link">
 								<span class="icon-close"></span>
+								<span hidden>{{$item->bt_id}}</span>
 							</a>
 						</th>
 					</tr>
+					@endif
 				@endforeach
 			</tbody>
 		</table>
@@ -205,25 +217,27 @@
 					<h3 style="padding-top: 2%">NUEVA BITACORA</h3>
 				</div>
 				<div class="modal-body">
-					<form action="" method="POST">
+					<form action="{{route('teken.index')}}" method="POST">
+						@csrf
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
+									<small class="text-muted">FECHA:</small><br>
+									<span class="text-muted"><b class="NowDate"></b></span><br>
+									<input type="hidden" name="datelocale" value="{{date('Y-m-d')}}">
 									<small class="text-muted">RAZON SOCIAL</small>
-									<input type="text" name="social" class="form-control form-control-sm" disabled>
-									<small class="text-muted">CONTACTO</small>
-									<input type="text" name="contacto" class="form-control form-control-sm" disabled>
-									<input type="hidden" name="sid" class="form-control form-control-sm" readonly required>
+									<input type="text" name="social" class="form-control form-control-sm" disabled>									
+									<input type="hidden" name="sid">																		
 									<div class="form-group" style="padding: 8% 15%">
-										<button type="submit" class="btn btn-success">Agregar Bitacora</button>
-										<button data-dismiss="modal" class="btn btn-delete" style="margin: 5% 15%">Cancelar</button>
+										<button type="submit" class="btn btn-success btn-width">Agregar Bitacora</button>
+										<button data-dismiss="modal" class="btn btn-dark btn-width" style="margin-top:5%">Cancelar</button>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-8">
 								<div class="form-group">
 									<small class="text-muted">BITACORA</small>
-									<textarea name="Bitacora" id="Bitacora" cols="30" rows="10" class="form-control form-control-sm"></textarea>
+									<textarea name="Bitacora" id="Bitacora" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
 								</div>
 							</div>
 						</div>
@@ -232,20 +246,48 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="invisible">
+		<form action="{{route('status.approved')}}" method="POST" class="formstatusAp">
+			@csrf
+			<input type="text" name="bt_id_status">
+		</form>
+	</div>
+	<div class="invisible">
+		<form action="{{route('status.non-approved')}}" method="POST" class="statusdenied">
+		@csrf
+			<input type="text" name="bt_status_denied">
+		</form>
+	</div>
 @endsection
 
 @section('ScriptZone')
 	<script>
-		
-		$('.BitacoraCreation-link').click(function () {
-			var id, RSocial, Contact;
+		// llama a mi bitacora 
+		$('.BitacoraCreation-link').click(function (e) {
+			e.preventDefault();
+			var id, txtSocial, listSocial;
 			id = $(this).find('span:nth-child(2)').text();
-			RSocial = $(this).find('span:nth-child(3)').text();
-			Contact = $(this).find('span:nth-child(4)').text();
+			RSocial = $(this).find('span:nth-child(4)').text();			
 			$('input[name=social]').val(RSocial);
 			$('input[name=sid]').val(id);
-			$('input[name=contacto]').val(Contact);
 			$('#newBitacora-modal').modal();
+		});
+		// cambia de estado a abrobado segun mi objecto
+		$('.AprobarCreation-link').click(function (e) { 
+			e.preventDefault();
+			var newid;
+			newid = $(this).find('span:nth-child(2)').text();
+			$('input[name=bt_id_status]').val(newid);
+			$('.formstatusAp').submit();
+		});
+		// cambia de estado a denegado segun mi object
+		$('.NoAprobarCreation-link').click(function (e) { 
+			e.preventDefault();
+			var deniedid;
+			deniedid = $(this).find('span:nth-child(2)').text();
+			$('input[name=bt_status_denied]').val(deniedid);
+			$('.statusdenied').submit();			
 		});
 
 
@@ -366,7 +408,7 @@
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops..',
-				text: 'Producto Web no encontrado',
+				text: 'registro no encontrado',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,
@@ -400,7 +442,7 @@
 		<script>
 			Swal.fire({
 				icon: 'success',
-				title: '¡eliminado con exito!',
+				title: '¡actualizado con exito!',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,
@@ -412,5 +454,22 @@
 				}
 			})
 		</script>
+	@endif
+	@if (session('Message') == 'MessageError')
+		<script>
+			Swal.fire({
+				icon: 'info',
+				title: 'Area en Construcción, Pronto estara disponible!',
+				timer: 5000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>		
 	@endif
 @endsection

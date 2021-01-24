@@ -8,9 +8,24 @@ $(function(){
 	
 	loadDatatables();
 	
+	var meses = [
+		"Enero", "Febrero", "Marzo",
+		"Abril", "Mayo", "Junio", "Julio",
+		"Agosto", "Septiembre", "Octubre",
+		"Noviembre", "Diciembre"
+	];
+
+	var date = new Date();
+	var dia = date.getDate();
+	var mes = date.getMonth();
+	var yyy = date.getFullYear();
+	var MyDate = dia + ' de ' + meses[mes] + ' de ' + yyy;
+
+	$('.NowDate').append(MyDate);
 	
 	gsap.from(".directionUri",{duration: 10, opacity: 0.1});
 	gsap.to(".directionUri",{duration: 10, color:'#0676a4', delay: 6});
+	gsap.to(".NowDate",{duration: 7,color:'#0676a4',delay:3});
 	
 	$('.datepicker').datepicker({
 		dateFormat: 'DD, dd-MM-yy',

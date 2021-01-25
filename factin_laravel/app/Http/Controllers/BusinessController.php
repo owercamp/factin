@@ -132,13 +132,12 @@ class BusinessController extends Controller
 
     function businessarchiveindex()
     {
+        $teken = Teken::all();
         $departament = Location::all();
         $municipality = Municipalities::all();
         $business = BusinessTracking::select('business_trackings.*','locations.*','municipalities.*')
         ->join('locations','locations.depid','=','business_trackings.bt_dep')
         ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
-        return view('partials.MarketingPlan.BusinessArchive', compact('business','departament','municipality'));
+        return view('partials.MarketingPlan.BusinessArchive', compact('business','departament','municipality','teken'));
     }
-
-    
 }

@@ -80,7 +80,7 @@
 	@endphp
 
 	<div class="modal fade" id="History-modal">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="form-group col">
@@ -90,19 +90,44 @@
 						<div class="row" style="margin-top: 15px">
 							<div class="col-md-7">
 								<div class="form-group">
-									<select name="social" id="rsocial"class="form-control form-control-sm" style="margin-top: 2px" required>
+									<select name="social" id="rsocial" class="form-control form-control-sm" style="margin-top: 2px" required>
 										<option value="">Seleccione...</option>
 										@foreach ($business as $item)
 											<option value="{{$item->bt_id}}">{{$item->bt_social}}</option>
 										@endforeach
 									</select>
 								</div>
-							</div>			
+							</div>
 							<div class="col-md-4">
-								<button class="btn btn-dark form-control-sm">CONSULTAR</button>
+								<button class="btn btn-dark form-control-sm searck-link">CONSULTAR</button>
 							</div>
 						</div>
 					</div>					
+				</div>
+				<div class="modal-body">
+					<div class="col-ms-12">
+						<table id="tableDatatable" class="table table-hover table-bordered text-center col-ms-10" style="font-size: 12px">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>FECHA</th>
+									<th>BITACORA</th>
+								</tr>
+							</thead>
+							<tbody>
+								@php
+									$row = 1;
+								@endphp
+								{{-- @foreach ($teken as $item)								
+								<tr>
+									<th>{{$row++}}</th>
+									<th>{{$item->tk_date}}</th>
+									<th>{{$item->tk_teken}}</th>
+								</tr>
+								@endforeach --}}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -114,6 +139,24 @@
 		$('.History-link').click(function (e) {
 			e.preventDefault();
 			$('#History-modal').modal();
+		});
+
+		$('.searck-link').click(function (e) { 
+			e.preventDefault();
+			var socialSelected = $('#rsocial').val();			
+			Swal.fire({
+				icon: 'info',
+				title: 'Area en Construcción, Pronto estara disponible!',
+				timer: 5000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
 		});
 	</script>
 @endsection

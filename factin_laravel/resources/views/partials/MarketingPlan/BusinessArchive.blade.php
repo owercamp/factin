@@ -90,7 +90,7 @@
 						<div class="row" style="margin-top: 15px">
 							<div class="col-md-7">
 								<div class="form-group">
-									<select name="social" id="rsocial" class="form-control form-control-sm" style="margin-top: 2px" required>
+									<select name="social" id="rsocial" title="RAZON SOCIAL: (Oportunidades de negocio)" class="form-control form-control-sm" style="margin-top: 2px" required>
 										<option value="">Seleccione...</option>
 										@foreach ($business as $item)
 											<option value="{{$item->bt_id}}">{{$item->bt_social}}</option>
@@ -104,9 +104,9 @@
 						</div>
 					</div>					
 				</div>
-				<div class="modal-body">
+				<div class="modal-body MyForm">
 					<div class="col-ms-12">
-						<table id="tableDatatable" class="table table-hover table-bordered text-center col-ms-10" style="font-size: 12px">
+						<table id="tableDatatable" class="table table-hover table-bordered text-center col-ms-10 tblHistory" style="font-size: 12px" >
 							<thead>
 								<tr>
 									<th>#</th>
@@ -114,17 +114,8 @@
 									<th>BITACORA</th>
 								</tr>
 							</thead>
-							<tbody>
-								@php
-									$row = 1;
-								@endphp
-								{{-- @foreach ($teken as $item)								
-								<tr>
-									<th>{{$row++}}</th>
-									<th>{{$item->tk_date}}</th>
-									<th>{{$item->tk_teken}}</th>
-								</tr>
-								@endforeach --}}
+							<tbody>								
+								{{-- Section Dinamics --}}
 							</tbody>
 						</table>
 					</div>
@@ -138,25 +129,32 @@
 	<script>
 		$('.History-link').click(function (e) {
 			e.preventDefault();
+			$('.MyForm').hide("slow");
 			$('#History-modal').modal();
 		});
 
 		$('.searck-link').click(function (e) { 
 			e.preventDefault();
-			var socialSelected = $('#rsocial').val();			
-			Swal.fire({
-				icon: 'info',
-				title: 'Area en Construcción, Pronto estara disponible!',
-				timer: 5000,
-				timerProgressBar: true,
-				showConfirmButton: false,
-				showClass: {
-					popup: 'animate__animated animate__flipInX'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__flipOutX'
-				}
-			})
+			$('.MyForm').hide("slow");
+			$('.tblHistory tbody').empty();
+			var socialSelected = $('#rsocial').val();
+			$.get("{{route('getTekens')}}", {data: socialSelected},
+				function (HistoryTeken) {
+					var count = Object.keys(HistoryTeken).length;
+					if (count > 0) {
+						var counter = 1;
+						for (let i = 0; i < count; i++) {
+							$('.tblHistory tbody').append(
+								"<tr>"+
+									"<td>"+ counter++ +"</td>"+
+									"<td>"+HistoryTeken[i]['tk_date']+"</td>"+
+									"<td>"+HistoryTeken[i]['tk_teken']+"</td>"+
+								"</tr>"
+							);
+						}
+					}
+			});
+			$('.MyForm').show("slow");			
 		});
 	</script>
 @endsection

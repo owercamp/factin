@@ -3,6 +3,7 @@
 use App\Models\icon_name;
 use App\Models\Municipalities;
 use App\Models\Portfolio;
+use App\Models\Teken;
 use Illuminate\Http\Request;
 
 /*
@@ -26,3 +27,7 @@ Route::get('getMunicipalities',function(Request $request){
     return response()->json($municipality);
 })->name('getMunicipalities');
 
+Route::get('getTekens',function(Request $request){
+    $query=Teken::where('tk_social',trim($request->data))->get();
+    return response()->json($query);
+})->name('getTekens');

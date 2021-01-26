@@ -21,6 +21,7 @@ $(function(){
 	var yyy = date.getFullYear();
 	var MyDate = dia + ' de ' + meses[mes] + ' de ' + yyy;
 
+	
 	$('.NowDate').append(MyDate);
 	
 	gsap.from(".directionUri",{duration: 10, opacity: 0.1});

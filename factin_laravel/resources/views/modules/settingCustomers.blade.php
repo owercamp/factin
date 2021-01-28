@@ -1,23 +1,23 @@
 
 @extends('home')
 
-@section('title', 'Plan de Mercadeo')
+@section('title', 'Clientes Potenciales')
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
     <li class="nav-link nav-config-user text-primary">
         <span class="icon-fire"></span>
-        <a class="text-primary" href="{{route('oportunity.index')}}">{{__('Oportunidad de Negocio')}}</a>
+        <a class="text-primary" href="{{route('proposal.index')}}">{{__('Propuesta Comercial')}}</a>
     </li>
     <div class="dropdown-divider form-divider"></div>
     <li class="nav-link nav-config-user text-primary">
         <span class="icon-clipboard"></span>
-        <a class="text-primary" href="{{route('tracking.index')}}">{{__('Seguimiento de Negocio')}}</a>
+        <a class="text-primary" href="{{route('monitoring.index')}}">{{__('Seguimiento Comercial')}}</a>
     </li>
     <div class="dropdown-divider form-divider"></div>
     <li class="nav-link nav-config-user text-primary">
         <span class="icon-folder-open"></span>
-        <a class="text-primary" href="{{route('archive.index')}}">{{__('Archivo de Negocios')}}</a>
+        <a class="text-primary" href="{{route('file.index')}}">{{__('Archivo Comercial')}}</a>
     </li>
     <div class="dropdown-divider form-divider"></div>
     <li class="nav-link nav-config-user text-primary">

@@ -117,3 +117,8 @@ Route::post('/Bussiness-Tracking/status-non-approved', 'BusinessController@teken
 Route::get('/Success-Indicators', 'BusinessController@businessindicatorsindex')->name('indicators.index');
 // rutas archivos de negocios
 Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name('archive.index');
+// rutas comercial
+Route::get('/Commercial-Proposal', 'TradeController@commercialproposalindex')->name('proposal.index');
+Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
+Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
+Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');

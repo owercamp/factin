@@ -91,6 +91,14 @@ function seeDirection($urls ='/home')
 			return 'Comercial >> Plan de Mercadeo >> Archivo de Negocios';
 		case '/factin/Success-Indicators':
 			return 'Comercial >> Plan de Mercadeo >> Indicadores de Exito';
+		case '/factin/Commercial-Proposal':
+			return 'Comercial >> Clientes Potenciales >> Propuesta Comercial';
+		case '/factin/Commercial-Monitoring':
+			return 'Comercial >> Clientes Potenciales >> Seguimiento Comercial';
+		case '/factin/Commercial-File':
+			return 'Comercial >> Clientes Potenciales >> Archivo Comercial';
+		case '/factin/Commercial-Indicator':
+			return 'Comercial >> Clientes Potenciales >> Indicadores de Exito';
     }
 }
 
@@ -98,11 +106,11 @@ function loadDatatables(){
 	$('#tableDatatable').css('font-size','15px');
 	$('#tableDatatable').DataTable({
 		language: {
-			processing:     "Procesamiento en curso...",
+			processing:     "Procesado...",
 			search: 		"Buscar:",
 			lengthMenu:    	"Mostrar _MENU_ registros",
-			info:           "Mostrando _START_ a _END_ de _TOTAL_ registros. ",
-			infoEmpty:      "Mostrando dato 0 a 0 de 0 registros",	
+			info:           "Mostrando _END_ de _TOTAL_ registros. ",
+			infoEmpty:      "Mostrando 0 datos de 0 registros",	
 			emptyTable:     "No hay registros disponibles",
 			infoFiltered:   "Filtrado de _MAX_ elementos totales",
 			infoPostFix:    "",

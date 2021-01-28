@@ -84,7 +84,7 @@
                                 <ul class="dropdown-menu row-cols-1 text-center">
                                     <li><a href="{{route('factin.index')}}">PORTAFOLIO</a></li>
                                     <li><a href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a></li>
-                                    <li><a href="#">CLIENTES POTENCIALES</a></li>
+                                    <li><a href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a></li>
                                     <li><a href="#">CONTRATACIÓN</a></li>
                                 </ul>
                             </div>

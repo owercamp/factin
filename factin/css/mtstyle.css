@@ -124,3 +124,10 @@ a {
     column-gap: 20%;
     column-rule: 1px dashed var(--primary);
 }
+.text-iva {
+    color: var(--orange) !important;
+}
+a.text-iva:hover, a.text-iva:focus {
+    color: var(--orange) !important;
+}
+

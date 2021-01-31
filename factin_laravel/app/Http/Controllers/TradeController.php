@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessTracking;
+use App\Models\Hardware;
+use App\Models\Location;
+use App\Models\Municipalities;
+use App\Models\Portfolio;
+use App\Models\Software;
+use App\Models\TechnicalSupport;
 use Illuminate\Http\Request;
 
 class TradeController extends Controller
@@ -21,9 +28,15 @@ class TradeController extends Controller
         return view('partials.PotentialCustomers.CommercialMonitoring');
     }
 
-    function commercialproposalindex()
+    function commercialproposalindex(Request $request)
     {
-        return view('partials.PotentialCustomers.CommercialProposal');
+        // $factin = Portfolio::all(); $hardware = Hardware::all(); $software = Software::all(); $support = TechnicalSupport::all();
+        $Departament = Location::all(); $Municipality = Municipalities::all();
+        $MyData = BusinessTracking::select('locations.*','municipalities.*','business_trackings.*')
+        ->join('locations','locations.depid','=','business_trackings.bt_dep')
+        ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
+        // return $support;
+    return view('partials.PotentialCustomers.CommercialProposal', compact('MyData','Departament','Municipality'));
     }
 
     function commercialindicatorsindex()

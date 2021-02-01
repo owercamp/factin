@@ -92,13 +92,13 @@
 								<div class="col-md-2">
 									<div class="form-group">
 										<small class="text-muted">TELEFONO:</small>
-										<input type="text" name="CoTel" maxlength="10" pattern="[0-9]" class="form-control form-control-sm" required disabled>
+										<input type="text" name="CoTel" maxlength="10" class="form-control form-control-sm" required disabled>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<small class="text-muted">WHATSAPP:</small>
-										<input type="text" name="CoWhat" maxlength="10" pattern="[0-9]" class="form-control form-control-sm" disabled>
+										<input type="text" name="CoWhat" maxlength="10" class="form-control form-control-sm" disabled>
 									</div>
 								</div>
 								<div class="col-md-2">
@@ -125,7 +125,7 @@
 								<div class="col-md-2">
 									<div class="form-group">
 										<small class="text-muted">PRECIO:</small>
-										<input type="text" name="CoPrice" style="font-weight: bold" pattern="[0-9]" class="form-control form-control-sm text-primary" required disabled>
+										<input type="text" name="CoPrice" style="font-weight: bold" class="form-control form-control-sm text-primary" required disabled>
 									</div>
 								</div>
 							</div>
@@ -139,31 +139,31 @@
 								<div class="col-md-1">
 									<div class="form-group">
 										<small class="text-muted">CANTIDAD:</small>
-										<input type="text" name="CoCan" pattern="[0-9]" maxlength="4" class="form-control form-control-sm text-dark" disabled required>
+										<input type="text" name="CoCan"  maxlength="4" class="form-control form-control-sm text-dark" disabled required>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
 										<small class="text-muted">SUBTOTAL:</small>
-										<input type="text" name="CoSub" style="font-weight: bold" pattern="[0-9]" class="form-control form-control-sm text-primary" disabled required>
+										<input type="text" name="CoSub" style="font-weight: bold" class="form-control form-control-sm text-primary" disabled required>
 									</div>
 								</div>
 								<div class="col-md-1">
 									<div class="form-group">
 										<small class="text-muted">% IVA:</small>
-										<input type="text" name="CoIva" style="font-weight: bold" pattern="[0-9]" maxlength="4" class="form-control form-control-sm text-iva" disabled required>
+										<input type="text" name="CoIva" style="font-weight: bold" maxlength="4" class="form-control form-control-sm text-iva" disabled required>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
 										<small class="text-muted">VALOR IVA:</small>
-										<input type="text" style="font-weight: bold" name="CoVIva" pattern="[0-9]" class="form-control form-control-sm text-primary" disabled required>
+										<input type="text" style="font-weight: bold" name="CoVIva" class="form-control form-control-sm text-primary" disabled required>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
 										<small class="text-muted">TOTAL:</small>
-										<input type="text" style="font-weight: bold" name="CoTotal" pattern="[0-9]"  class="form-control form-control-sm text-primary" disabled required>
+										<input type="text" style="font-weight: bold" name="CoTotal" class="form-control form-control-sm text-primary" disabled required>
 									</div>
 								</div>
 							</div>
@@ -273,6 +273,12 @@
 		$('select[name=CoCat]').change(function(e) { 
 			var MySelect = e.target.value;
 			$('select[name=CoPro]').empty();
+			$('input[name=CoPrice]').val('');
+			$('input[name=CoSub]').val('');
+			$('input[name=CoCan]').val('');
+			$('input[name=CoIva]').val('');
+			$('input[name=CoVIva]').val('');
+			$('input[name=CoTotal]').val('');
 			$('select[name=CoPro]').append("<option value=''>Seleccione Producto</option>");
 			if (MySelect == 'FactinWeb') {
 				$.get("{{route('getFactin')}}",
@@ -317,7 +323,7 @@
 				if (product != '') {
 					$.get("{{route('getFactinPrice')}}", {data: product},
 						function (FactinPrice) {
-							console.log(FactinPrice);
+							$('input[name=CoPrice]').val(FactinPrice[0].price);
 						}
 					);
 				}
@@ -325,7 +331,7 @@
 				if (product != '') {
 					$.get("{{route('getSoftwarePrice')}}", {data: product},
 						function (SoftPrice) {
-							console.log(SoftPrice);
+							$('input[name=CoPrice]').val(SoftPrice[0].sofprice);
 						}
 					);
 				}
@@ -333,7 +339,7 @@
 				if (product != '') {
 					$.get("{{route('getHardwarePrice')}}", {data: product},
 						function (HardPrice) {
-							console.log(HardPrice);
+							$('input[name=CoPrice]').val(HardPrice[0].harprice);
 						}
 					);
 				}
@@ -341,13 +347,28 @@
 				if (product != '') {
 					$.get("{{route('getSupportPrice')}}", {data: product},
 						function (SupportPrice) {
-							console.log(SupportPrice);
+							$('input[name=CoPrice]').val(SupportPrice[0].tsprice);
 						}
 					);
 				}
 			}
-
 		});
 
+		$('input[name=CoCan]').change(function () { 
+			let Price = $('input[name=CoPrice]').val();
+			let Bedrag = $('input[name=CoCan]').val();
+			let Total = Price * Bedrag;
+			$('input[name=CoSub]').val(Total);		
+		});
+
+		$('input[name=CoIva]').change(function () { 
+			let Subtotal = $('input[name=CoSub]').val();
+			let PercentageIva = $('input[name=CoIva]').val(); 
+			let ValueIva = (Subtotal * PercentageIva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+			let Total = parseInt(Subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total);
+		});
 	</script>
+
 @endsection

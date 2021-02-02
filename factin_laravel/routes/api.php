@@ -74,21 +74,29 @@ Route::get('getSupport',function(){
 })->name('getSupport');
 
 Route::get('getFactinPrice',function(Request $request){
-    $query = Portfolio::where('por_id',trim($request->data))->get();
+    $query = Portfolio::where('por_id',trim($request->data))
+    ->join('product_configs','product_configs.pc_id','=','portfolios.cpro_id')
+    ->join('products','products.pro_id','=','product_configs.pc_typepro')->get();
     return response()->json($query);
 })->name('getFactinPrice');
 
 Route::get('getSoftwarePrice',function(Request $request){
-    $query = Software::where('sof_id',trim($request->data))->get();
+    $query = Software::where('sof_id',trim($request->data))
+    ->join('product_configs','product_configs.pc_id','=','software.cpro_id')
+    ->join('products','products.pro_id','=','product_configs.pc_typepro')->get();
     return response()->json($query);
 })->name('getSoftwarePrice');
 
 Route::get('getHardwarePrice',function(Request $request){
-    $query = Hardware::where('har_id',trim($request->data))->get();
+    $query = Hardware::where('har_id',trim($request->data))
+    ->join('product_configs','product_configs.pc_id','=','hardware.cpro_id')
+    ->join('products','products.pro_id','=','product_configs.pc_typepro')->get();
     return response()->json($query);
 })->name('getHardwarePrice');
 
 Route::get('getSupportPrice',function(Request $request){
-    $query = TechnicalSupport::where('id',trim($request->data))->get();
+    $query = TechnicalSupport::where('id',trim($request->data))
+    ->join('product_configs','product_configs.pc_id','=','technical_supports.cpro_id')
+    ->join('products','products.pro_id','=','product_configs.pc_typepro')->get();
     return response()->json($query);
 })->name('getSupportPrice');

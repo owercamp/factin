@@ -119,6 +119,7 @@ Route::get('/Success-Indicators', 'BusinessController@businessindicatorsindex')-
 Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name('archive.index');
 // rutas comercial
 Route::get('/Commercial-Proposal', 'TradeController@commercialproposalindex')->name('proposal.index');
+Route::post('/Commercial-Proposal/save', 'TradeController@commercialproposalsave')->name('proposal.save');
 Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
 Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');

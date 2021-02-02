@@ -9,7 +9,7 @@
 			<div class="card-header text-center">
 				<h5 class="text-primary" style="margin-top: 5px"><em><b>REGISTRO PROPUESTA COMERCIAL</b></em></h5>
 			</div>
-			<form action="#" id="FormCommercial" method="POST">
+			<form action="{{route('proposal.save')}}" id="FormCommercial" method="POST">
 				@csrf
 				<div class="card-body p-4 border">
 					<div class="row">
@@ -172,6 +172,7 @@
 									<div class="form-group">
 										<button type="submit" class="btn btn-edit" style="margin: 5% 35%">ALMACENAR</button>
 									</div>
+									<input type="hidden" id="capture" name="CoProHidden">
 								</div>
 								<div class="col-md-8">
 									<div class="form-group">
@@ -323,7 +324,9 @@
 				if (product != '') {
 					$.get("{{route('getFactinPrice')}}", {data: product},
 						function (FactinPrice) {
+							console.log(FactinPrice);
 							$('input[name=CoPrice]').val(FactinPrice[0].price);
+							$('#capture').val(FactinPrice[0].pro_name);
 						}
 					);
 				}
@@ -332,6 +335,7 @@
 					$.get("{{route('getSoftwarePrice')}}", {data: product},
 						function (SoftPrice) {
 							$('input[name=CoPrice]').val(SoftPrice[0].sofprice);
+							$('#capture').val(SoftPrice[0].pro_name);
 						}
 					);
 				}
@@ -340,6 +344,7 @@
 					$.get("{{route('getHardwarePrice')}}", {data: product},
 						function (HardPrice) {
 							$('input[name=CoPrice]').val(HardPrice[0].harprice);
+							$('#capture').val(HardPrice[0].pro_name);
 						}
 					);
 				}
@@ -348,6 +353,7 @@
 					$.get("{{route('getSupportPrice')}}", {data: product},
 						function (SupportPrice) {
 							$('input[name=CoPrice]').val(SupportPrice[0].tsprice);
+							$('#capture').val(SupportPrice[0].pro_name);
 						}
 					);
 				}
@@ -370,5 +376,23 @@
 			$('input[name=CoTotal]').val(Total);
 		});
 	</script>
+
+@if (session('Message') == 'MessageError')
+<script>
+	Swal.fire({
+		icon: 'info',
+		title: 'Area en Construcción, Pronto estara disponible!',
+		timer: 5000,
+		timerProgressBar: true,
+		showConfirmButton: false,
+		showClass: {
+			popup: 'animate__animated animate__flipInX'
+		},
+		hideClass: {
+			popup: 'animate__animated animate__flipOutX'
+		}
+	})
+</script>		
+@endif
 
 @endsection

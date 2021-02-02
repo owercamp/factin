@@ -30,13 +30,16 @@ class TradeController extends Controller
 
     function commercialproposalindex(Request $request)
     {
-        // $factin = Portfolio::all(); $hardware = Hardware::all(); $software = Software::all(); $support = TechnicalSupport::all();
         $Departament = Location::all(); $Municipality = Municipalities::all();
         $MyData = BusinessTracking::select('locations.*','municipalities.*','business_trackings.*')
         ->join('locations','locations.depid','=','business_trackings.bt_dep')
         ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
-        // return $support;
     return view('partials.PotentialCustomers.CommercialProposal', compact('MyData','Departament','Municipality'));
+    }
+
+    function commercialproposalsave(Request $request)
+    {
+        return redirect()->route('proposal.index')->with('Message','MessageError');
     }
 
     function commercialindicatorsindex()

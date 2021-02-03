@@ -15,7 +15,7 @@
 use App\Models\Product;
 
 Route::get('/', function () {
-    return view('auth.login');    
+    return view('auth.login');
 });
 
 //Authentication Routes
@@ -120,6 +120,7 @@ Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name
 // rutas comercial
 Route::get('/Commercial-Proposal', 'TradeController@commercialproposalindex')->name('proposal.index');
 Route::post('/Commercial-Proposal/save', 'TradeController@commercialproposalsave')->name('proposal.save');
+
 Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
 Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');

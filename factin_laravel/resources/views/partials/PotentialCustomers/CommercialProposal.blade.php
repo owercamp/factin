@@ -3,7 +3,7 @@
 
 @section('info')
 	<div>
-		<div class="row border-bottom">			
+		<div class="row border-bottom">
 		</div>
 		<div class="card">
 			<div class="card-header text-center">
@@ -30,7 +30,7 @@
 												@if($item->bt_status == "APROBADO")
 													<option value="{{$item->bt_id}}">{{$item->bt_social}}</option>
 												@endif
-											@endforeach										
+											@endforeach
 										</select>
 										{{-- traer la informacion de aprobados de las oportunidades de negocio --}}
 									</div>
@@ -119,7 +119,7 @@
 										<select name="CoPro" id="CoPro" class="form-control form-control-sm" disabled>
 											<option value="">Seleccione Producto</option>
 											{{-- select dimanics --}}
-										</select>										
+										</select>
 									</div>
 								</div>
 								<div class="col-md-2">
@@ -204,13 +204,13 @@
 @section('ScriptZone')
 	<script>
 		// realiza la consulta y carga los datos en sus respectivos campos dependiendo de la razón social seleccionada
-		$('#CoSocial').change(function (e) {			
+		$('#CoSocial').change(function (e) {
 			var Social = e.target.value;
 			$.get("{{route('getCommercial')}}", {data: Social},
 				function (FullData) {
 					var count = Object.keys(FullData).length;
 					if (count > 0) {
-						for (let i = 0; i < count; i++) {							
+						for (let i = 0; i < count; i++) {
 							$.get("{{route('getMunicipalities')}}",{DepId: FullData[i]['bt_dep']},
 							function(objectMunicipality){
 								let count = Object.keys(objectMunicipality).length;
@@ -271,7 +271,7 @@
 		});
 
 		// listado dependiendo de la categoria
-		$('select[name=CoCat]').change(function(e) { 
+		$('select[name=CoCat]').change(function(e) {
 			var MySelect = e.target.value;
 			$('select[name=CoPro]').empty();
 			$('input[name=CoPrice]').val('');
@@ -288,7 +288,7 @@
 							$('select[name=CoPro]').append("<option value='"+objectFactin[index]['por_id']+"'>"+objectFactin[index]['pro_name']+"</option>");
 						}
 					}
-				);				
+				);
 			}else if(MySelect == 'Software'){
 				$.get("{{route('getSoftware')}}",
 					function (objectSoftware) {
@@ -316,7 +316,7 @@
 			}
 		});
 
-		$('select[name=CoPro]').change(function (e) { 
+		$('select[name=CoPro]').change(function (e) {
 			let product = e.target.value;
 			let Categories = $('select[name=CoCat]').val();
 			$('input[name=CoPrice]').val('');
@@ -360,39 +360,87 @@
 			}
 		});
 
-		$('input[name=CoCan]').change(function () { 
+		$('input[name=CoCan]').change(function () {
 			let Price = $('input[name=CoPrice]').val();
 			let Bedrag = $('input[name=CoCan]').val();
 			let Total = Price * Bedrag;
-			$('input[name=CoSub]').val(Total);		
+			$('input[name=CoSub]').val(Total);
 		});
 
-		$('input[name=CoIva]').change(function () { 
+		$('input[name=CoIva]').change(function () {
 			let Subtotal = $('input[name=CoSub]').val();
-			let PercentageIva = $('input[name=CoIva]').val(); 
+			let PercentageIva = $('input[name=CoIva]').val();
 			let ValueIva = (Subtotal * PercentageIva) / 100;
 			$('input[name=CoVIva]').val(ValueIva);
 			let Total = parseInt(Subtotal) + parseInt(ValueIva);
 			$('input[name=CoTotal]').val(Total);
 		});
-	</script>
+    </script>
 
-@if (session('Message') == 'MessageError')
-<script>
-	Swal.fire({
-		icon: 'info',
-		title: 'Area en Construcción, Pronto estara disponible!',
-		timer: 5000,
-		timerProgressBar: true,
-		showConfirmButton: false,
-		showClass: {
+    @if(session('SuccessCreation') == 'Almacenado')
+	<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'registro exitoso',
+            text: '¿Desea ver los registros en la tabla seguimiento comercial?',
+            showDenyButton: true,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            confirmButtonColor: '#3085d6',
+            denyButtonColor: '#f58f4d',
+            confirmButtonText: `Si`,
+            denyButtonText: `No`,
+            showClass: {
 			popup: 'animate__animated animate__flipInX'
-		},
-		hideClass: {
+			},
+			hideClass: {
 			popup: 'animate__animated animate__flipOutX'
-		}
-	})
-</script>		
-@endif
+			}
+        }).then((result) => {
+        if (result.isConfirmed) {
+            location.href = ('https://factin-online.com/factin/Business-Tracking');
+        } else if (result.isDenied) {
+        }
+        });
+	</script>
+    @endif
+
+    @if (session('SecondCreation') == "NoEncontrado")
+		<script>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops..',
+				text: 'no se pudo almacenar',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
+
+    @if (session('Message') == 'MessageError')
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: 'Area en Construcción, Pronto estara disponible!',
+            timer: 5000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__flipOutX'
+            }
+        })
+    </script>
+    @endif
 
 @endsection

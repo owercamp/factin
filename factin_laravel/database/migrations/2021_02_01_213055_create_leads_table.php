@@ -34,6 +34,7 @@ class CreateLeadsTable extends Migration
             $table->integer('lead_porcentage')->autoIncrement(false);
             $table->integer('lead_iva')->autoIncrement(false);
             $table->integer('lead_total')->autoIncrement(false);
+            $table->enum('lead_status',['','APROBADO','NO APROBADO'])->nullable();
             $table->timestamps();
 
             $table->foreign('lead_social')->references('bt_id')->on('business_trackings');

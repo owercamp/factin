@@ -317,7 +317,7 @@
 		});
 
 		$('select[name=CoPro]').change(function (e) {
-			let product = e.target.value;
+            let product = e.target.value;
 			let Categories = $('select[name=CoCat]').val();
 			$('input[name=CoPrice]').val('');
 			if (Categories == 'FactinWeb') {
@@ -357,22 +357,26 @@
 						}
 					);
 				}
-			}
+            }
 		});
 
 		$('input[name=CoCan]').change(function () {
 			let Price = $('input[name=CoPrice]').val();
-			let Bedrag = $('input[name=CoCan]').val();
-			let Total = Price * Bedrag;
+            let Bedrag = $('input[name=CoCan]').val();
+            let price = Price.replace('.','');
+            let bedrag = Bedrag.replace('.','');
+			let Total = price * bedrag;
 			$('input[name=CoSub]').val(Total);
 		});
 
 		$('input[name=CoIva]').change(function () {
 			let Subtotal = $('input[name=CoSub]').val();
-			let PercentageIva = $('input[name=CoIva]').val();
-			let ValueIva = (Subtotal * PercentageIva) / 100;
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace('.','');
+            let percentageiva = PercentageIva.replace('.','');
+			let ValueIva = (subtotal * percentageiva) / 100;
 			$('input[name=CoVIva]').val(ValueIva);
-			let Total = parseInt(Subtotal) + parseInt(ValueIva);
+			let Total = parseInt(subtotal) + parseInt(ValueIva);
 			$('input[name=CoTotal]').val(Total);
 		});
     </script>
@@ -399,7 +403,7 @@
 			}
         }).then((result) => {
         if (result.isConfirmed) {
-            location.href = ('https://factin-online.com/factin/Business-Tracking');
+            location.href = ('https://factin-online.com/factin/Commercial-Monitoring');
         } else if (result.isDenied) {
         }
         });
@@ -411,7 +415,7 @@
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops..',
-				text: 'no se pudo almacenar',
+				text: 'no se pudo almacenar existe un registro similar',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,

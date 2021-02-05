@@ -131,3 +131,9 @@ a.text-iva:hover, a.text-iva:focus {
     color: var(--orange) !important;
 }
 
+@media (min-width: 1800px) {
+    .modal-xl {
+      max-width: 1240px;
+    }
+  }
+

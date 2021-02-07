@@ -3,6 +3,7 @@
 use App\Models\BusinessTracking;
 use App\Models\Hardware;
 use App\Models\icon_name;
+use App\Models\Lead;
 use App\Models\Location;
 use App\Models\Municipalities;
 use App\Models\Portfolio;
@@ -100,3 +101,9 @@ Route::get('getSupportPrice',function(Request $request){
     ->join('products','products.pro_id','=','product_configs.pc_typepro')->get();
     return response()->json($query);
 })->name('getSupportPrice');
+
+Route::get('getRazonSocial',function(Request $request){
+    $query = Lead::where('lead_social',trim($request->data))
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getRazonSocial');

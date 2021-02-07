@@ -108,6 +108,10 @@
                                 <span class="icon-close"></span>
                                 <span hidden>{{$item->lead_id}}</span>
                             </a>
+                            <a href="#" title="Imprimir" class="btn-edit form-control-sm Imprimir-PDF">
+                                <span class="icon-arrow-circle-down"></span>
+                                <span hidden>{{$item->lead_id}}</span>
+                            </a>
                         </th>
                     </tr>
                     @endif
@@ -126,6 +130,7 @@
         $yearfutureSix = date('Y') + 6;
         $yearfutureSeven = date('Y') + 7;
     @endphp
+
     {{-- formulario de edicion de los registros --}}
     <div class="modal fade" id="newEditTra-modal">
         <div class="modal-dialog modal-xl">
@@ -134,7 +139,7 @@
                     <h5 class="text-primary" style="margin-top: 5px"><b>EDICION SEGUIMIENTO COMERCIAL</b></h5>
                 </div>
                 <div class="modal-body">
-                    <form action="#" id="FormCommercial_Edit" method="POST">
+                    <form action="{{route('proposal.update')}}" id="FormCommercial_Edit" method="POST">
                         @csrf
                         <div class="card-body p-4 border">
                             <div class="row">
@@ -251,7 +256,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <small class="text-muted">PRECIO:</small>
-                                                <input type="text" name="CoPrice" style="font-weight: bold" class="form-control form-control-sm text-primary" required >
+                                                <input type="text" name="CoPrice" style="font-weight: bold" class="form-control form-control-sm text-primary precio" required >
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +276,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <small class="text-muted">SUBTOTAL:</small>
-                                                <input type="text" name="CoSub" style="font-weight: bold" class="form-control form-control-sm text-primary"  required>
+                                                <input type="text" name="CoSub" style="font-weight: bold" class="form-control form-control-sm text-primary" required>
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -283,20 +288,20 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <small class="text-muted">VALOR IVA:</small>
-                                                <input type="text" style="font-weight: bold" name="CoVIva" class="form-control form-control-sm text-primary"  required>
+                                                <input type="text" style="font-weight: bold" name="CoVIva" class="form-control form-control-sm text-primary" required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <small class="text-muted">TOTAL:</small>
-                                                <input type="text" style="font-weight: bold" name="CoTotal" class="form-control form-control-sm text-primary"  required>
+                                                <input type="text" style="font-weight: bold" name="CoTotal" class="form-control form-control-sm text-primary" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-edit" style="margin: 5% 35%">ALMACENAR</button>
+                                                <button type="submit" class="btn btn-edit" style="margin: 5% 35%">ACTUALIZAR</button>
                                             </div>
                                             <input type="hidden" id="capture" name="CoProHidden">
                                         </div>
@@ -317,6 +322,67 @@
             </div>
         </div>
     </div>
+
+    {{-- creacion de mi formulario bitacora --}}
+	<div class="modal fade" id="newBitacora-modal">
+		<div class="modal-dialog modal-lg" style="font-size: 15px">
+			<div class="modal-content">
+				<div class="modal-header text-justify">
+					<h3 style="padding-top: 2%">NUEVA BITACORA</h3>
+				</div>
+				<div class="modal-body">
+					<form action="{{route('tekencommercial.index')}}" method="POST">
+						@csrf
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<small class="text-muted">FECHA:</small><br>
+									<span class="text-muted"><b class="NowDate"></b></span><br>
+									<input type="hidden" name="datelocale" value="{{date('Y-m-d')}}">
+									<small class="text-muted">RAZON SOCIAL</small>
+                                    <select name="social" id="" class="form-control form-control-sm" disabled="disabled">
+                                        <option value=""></option>
+                                        {{-- dinamics --}}
+                                    </select>
+									<input type="hidden" name="sid">
+									<div class="form-group" style="padding: 8% 15%">
+										<button type="submit" class="btn btn-success btn-width">Agregar Bitacora</button>
+										<button data-dismiss="modal" class="btn btn-dark btn-width" style="margin-top:5%">Cancelar</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<small class="text-muted">BITACORA</small>
+									<textarea name="Bitacora" id="Bitacora" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="invisible">
+		<form action="{{route('status.approvedcommercial')}}" method="POST" class="formstatusAp">
+			@csrf
+			<input type="text" name="bt_id_status">
+		</form>
+	</div>
+	<div class="invisible">
+		<form action="{{route('status.non-approvedcommercial')}}" method="POST" class="statusdenied">
+		@csrf
+			<input type="text" name="bt_status_denied">
+		</form>
+	</div>
+
+    <div class="invisible">
+		<form action="{{route('commercial.pdf')}}" method="POST" class="printerpdf">
+		@csrf
+			<input type="text" name="pdfprint">
+		</form>
+	</div>
 
 @endsection
 
@@ -401,10 +467,14 @@
 			})
         });
 
-        $('input[name=CoProText]').focus(function (e) {
-            e.preventDefault();
+        // al tener el foco el nombre del producto se dispara el toast y deshabilita mi input
+        $('input[name=CoProText]').focus(function () {
             $('input[name=CoProText]').prop('disabled', true);
-
+            $('input[name=CoPrice]').focus();
+            $('input[name=CoSub]').focus();
+            $('input[name=CoVIva]').focus();
+            $('input[name=CoTotal]').focus();
+            $('select[name=CoCat]').focus();
             const Toast = Swal.mixin({
             toast: true,
             position: 'top',
@@ -416,24 +486,19 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
             })
-
             Toast.fire({
             icon: 'info',
             title: 'Para editar un producto seleccione una categoria'
             })
         });
 
+        // al seleccionar categoria nuevamente se realizan las operaciones
         $('select[name=CoCat]').change(function(e) {
             var MySelect = e.target.value;
             $('input[name=CoProText]').prop('hidden',true);
             $('select[name=CoPro]').prop('hidden',false);
 			$('select[name=CoPro]').empty();
 			$('input[name=CoPrice]').val('');
-			$('input[name=CoSub]').val('');
-			$('input[name=CoCan]').val('');
-			$('input[name=CoIva]').val('');
-			$('input[name=CoVIva]').val('');
-			$('input[name=CoTotal]').val('');
 			$('select[name=CoPro]').append("<option value=''>Seleccione Producto</option>");
 			if (MySelect == 'FactinWeb') {
 				$.get("{{route('getFactin')}}",
@@ -468,6 +533,370 @@
 					}
 				);
 			}
+            let Price = $('input[name=CoPrice]').val();
+            let Bedrag = $('input[name=CoCan]').val();
+            let price = Price.replace(/\./g,"");
+            let bedrag = Bedrag.replace(/\./g,"");
+			let Total = price * bedrag;
+			$('input[name=CoSub]').val(Total);
+            let Subtotal = $('input[name=CoSub]').val();
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
+			let ValueIva = (subtotal * percentageiva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+			let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total1);
 		});
+
+        $('select[name=CoPro]').change(function (e) {
+            let product = e.target.value;
+			let Categories = $('select[name=CoCat]').val();
+			$('input[name=CoPrice]').val('');
+			if (Categories == 'FactinWeb') {
+				if (product != '') {
+					$.get("{{route('getFactinPrice')}}", {data: product},
+						function (FactinPrice) {
+							$('input[name=CoPrice]').val(FactinPrice[0].price);
+							$('#capture').val(FactinPrice[0].pro_name);
+                            let Price = $('input[name=CoPrice]').val();
+                            let Bedrag = $('input[name=CoCan]').val();
+                            let price = Price.replace(/\./g,"");
+                            let bedrag = Bedrag.replace(/\./g,"");
+                            let Total = price * bedrag;
+                            $('input[name=CoSub]').val(Total);
+                            let Subtotal = $('input[name=CoSub]').val();
+                            let PercentageIva = $('input[name=CoIva]').val();
+                            let subtotal = Subtotal.replace(/\./g,"");
+                            let percentageiva = PercentageIva.replace(/\./g,"");
+                            let ValueIva = (subtotal * percentageiva) / 100;
+                            $('input[name=CoVIva]').val(ValueIva);
+                            let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+                            $('input[name=CoTotal]').val(Total1);
+                            $('input[name=CoSub]').focus();
+                            $('input[name=CoVIva]').focus();
+                            $('input[name=CoTotal]').focus();
+                            $('input[name=CoPrice]').focus();
+						}
+					);
+				}
+			}else if (Categories == 'Software') {
+				if (product != '') {
+					$.get("{{route('getSoftwarePrice')}}", {data: product},
+						function (SoftPrice) {
+							$('input[name=CoPrice]').val(SoftPrice[0].sofprice);
+							$('#capture').val(SoftPrice[0].pro_name);
+                            let Price = $('input[name=CoPrice]').val();
+                            let Bedrag = $('input[name=CoCan]').val();
+                            let price = Price.replace(/\./g,"");
+                            let bedrag = Bedrag.replace(/\./g,"");
+                            let Total = price * bedrag;
+                            $('input[name=CoSub]').val(Total);
+                            let Subtotal = $('input[name=CoSub]').val();
+                            let PercentageIva = $('input[name=CoIva]').val();
+                            let subtotal = Subtotal.replace(/\./g,"");
+                            let percentageiva = PercentageIva.replace(/\./g,"");
+                            let ValueIva = (subtotal * percentageiva) / 100;
+                            $('input[name=CoVIva]').val(ValueIva);
+                            let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+                            $('input[name=CoTotal]').val(Total1);
+                            $('input[name=CoSub]').focus();
+                            $('input[name=CoVIva]').focus();
+                            $('input[name=CoTotal]').focus();
+                            $('input[name=CoPrice]').focus();
+						}
+					);
+				}
+			}else if (Categories == 'Hardware') {
+				if (product != '') {
+					$.get("{{route('getHardwarePrice')}}", {data: product},
+						function (HardPrice) {
+							$('input[name=CoPrice]').val(HardPrice[0].harprice);
+							$('#capture').val(HardPrice[0].pro_name);
+                            let Price = $('input[name=CoPrice]').val();
+                            let Bedrag = $('input[name=CoCan]').val();
+                            let price = Price.replace(/\./g,"");
+                            let bedrag = Bedrag.replace(/\./g,"");
+                            let Total = price * bedrag;
+                            $('input[name=CoSub]').val(Total);
+                            let Subtotal = $('input[name=CoSub]').val();
+                            let PercentageIva = $('input[name=CoIva]').val();
+                            let subtotal = Subtotal.replace(/\./g,"");
+                            let percentageiva = PercentageIva.replace(/\./g,"");
+                            let ValueIva = (subtotal * percentageiva) / 100;
+                            $('input[name=CoVIva]').val(ValueIva);
+                            let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+                            $('input[name=CoTotal]').val(Total1);
+                            $('input[name=CoSub]').focus();
+                            $('input[name=CoVIva]').focus();
+                            $('input[name=CoTotal]').focus();
+                            $('input[name=CoPrice]').focus();
+						}
+					);
+				}
+			}else if (Categories == 'SoporteTecnico') {
+				if (product != '') {
+					$.get("{{route('getSupportPrice')}}", {data: product},
+						function (SupportPrice) {
+							$('input[name=CoPrice]').val(SupportPrice[0].tsprice);
+							$('#capture').val(SupportPrice[0].pro_name);
+                            let Price = $('input[name=CoPrice]').val();
+                            let Bedrag = $('input[name=CoCan]').val();
+                            let price = Price.replace(/\./g,"");
+                            let bedrag = Bedrag.replace(/\./g,"");
+                            let Total = price * bedrag;
+                            $('input[name=CoSub]').val(Total);
+                            let Subtotal = $('input[name=CoSub]').val();
+                            let PercentageIva = $('input[name=CoIva]').val();
+                            let subtotal = Subtotal.replace(/\./g,"");
+                            let percentageiva = PercentageIva.replace(/\./g,"");
+                            let ValueIva = (subtotal * percentageiva) / 100;
+                            $('input[name=CoVIva]').val(ValueIva);
+                            let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+                            $('input[name=CoTotal]').val(Total1);
+                            $('input[name=CoSub]').focus();
+                            $('input[name=CoVIva]').focus();
+                            $('input[name=CoTotal]').focus();
+                            $('input[name=CoPrice]').focus();
+						}
+					);
+				}
+            }
+		});
+
+        $('input[name=CoCan]').change(function (e) {
+            e.preventDefault();
+            let Price = $('input[name=CoPrice]').val();
+            let Bedrag = $('input[name=CoCan]').val();
+            let price = Price.replace(/\./g,"");
+            let bedrag = Bedrag.replace(/\./g,"");
+			let Total = price * bedrag;
+			$('input[name=CoSub]').val(Total);
+            $('input[name=CoSub]').focus();
+            let Subtotal = $('input[name=CoSub]').val();
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
+			let ValueIva = (subtotal * percentageiva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+            $('input[name=CoVIva]').focus();
+			let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total1);
+            $('input[name=CoTotal]').focus();
+		});
+
+		$('input[name=CoIva]').change(function () {
+			let Subtotal = $('input[name=CoSub]').val();
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
+			let ValueIva = (subtotal * percentageiva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+			let Total = parseInt(subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total);
+		});
+
+        $('input[name=CoPrice]').change(function () {
+            let Price = $('input[name=CoPrice]').val();
+            let Bedrag = $('input[name=CoCan]').val();
+            let price = Price.replace(/\./g,"");
+            let bedrag = Bedrag.replace(/\./g,"");
+			let Total = price * bedrag;
+            $('input[name=CoSub]').val(Total);
+            $('input[name=CoSub]').focus();
+            let Subtotal = $('input[name=CoSub]').val();
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
+			let ValueIva = (subtotal * percentageiva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+            $('input[name=CoVIva]').focus();
+			let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total1);
+            $('input[name=CoTotal]').focus();
+        });
+
+        // precio
+        $('input[name=CoPrice]').focus(function (e) {
+            e.preventDefault();
+            let precio = $('input[name=CoPrice]').val();
+            let vprecio = precio.replace(/\./g,"");
+            $('input[name=CoPrice]').val(vprecio);
+        });
+        // subtotal
+        $('input[name=CoSub]').focus(function (e) {
+            e.preventDefault();
+            let sub = $('input[name=CoSub]').val();
+            let vsub = sub.replace(/\./g,"");
+            $('input[name=CoSub]').val(vsub);
+        });
+        // valor iva
+        $('input[name=CoVIva]').focus(function (e) {
+            e.preventDefault();
+            let iva = $('input[name=CoVIva]').val();
+            let viva = iva.replace(/\./g,"");
+            $('input[name=CoVIva]').val(viva);
+        });
+        // total
+        $('input[name=CoTotal]').focus(function (e) {
+            e.preventDefault();
+            let total = $('input[name=CoTotal]').val();
+            let vtotal = total.replace(/\./g,"");
+            $('input[name=CoTotal]').val(vtotal);
+        });
+        // llama a mi bitacora
+		$('.BitacoraCreation-link').click(function (e) {
+			e.preventDefault();
+			var id, txtSocial, listSocial;
+			id = $(this).find('span:nth-child(2)').text();
+			RSocial = $(this).find('span:nth-child(4)').text();
+            $('select[name=social]').empty();
+            $('select[name=social]').append("<option value=''>Seleccione Entidad</option>");
+            $.get("{{route('getRazonSocial')}}", {data: RSocial},
+                function (objectSocial) {
+                    for (let index = 0; index < objectSocial.length; index++) {
+                        if (objectSocial[index]['bt_id'] == RSocial) {
+                            $('select[name=social]').append("<option value='"+objectSocial[index]['bt_id']+"' selected>"+objectSocial[index]['bt_social']+"</option>");
+                        }else{
+                            $('select[name=social]').append("<option value='"+objectSocial[index]['bt_id']+"'>"+objectSocial[index]['bt_social']+"</option>");
+                        }
+                    }
+                }
+            );
+			$('select[name=social]').val(RSocial);
+			$('input[name=sid]').val(id);
+			$('#newBitacora-modal').modal();
+		});
+
+        // cambia de estado a abrobado segun mi objecto
+		$('.AprobarCreation-link').click(function (e) {
+			e.preventDefault();
+			var newid;
+			newid = $(this).find('span:nth-child(2)').text();
+			$('input[name=bt_id_status]').val(newid);
+			$('.formstatusAp').submit();
+		});
+		// cambia de estado a denegado segun mi object
+		$('.NoAprobarCreation-link').click(function (e) {
+			e.preventDefault();
+			var deniedid;
+			deniedid = $(this).find('span:nth-child(2)').text();
+			$('input[name=bt_status_denied]').val(deniedid);
+			$('.statusdenied').submit();
+		});
+
+        // formato de impresión
+        $('.Imprimir-PDF').click(function (e) {
+            e.preventDefault();
+            var printer;
+			printer = $(this).find('span:nth-child(2)').text();
+            $('input[name=pdfprint]').val(printer);
+            $('.printerpdf').submit();
+        });
+
 	</script>
+    @if(session('SuccessCreation'))
+	<script>
+		Swal.fire({
+			icon: 'success',
+			title: '¡creado con exito!',
+			timer: 3000,
+			timerProgressBar: true,
+			showConfirmButton: false,
+			showClass: {
+			popup: 'animate__animated animate__flipInX'
+			},
+			hideClass: {
+			popup: 'animate__animated animate__flipOutX'
+			}
+		})
+	</script>
+	@endif
+	@if(session('SecondaryCreation'))
+	<script>
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops..',
+			text: '¡configuración existente!',
+			timer: 3000,
+			timerProgressBar: true,
+			showConfirmButton: false,
+			showClass: {
+			popup: 'animate__animated animate__flipInX'
+			},
+			hideClass: {
+			popup: 'animate__animated animate__flipOutX'
+			}
+		})
+	</script>
+	@endif
+	@if (session('SecondCreation') == "NoEncontrado")
+		<script>
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops..',
+				text: 'registro no encontrado',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
+	@if (session('PrimaryCreation'))
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '¡actualizado con exito!',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
+	@if (session('WarningCreation'))
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: '¡actualizado con exito!',
+				timer: 3000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+				popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
+	@if (session('Message') == 'MessageError')
+		<script>
+			Swal.fire({
+				icon: 'info',
+				title: 'Area en Construcción, Pronto estara disponible!',
+				timer: 5000,
+				timerProgressBar: true,
+				showConfirmButton: false,
+				showClass: {
+					popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__flipOutX'
+				}
+			})
+		</script>
+	@endif
 @endsection

@@ -144,7 +144,7 @@
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
-										<small class="text-muted">SUBTOTAL:</small>
+										<small class="text-muted">SUBTOTAL:</small><br>
 										<input type="text" name="CoSub" style="font-weight: bold" class="form-control form-control-sm text-primary" disabled required>
 									</div>
 								</div>
@@ -324,8 +324,8 @@
 				if (product != '') {
 					$.get("{{route('getFactinPrice')}}", {data: product},
 						function (FactinPrice) {
-							console.log(FactinPrice);
 							$('input[name=CoPrice]').val(FactinPrice[0].price);
+                            $('input[name=CoPrice]').focus();
 							$('#capture').val(FactinPrice[0].pro_name);
 						}
 					);
@@ -335,6 +335,7 @@
 					$.get("{{route('getSoftwarePrice')}}", {data: product},
 						function (SoftPrice) {
 							$('input[name=CoPrice]').val(SoftPrice[0].sofprice);
+                            $('input[name=CoPrice]').focus();
 							$('#capture').val(SoftPrice[0].pro_name);
 						}
 					);
@@ -344,6 +345,7 @@
 					$.get("{{route('getHardwarePrice')}}", {data: product},
 						function (HardPrice) {
 							$('input[name=CoPrice]').val(HardPrice[0].harprice);
+                            $('input[name=CoPrice]').focus();
 							$('#capture').val(HardPrice[0].pro_name);
 						}
 					);
@@ -353,6 +355,7 @@
 					$.get("{{route('getSupportPrice')}}", {data: product},
 						function (SupportPrice) {
 							$('input[name=CoPrice]').val(SupportPrice[0].tsprice);
+                            $('input[name=CoPrice]').focus();
 							$('#capture').val(SupportPrice[0].pro_name);
 						}
 					);
@@ -361,24 +364,72 @@
 		});
 
 		$('input[name=CoCan]').change(function () {
-			let Price = $('input[name=CoPrice]').val();
+            let Price = $('input[name=CoPrice]').val();
             let Bedrag = $('input[name=CoCan]').val();
-            let price = Price.replace('.','');
-            let bedrag = Bedrag.replace('.','');
+            let price = Price.replace(/\./g,"");
+            let bedrag = Bedrag.replace(/\./g,"");
 			let Total = price * bedrag;
-			$('input[name=CoSub]').val(Total);
+            $('input[name=CoSub]').val(Total);
+            $('input[name=CoSub]').focus();
 		});
 
 		$('input[name=CoIva]').change(function () {
 			let Subtotal = $('input[name=CoSub]').val();
             let PercentageIva = $('input[name=CoIva]').val();
-            let subtotal = Subtotal.replace('.','');
-            let percentageiva = PercentageIva.replace('.','');
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
 			let ValueIva = (subtotal * percentageiva) / 100;
 			$('input[name=CoVIva]').val(ValueIva);
+            $('input[name=CoVIva]').focus();
 			let Total = parseInt(subtotal) + parseInt(ValueIva);
 			$('input[name=CoTotal]').val(Total);
+            $('input[name=CoTotal]').focus();
 		});
+
+        $('input[name=CoPrice]').change(function () {
+            let Price = $('input[name=CoPrice]').val();
+            let Bedrag = $('input[name=CoCan]').val();
+            let price = Price.replace(/\./g,"");
+            let bedrag = Bedrag.replace(/\./g,"");
+			let Total = price * bedrag;
+            $('input[name=CoSub]').val(Total);
+            $('input[name=CoSub]').focus();
+            let Subtotal = $('input[name=CoSub]').val();
+            let PercentageIva = $('input[name=CoIva]').val();
+            let subtotal = Subtotal.replace(/\./g,"");
+            let percentageiva = PercentageIva.replace(/\./g,"");
+			let ValueIva = (subtotal * percentageiva) / 100;
+			$('input[name=CoVIva]').val(ValueIva);
+            $('input[name=CoVIva]').focus();
+			let Total1 = parseInt(subtotal) + parseInt(ValueIva);
+			$('input[name=CoTotal]').val(Total1);
+            $('input[name=CoTotal]').focus();
+        });
+
+        // precio
+        $('input[name=CoPrice]').focus(function () {
+            let precio = $('input[name=CoPrice]').val();
+            let vprecio = precio.replace(/\./g,"");
+            $('input[name=CoPrice]').val(vprecio);
+        });
+        // subtotal
+        $('input[name=CoSub]').focus(function () {
+            let sub = $('input[name=CoSub]').val();
+            let vsub = sub.replace(/\./g,"");
+            $('input[name=CoSub]').val(vsub);
+        });
+        // valor iva
+        $('input[name=CoVIva]').focus(function () {
+            let iva = $('input[name=CoVIva]').val();
+            let viva = iva.replace(/\./g,"");
+            $('input[name=CoVIva]').val(viva);
+        });
+        // total
+        $('input[name=CoTotal]').focus(function () {
+            let total = $('input[name=CoTotal]').val();
+            let vtotal = total.replace(/\./g,"");
+            $('input[name=CoTotal]').val(vtotal);
+        });
     </script>
 
     @if(session('SuccessCreation') == 'Almacenado')

@@ -12,6 +12,7 @@
 */
 //
 
+use App\Http\Controllers\TradeController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -120,7 +121,13 @@ Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name
 // rutas comercial
 Route::get('/Commercial-Proposal', 'TradeController@commercialproposalindex')->name('proposal.index');
 Route::post('/Commercial-Proposal/save', 'TradeController@commercialproposalsave')->name('proposal.save');
+Route::post('/Commercial-Proposal/update', 'TradeController@commercialproposalupdate')->name('proposal.update');
 
 Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
+Route::post('/Commercial-Monitoring/teken', 'TradeController@commercialmonitoringteken')->name('tekencommercial.index');
+Route::post('/Commercial-Monitoring/status-approved','TradeController@commercialmonitoringapproved')->name('status.approvedcommercial');
+Route::post('/Commercial-Monitoring/status-nonapproved','TradeController@commercialmonitoringnonapproved')->name('status.non-approvedcommercial');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
 Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');
+
+Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name('commercial.pdf');

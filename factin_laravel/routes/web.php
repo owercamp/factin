@@ -122,12 +122,18 @@ Route::get('/Business-Archive', 'BusinessController@businessarchiveindex')->name
 Route::get('/Commercial-Proposal', 'TradeController@commercialproposalindex')->name('proposal.index');
 Route::post('/Commercial-Proposal/save', 'TradeController@commercialproposalsave')->name('proposal.save');
 Route::post('/Commercial-Proposal/update', 'TradeController@commercialproposalupdate')->name('proposal.update');
-
+//rutas  monitoreo comercial
 Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
 Route::post('/Commercial-Monitoring/teken', 'TradeController@commercialmonitoringteken')->name('tekencommercial.index');
 Route::post('/Commercial-Monitoring/status-approved','TradeController@commercialmonitoringapproved')->name('status.approvedcommercial');
 Route::post('/Commercial-Monitoring/status-nonapproved','TradeController@commercialmonitoringnonapproved')->name('status.non-approvedcommercial');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
 Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');
-
+//pdf
 Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name('commercial.pdf');
+Route::post('/Commercial-Monitoring/StatusPDF','TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');
+//contratación
+Route::get('/Agreement-ClientLegalization', 'AgreementController@ClienteLegalization')->name('ClientLegalization.index');
+Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegalization')->name('ContractLegalization.index');
+Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
+Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator')->name('SuccessIndicator.index');

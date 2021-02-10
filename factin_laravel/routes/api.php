@@ -10,6 +10,7 @@ use App\Models\Portfolio;
 use App\Models\Software;
 use App\Models\TechnicalSupport;
 use App\Models\Teken;
+use App\Models\TekenCommercial;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 
@@ -34,11 +35,17 @@ Route::get('getMunicipalities',function(Request $request){
     return response()->json($municipality);
 })->name('getMunicipalities');
 
-//obtencion de las bitacoras segun la razón social
+//obtencion de las bitacoras segun la razón social tabla business-trackings
 Route::get('getTekens',function(Request $request){
     $query = Teken::where('tk_social',trim($request->data))->get();
     return response()->json($query);
 })->name('getTekens');
+
+//obtencion de las bitacoras segun la razón social tabla business-trackings
+Route::get('getTekensCommercial',function(Request $request){
+    $query = TekenCommercial::where('tkc_social',trim($request->data))->get();
+    return response()->json($query);
+})->name('getTekensCommercial');
 
 //obtencion del registro apartir de la razon social
 Route::get('getCommercial',function(Request $request){
@@ -46,6 +53,7 @@ Route::get('getCommercial',function(Request $request){
     return response()->json($query);
 })->name('getCommercial');
 
+// consulta de productos factin formulario oportunidad commercial
 Route::get('getFactin',function(){
     $query = Portfolio::select('portfolios.*', 'product_configs.*', 'products.*')
     ->join('product_configs', 'product_configs.pc_id', '=', 'portfolios.cpro_id')
@@ -53,6 +61,7 @@ Route::get('getFactin',function(){
     return response()->json($query);
 })->name('getFactin');
 
+// consulta de productos software formulario oportunidad commercial
 Route::get('getSoftware',function(){
     $query = Software::select('software.*', 'product_configs.*', 'products.*')
     ->join('product_configs', 'product_configs.pc_id', '=', 'software.cpro_id')
@@ -60,6 +69,7 @@ Route::get('getSoftware',function(){
     return response()->json($query);
 })->name('getSoftware');
 
+// consulta de productos hardware formulario oportunidad commercial
 Route::get('getHardware',function(){
     $query = Hardware::select('hardware.*', 'product_configs.*', 'products.*')
     ->join('product_configs', 'product_configs.pc_id', '=', 'hardware.cpro_id')
@@ -67,6 +77,7 @@ Route::get('getHardware',function(){
     return response()->json($query);
 })->name('getHardware');
 
+// consulta de productos soprte tecnico formulario oportunidad commercial
 Route::get('getSupport',function(){
     $query = TechnicalSupport::select('technical_supports.*', 'product_configs.*', 'products.*')
     ->join('product_configs', 'product_configs.pc_id', '=', 'technical_supports.cpro_id')
@@ -74,6 +85,7 @@ Route::get('getSupport',function(){
     return response()->json($query);
 })->name('getSupport');
 
+// consulta del precios del producto factin formulario oportunidad commercial
 Route::get('getFactinPrice',function(Request $request){
     $query = Portfolio::where('por_id',trim($request->data))
     ->join('product_configs','product_configs.pc_id','=','portfolios.cpro_id')
@@ -81,6 +93,7 @@ Route::get('getFactinPrice',function(Request $request){
     return response()->json($query);
 })->name('getFactinPrice');
 
+// consulta del precios del producto software formulario oportunidad commercial
 Route::get('getSoftwarePrice',function(Request $request){
     $query = Software::where('sof_id',trim($request->data))
     ->join('product_configs','product_configs.pc_id','=','software.cpro_id')
@@ -88,6 +101,7 @@ Route::get('getSoftwarePrice',function(Request $request){
     return response()->json($query);
 })->name('getSoftwarePrice');
 
+// consulta del precios del producto hardware formulario oportunidad commercial
 Route::get('getHardwarePrice',function(Request $request){
     $query = Hardware::where('har_id',trim($request->data))
     ->join('product_configs','product_configs.pc_id','=','hardware.cpro_id')
@@ -95,6 +109,7 @@ Route::get('getHardwarePrice',function(Request $request){
     return response()->json($query);
 })->name('getHardwarePrice');
 
+// consulta del precios del producto soporte tecnico formulario oportunidad commercial
 Route::get('getSupportPrice',function(Request $request){
     $query = TechnicalSupport::where('id',trim($request->data))
     ->join('product_configs','product_configs.pc_id','=','technical_supports.cpro_id')
@@ -102,6 +117,7 @@ Route::get('getSupportPrice',function(Request $request){
     return response()->json($query);
 })->name('getSupportPrice');
 
+// consulta la razon social para el formulario de edicion de oprtunidad commercial
 Route::get('getRazonSocial',function(Request $request){
     $query = Lead::where('lead_social',trim($request->data))
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();

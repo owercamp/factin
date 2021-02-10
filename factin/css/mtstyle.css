@@ -130,7 +130,6 @@ a {
 a.text-iva:hover, a.text-iva:focus {
     color: var(--orange) !important;
 }
-
 @media (min-width: 1800px) {
     .modal-xl {
         max-width: 1240px;
@@ -138,4 +137,49 @@ a.text-iva:hover, a.text-iva:focus {
 }
 
 
-
+.image-pdf{
+    float: left;
+    margin-top: 3%;
+    margin-left: 1%;
+    border-radius: 25px;
+}
+.display-flex{
+    float: right;
+    margin-top: 6%;
+    width: 400px;
+    margin-right: 7%;
+    color: #fe9a00;
+    margin-bottom:-48px;
+}
+.myborder{
+    padding-top: 3%;
+    border: cadetblue solid 1.5px;
+    height: 22% !important;
+    border-radius: 25px;
+}
+.labeltext{
+    float: left;
+    margin-top: -1.5%;
+    margin-left: 3%;
+    background-color: #fff;
+    padding: auto 10%;
+    padding-bottom: .9%;
+    border: cadetblue solid 1.5px;
+    border-radius: 45%;
+}
+.myborder2{
+    margin-top: 2.5%;
+    padding-top: 3%;
+    border: cadetblue solid 1.5px;
+    height: 32% !important;
+    border-radius: 25px;
+}
+.labeltext2{
+    float: left;
+    margin-top: -1.5%;
+    margin-left: 3%;
+    background-color: #fff;
+    padding: auto 7%;
+    border: cadetblue solid 1.5px;
+    border-radius: 45%;
+}

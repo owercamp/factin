@@ -23,7 +23,10 @@ class TradeController extends Controller
 
     function commercialfileindex()
     {
-        $commercial = Lead::all();
+        $commercial = Lead::select('leads.*','business_trackings.*','locations.*','municipalities.*')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
 
         return view('partials.PotentialCustomers.CommercialFile', compact('commercial'));
     }
@@ -185,10 +188,23 @@ class TradeController extends Controller
 
     function CommercialPDF(Request $request)
     {
-        // return $request;
+        $commercial = Lead::where('lead_id',$request->pdfprint)
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->first();
 
-        $pdf = PDF::loadView('partials.pdf.ArchivePDF');
+        $pdf = PDF::loadView('partials.pdf.ArchivePDF', \compact('commercial'));
         return $pdf->stream('Formato.pdf');
+    }
 
+    function CommercialstatusPDF(Request $request)
+    {
+        $commercial = Lead::where('lead_id',$request->pdfprint)
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->first();
+
+        $pdf = PDF::loadView('partials.pdf.ArchivestatusPDF', \compact('commercial'));
+        return $pdf->stream('Formato.pdf');
     }
 }

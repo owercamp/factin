@@ -161,6 +161,28 @@
             border-radius: 45%;
             z-index: 1000;
         }
+        .statusApproved{
+            float:right;
+            margin-top:-90%;
+            margin-right: 9%;
+            padding: .1% 5%;
+            font-size: 2em;
+            color:#28a745;
+            border: #28a745 solid 1px;
+            border-radius: 45%;
+            z-index: 1000;
+        }
+        .statusNonApproved{
+            float:right;
+            margin-top:-90%;
+            margin-right: 9%;
+            padding: .1% 5%;
+            font-size: 2em;
+            color:#BD0006;
+            border: #BD0006 solid 1px;
+            border-radius: 45%;
+            z-index: 1000;
+        }
 
         </style>
         <title>Descargas PDF</title>
@@ -269,7 +291,11 @@
                             <span><p>{{number_format($commercial->lead_sub,0,',','.')}}</p></span>
                         </div>
                     </div>
-                    <p class="status">EN SEGUIMIENTO</p>
+                    @if ($commercial->lead_status == "APROBADO")
+                        <p class="statusApproved">{{$commercial->lead_status}}</p>
+                    @else
+                        <p class="statusNonApproved">{{$commercial->lead_status}}</p>
+                    @endif
                 </div>
                 <div style="margin-left: 2%; margin-top: 1%">
                     <div class="form-group">

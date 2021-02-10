@@ -53,7 +53,7 @@
                     @if ($item->lead_status != null)
                     <tr>
                         <th>{{$row++}}</th>
-                        <th>{{$item->lead_social}}</th>
+                        <th>{{$item->bt_social}}</th>
                         <th>{{$item->lead_con}}</th>
                         <th>{{$item->munname}}</th>
                         <th>{{$item->lead_pho}}</th>
@@ -100,7 +100,7 @@
                                     <select name="social" id="rsocial" title="RAZON SOCIAL: (Oportunidades de negocio)" class="form-control form-control-sm" style="margin-top: 2px" required>
                                         <option value="">Seleccione...</option>
                                         @foreach ($commercial as $item)
-                                            <option value="{{$item->lead_id}}">{{$item->lead_social}}</option>
+                                            <option value="{{$item->lead_id}}">{{$item->bt_social}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -130,12 +130,54 @@
             </div>
         </div>
     </div>
+
+    <div class="invisible">
+		<form action="{{route('commercialstatus.pdf')}}" method="POST" class="printerpdf">
+		@csrf
+			<input type="text" name="pdfprint">
+		</form>
+	</div>
 @endsection
 
 @section('ScriptZone')
 	<script>
-		$(function(){
-
+		$('.History-link').click(function (e) {
+			e.preventDefault();
+			$('.MyForm').hide("slow");
+			$('#History-modal').modal();
 		});
+
+        $('.searck-link').click(function (e) {
+			e.preventDefault();
+			$('.MyForm').hide("slow");
+			$('.tblHistory tbody').empty();
+			var socialSelected = $('#rsocial').val();
+			$.get("{{route('getTekensCommercial')}}", {data: socialSelected},
+				function (HistoryTeken) {
+					var count = Object.keys(HistoryTeken).length;
+					if (count > 0) {
+						var counter = 1;
+						for (let i = 0; i < count; i++) {
+							$('.tblHistory tbody').append(
+								"<tr>"+
+									"<td>"+ counter++ +"</td>"+
+									"<td>"+HistoryTeken[i]['tkc_Date']+"</td>"+
+									"<td>"+HistoryTeken[i]['tkc_teken']+"</td>"+
+								"</tr>"
+							);
+						}
+					}
+			});
+			$('.MyForm').show("slow");
+		});
+
+        // formato de impresión
+        $('.Imprimir-PDF').click(function (e) {
+            e.preventDefault();
+            var printer;
+			printer = $(this).find('span:nth-child(2)').text();
+            $('input[name=pdfprint]').val(printer);
+            $('.printerpdf').submit();
+        });
 	</script>
 @endsection

@@ -35,18 +35,18 @@
     <style>body{font-family: 'Raleway'}</style>
 </head>
 <body>
-    <div id="app"> 
-        @auth            
+    <div id="app">
+        @auth
         <div class="container-fluid logout-final">
             <div class="btn btn-default offset-05 logout-text-color" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();"><em>{{auth::User()->name}}</em> | <b>Salir</b><span class="icon-plex"></span>       
+            document.getElementById('logout-form').submit();"><em>{{auth::User()->name}}</em> | <b>Salir</b><span class="icon-plex"></span>
             </div>
         </div>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
         @endauth
-        <header class="container-fluid">        
+        <header class="container-fluid">
             <div class="flex-direction flex-justified">
                 <div class="figure icon1">
                     <a href="#">
@@ -57,7 +57,7 @@
                     <div class="text-center version-color blockquote" style="margin: 1%">
                         <strong class="legend">Factin Online Service versión 21.01.01  |  <em>Copyright © Javapri</em></strong>
                     </div>
-                    @auth                        
+                    @auth
                     <div class="navbar-collapse flex-justified marge-list">
                         <div class="navbar">
                             <div class="dropdown">
@@ -85,7 +85,7 @@
                                     <li><a href="{{route('factin.index')}}">PORTAFOLIO</a></li>
                                     <li><a href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a></li>
                                     <li><a href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a></li>
-                                    <li><a href="#">CONTRATACIÓN</a></li>
+                                    <li><a href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a></li>
                                 </ul>
                             </div>
                             <div class="dropdown">
@@ -109,13 +109,13 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>          
+                    </div>
                     @endauth
                 </div>
                 <div class="figure icon2">
                     <a href="#">
                         <img src="{{asset('img/Logojavapri.png')}}" alt="img-javapri" class="size-img">
-                    </a>                
+                    </a>
                 </div>
             </div>
         </header>
@@ -123,7 +123,7 @@
             @yield('content')
         </main>
     </div>
-    
+
     @yield('ScriptZone')
 </body>
 </html>

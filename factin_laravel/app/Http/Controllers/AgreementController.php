@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lead;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class AgreementController extends Controller
@@ -13,7 +15,13 @@ class AgreementController extends Controller
 
     function ClienteLegalization()
     {
-        return \view('partials.Agreement.ClientLegalization');
+        $Departament = Location::all();
+        $Client = Lead::select('leads.*','business_trackings.*','locations.*','municipalities.*')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
+
+        return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament'));
     }
 
     function ContractLegalization()

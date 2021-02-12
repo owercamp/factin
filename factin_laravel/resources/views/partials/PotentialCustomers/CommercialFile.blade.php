@@ -7,9 +7,9 @@
             <div class="col-md-4">
                 <h5 class="navbar-brand">ARCHIVO COMERCIAL</h5>
             </div>
-            <div  class="col-md-4 text-center">
+            {{-- <div  class="col-md-4 text-center">
 				<button type="button" title="Historial" class="btn-success form-control-sm History-link"><b>Historiales</b></button>
-			</div>
+			</div> --}}
 			<div class="col-md-4">
 				@if(session('SuccessCreation'))
 				<div class="alert alert-success">

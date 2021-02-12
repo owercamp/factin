@@ -7,9 +7,9 @@
 			<div class="col-md-4">
 				<h6 class="navbar-brand">ARCHIVO DE NEGOCIOS</h6>
 			</div>
-			<div  class="col-md-4 text-center">
+			{{-- <div  class="col-md-4 text-center">
 				<button type="button" title="Historial" class="btn-success form-control-sm History-link"><b>Historiales</b></button>
-			</div>
+			</div> --}}
 			<div class="col-md-4">
 				@if(session('SuccessCreation'))
 				<div class="alert alert-success">
@@ -49,7 +49,7 @@
 					$row =1;
 				@endphp
 				@foreach ($business as $item)
-					@if ($item->bt_status != null)	
+					@if ($item->bt_status != null)
 					<tr>
 						<th>{{$row++}}</th>
 						<th>{{$item->bt_social}}</th>
@@ -60,7 +60,7 @@
 						<th><span class="badge badge-success" style="font-size: 15px">{{$item->bt_status}}</span></th>
 						@else
 						<th><span class="badge badge-warning" style="font-size: 15px">{{$item->bt_status}}</span></th>
-						@endif						
+						@endif
 					</tr>
 					@endif
 				@endforeach
@@ -102,7 +102,7 @@
 								<button class="btn btn-dark form-control-sm searck-link">CONSULTAR</button>
 							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
 				<div class="modal-body MyForm">
 					<div class="col-ms-12">
@@ -114,7 +114,7 @@
 									<th>BITACORA</th>
 								</tr>
 							</thead>
-							<tbody>								
+							<tbody>
 								{{-- Section Dinamics --}}
 							</tbody>
 						</table>
@@ -133,7 +133,7 @@
 			$('#History-modal').modal();
 		});
 
-		$('.searck-link').click(function (e) { 
+		$('.searck-link').click(function (e) {
 			e.preventDefault();
 			$('.MyForm').hide("slow");
 			$('.tblHistory tbody').empty();
@@ -154,7 +154,7 @@
 						}
 					}
 			});
-			$('.MyForm').show("slow");			
+			$('.MyForm').show("slow");
 		});
 	</script>
 @endsection

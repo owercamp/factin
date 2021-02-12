@@ -108,6 +108,14 @@ function seeDirection($urls ='/home')
 			return 'Comercial >> Clientes Potenciales >> Archivo Comercial';
 		case '/factin/Commercial-Indicator':
 			return 'Comercial >> Clientes Potenciales >> Indicadores de Exito';
+		case '/factin/Agreement-ClientLegalization':
+			return 'Comercial >> Contratación >> Legalización Cliente';
+		case '/factin/Agreement-ContractLegalization':
+			return 'Comercial >> Contratación >> Legalización Contrato';
+		case '/factin/Agreement-ContractsFile':
+			return 'Comercial >> Contratación >> Archivo Contrataciones';
+		case '/factin/Agreement-SuccessIndicator':
+			return 'Comercial >> Contratación >> Indicadores de Exito';
     }
 }
 

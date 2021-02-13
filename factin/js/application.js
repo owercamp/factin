@@ -127,7 +127,7 @@ function loadDatatables(){
 			search: 		"Buscar:",
 			lengthMenu:    	"Mostrar _MENU_ registros",
 			info:           "Mostrando _END_ de _TOTAL_ registros. ",
-			infoEmpty:      "Mostrando 0 datos de 0 registros",	
+			infoEmpty:      "Sin registros para mostrar",	
 			emptyTable:     "No hay registros disponibles",
 			infoFiltered:   "Filtrado de _MAX_ elementos totales",
 			infoPostFix:    "",

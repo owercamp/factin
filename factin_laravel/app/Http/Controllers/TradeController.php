@@ -48,7 +48,7 @@ class TradeController extends Controller
         $MyData = BusinessTracking::select('locations.*','municipalities.*','business_trackings.*')
         ->join('locations','locations.depid','=','business_trackings.bt_dep')
         ->join('municipalities','municipalities.munid','=','business_trackings.bt_mun')->get();
-    return view('partials.PotentialCustomers.CommercialProposal', compact('MyData','Departament','Municipality'));
+        return view('partials.PotentialCustomers.CommercialProposal', compact('MyData','Departament','Municipality'));
     }
 
     function commercialproposalsave(Request $request)

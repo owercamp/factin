@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\Lead;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\This;
 
 class AgreementController extends Controller
 {
@@ -23,6 +24,34 @@ class AgreementController extends Controller
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
         return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament'));
+    }
+
+    function ClientLegalizationSave(Request $request)
+    {
+        // return $request;
+        $validate = Agreement::where('legal_social',\trim($request->ClSocial))
+        ->where('legal_repre',$this->fu($request->ClRepresentante))
+        ->where('legal_DocRepre',\trim($request->ClNumeroRepre))->first();
+        if ($validate == null) {
+            Agreement::create([
+                'legal_social' =>\trim($request->ClSocial),
+                'legal_dep' =>\trim($request->ClDep),
+                'legal_mun' =>\trim($request->ClMun),
+                'legal_adr' =>$this->fu($request->ClDir),
+                'legal_pho' =>$this->fu($request->ClTel),
+                'legal_what' =>$this->fu($request->ClWhat),
+                'legal_ema' =>$this->fu($request->ClEma),
+                'legal_typeClient' =>$this::upper($request->CltypeCli),
+                'legal_typeDocRSocial' =>$this->upper($request->ClDoc),
+                'legal_DocRSocial' =>$this->fu($request->ClNumero),
+                'legal_repre' =>$this::upper($request->ClRepresentante),
+                'legal_typeDocRepre' =>$this::upper($request->ClDocRepre),
+                'legal_DocRepre' =>$this->fu($request->ClNumeroRepre)
+            ]);
+                return \redirect()->route('ClientLegalization.index')->with('SuccessCreation','Legalización del cliente con representante legal '.$this::upper($request->ClRepresentante).' almacenada correctamente');
+        }else {
+            return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation','legalización del cliente con representante legal '.$this::upper($request->ClRepresentante).' no pudo ser almacena existe datos duplicados');
+        }
     }
 
     function ContractLegalization()

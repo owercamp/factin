@@ -134,6 +134,7 @@ Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name(
 Route::post('/Commercial-Monitoring/StatusPDF','TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');
 //contratación
 Route::get('/Agreement-ClientLegalization', 'AgreementController@ClienteLegalization')->name('ClientLegalization.index');
+Route::post('/Agreement-ClientLegalization/save', 'AgreementController@ClientLegalizationSave')->name('ClientLegalization.save');
 Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegalization')->name('ContractLegalization.index');
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
 Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator')->name('SuccessIndicator.index');

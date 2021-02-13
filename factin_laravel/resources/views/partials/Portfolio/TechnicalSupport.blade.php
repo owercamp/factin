@@ -44,7 +44,7 @@
 			</thead>
 			<tbody>
 				@php $row=1; @endphp
-				@foreach ($tsupport as $item)	
+				@foreach ($tsupport as $item)
 				<tr>
 					<td>{{$row++}}</td>
 					<td>{{$item->pro_name}}</td>
@@ -96,7 +96,7 @@
 								<div class="row justify-content-center">
 									<div class="col-md-6">
 										<div class="form-group">
-											<small class="text-muted">SOPORTE TECNICO:</small>											
+											<small class="text-muted">SOPORTE TECNICO:</small>
 											<select name="ports" class="form-control form-control-sm" required>
 												<option value="">Seleccione Producto</option>
 												@foreach ($configspro as $item)
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	{{-- creación de mi formulario de edicion --}}
 	<div class="modal fade" id="newEditTS-modal">
 		<div class="modal-dialog" style="font-size: 15px;"> <!-- modal-lg -->
@@ -136,7 +136,7 @@
 								<div class="row justify-content-center">
 									<div class="col-md-6">
 										<div class="form-group">
-											<small class="text-muted">SOPORTE TECNICO:</small>											
+											<small class="text-muted">SOPORTE TECNICO:</small>
 											<select name="ports_Edit" class="form-control form-control-sm" required>
 												@foreach ($configspro as $productitem)
 													<option value="{{$productitem->pc_id}}">{{$productitem->pro_name}}</option>
@@ -179,7 +179,7 @@
 							<small class="text-muted">SOPORTE TECNICO</small><br>
                             <span class="text-muted"><b class="ports_Delete"></b></span><br>
                             <small class="text-muted">PRECIO</small><br>
-							<span class="text-muted"><b class="portsprice_Delete"></b></span><br>							
+							<span class="text-muted"><b class="portsprice_Delete"></b></span><br>
 						</div>
 					</div>
 					<div class="row mt-3 border-top text-center">
@@ -200,9 +200,21 @@
 
 @section('ScriptZone')
 	<script>
-		$('.newCreation-link').click(function () { 
+		$('.newCreation-link').click(function () {
 			$('#newCreationTS-modal').modal();
 		});
+
+        $('input[name=portsprice]').focus(function () {
+            let price = $('input[name=portsprice]').val();
+            let vprice = price.replace(/\./g,"");
+            $('input[name=portsprice]').val(vprice);
+        });
+
+        $('input[name=portsprice_Edit]').focus(function () {
+            let price = $('input[name=portsprice_Edit]').val();
+            let vprice = price.replace(/\./g,"");
+            $('input[name=portsprice_Edit]').val(vprice);
+        });
 
 		//Llama al formulario de edicion
 		$('.editCreation-link').click(function(e){
@@ -232,20 +244,20 @@
 					$('input[name=portsprice_Edit]').val(portsprice);
 					$('#newEditTS-modal').modal();
 				}
-			})			
+			})
 		});
 
 		// Llama al formulario de eliminación
-		$('.deleteCreation-link').click(function(e){			
+		$('.deleteCreation-link').click(function(e){
             e.preventDefault();
             var delid, delsof, delsofprice;
             delid = $(this).find('span:nth-child(2)').text();
 			delsof = $(this).find('span:nth-child(3)').text();
 			delsofprice = $(this).find('span:nth-child(4)').text();
 			$('input[name=id_Delete]').val(delid);
-            $('.ports_Delete').text(delsof);             
+            $('.ports_Delete').text(delsof);
 			$('.portsprice_Delete').text(delsofprice);
-			$('#newDeleteTS-modal').modal();					
+			$('#newDeleteTS-modal').modal();
 		});
 
 		// envia el formulario de eliminación
@@ -342,7 +354,7 @@
 				popup: 'animate__animated animate__flipOutX'
 				}
 			})
-		</script>		
+		</script>
 	@endif
 	@if (session('WarningCreation'))
 		<script>

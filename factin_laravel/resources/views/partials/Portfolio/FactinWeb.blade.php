@@ -44,7 +44,7 @@
 			</thead>
 			<tbody>
 				@php $row=1; @endphp
-				@foreach ($factin as $item)	
+				@foreach ($factin as $item)
 				<tr>
 					<td>{{$row++}}</td>
 					<td>{{$item->pro_name}}</td>
@@ -96,7 +96,7 @@
 								<div class="row justify-content-center">
 									<div class="col-md-6">
 										<div class="form-group">
-											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>											
+											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>
 											<select name="porweb" class="form-control form-control-sm" required>
 												<option value="">Seleccione Producto</option>
 												@foreach ($configpro as $item)
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	{{-- creación de mi formulario de edicion --}}
 	<div class="modal fade" id="newEditWeb-modal">
 		<div class="modal-dialog" style="font-size: 15px;"> <!-- modal-lg -->
@@ -136,7 +136,7 @@
 								<div class="row justify-content-center">
 									<div class="col-md-6">
 										<div class="form-group">
-											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>											
+											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>
 											<select name="porweb_Edit" class="form-control form-control-sm" required>
 												@foreach ($configpro as $productitem)
 													<option value="{{$productitem->pc_id}}">{{$productitem->pro_name}}</option>
@@ -179,7 +179,7 @@
 							<small class="text-muted">NOMBRE DEL PORTAFOLIO WEB</small><br>
                             <span class="text-muted"><b class="porweb_Delete"></b></span><br>
                             <small class="text-muted">PRECIO</small><br>
-							<span class="text-muted"><b class="porprice_Delete"></b></span><br>							
+							<span class="text-muted"><b class="porprice_Delete"></b></span><br>
 						</div>
 					</div>
 					<div class="row mt-3 border-top text-center">
@@ -201,7 +201,7 @@
 @section('ScriptZone')
 	<script>
 		// Llama al formulario modal de creación
-		$('.newProductWeb-link').click(function () { 
+		$('.newProductWeb-link').click(function () {
 			$('#newCreationWeb-modal').modal();
 		});
 		//Llama al formulario de edicion
@@ -232,22 +232,34 @@
 					$('input[name=porprice_Edit]').val(porprice);
 					$('#newEditWeb-modal').modal();
 				}
-			})			
+			})
 		});
-		
+
+        $('input[name=porprice]').focus(function () {
+            let price = $('input[name=porprice]').val();
+            let vprice = price.replace(/\./g,"");
+            $('input[name=porprice]').val(vprice);
+        });
+
+        $('input[name=porprice_Edit]').focus(function () {
+            let price = $('input[name=porprice_Edit]').val();
+            let vprice = price.replace(/\./g,"");
+            $('input[name=porprice_Edit]').val(vprice);
+        });
+
 		// Llama al formulario de eliminación
-		$('.deleteCreation-link').click(function(e){			
+		$('.deleteCreation-link').click(function(e){
             e.preventDefault();
             var iddel, webdel, pricedel;
             iddel = $(this).find('span:nth-child(2)').text();
 			webdel = $(this).find('span:nth-child(3)').text();
 			pricedel = $(this).find('span:nth-child(4)').text();
 			$('input[name=por_id_Delete]').val(iddel);
-            $('.porweb_Delete').text(webdel);             
+            $('.porweb_Delete').text(webdel);
 			$('.porprice_Delete').text(pricedel);
-			$('#newDeleteWeb-modal').modal();					
+			$('#newDeleteWeb-modal').modal();
 		});
-		
+
 		// envia el formulario de eliminación
 		$('.DeleteSend').submit('click', function(e){
 			e.preventDefault();
@@ -342,7 +354,7 @@
 				popup: 'animate__animated animate__flipOutX'
 				}
 			})
-		</script>		
+		</script>
 	@endif
 	@if (session('WarningCreation'))
 		<script>

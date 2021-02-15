@@ -54,6 +54,39 @@ class AgreementController extends Controller
         }
     }
 
+    function ClientLegalizationUpdate(Request $request)
+    {
+        // return $request;
+        $validate = Agreement::where('legal_repre',trim($request->ClRepresentante_Edit))
+        ->where('legal_id','!=',trim($request->id_Edit))
+        ->first();
+        if ($validate == null) {
+            $vali = Agreement::find($request->id_Edit);
+            if ($vali != null) {
+                $vali->legal_id = \trim($request->id_Edit);
+                $vali->legal_social = \trim($request->ClSocial_Edit);
+                $vali->legal_dep = \trim($request->ClDep_Edit);
+                $vali->legal_mun = \trim($request->ClMun_Edit);
+                $vali->legal_adr = $this->fu($request->ClDir_Edit);
+                $vali->legal_pho = $this->fu($request->ClTel_Edit);
+                $vali->legal_what = $this->fu($request->ClWhat_Edit);
+                $vali->legal_Ema = $this->fu($request->ClEma_Edit);
+                $vali->legal_typeClient = $this::upper($request->CltypeCli_Edit);
+                $vali->legal_typeDocRSocial = $this::upper($request->ClDoc_Edit);
+                $vali->legal_DocRSocial = trim($request->ClNumero_Edit);
+                $vali->legal_repre = $this::upper($request->ClRepresentante_Edit);
+                $vali->legal_typeDocRepre = $this::upper($request->ClDocRepre_Edit);
+                $vali->legal_DocRepre = trim($request->ClNumeroRepre_Edit);
+                $vali->save();
+                return \redirect()->route('ClientLegalization.index')->with('PrimaryCreation', 'Actualización del registro con representante legal '.$this::upper($request->ClRepresentante_Edit).' se ejecuto correctamente');
+            }else{
+                return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation', 'Actualización del registro con representante legal '.$this::upper($request->ClRepresentante_Edit).' no pudo ser ejecutado');
+            }
+        }else{
+            return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation', 'No se encontro registro para actualizar');
+        }
+    }
+
     function ContractLegalization()
     {
         return \view('partials.Agreement.ContractLegalization');

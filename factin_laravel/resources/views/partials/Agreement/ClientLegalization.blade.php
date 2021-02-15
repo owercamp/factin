@@ -266,7 +266,7 @@
                     <h5 class="text-primary" style="margin-top: 5px"><em><b>EDITAR LEGALIZACION CLIENTE</b></em></h5>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="POST">
+                    <form action="{{route('ClientLegalization.update')}}" method="POST">
                         @csrf
                         <div style="padding: 2%">
                             <div class="row">
@@ -312,7 +312,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <small class="text-muted">DIRECCION:</small>
-                                                <input type="text" id="ClDir_Edit" name="ClDir" maxlength="100" style="text-transform: uppercase" class="form-control form-control-sm">
+                                                <input type="text" id="ClDir_Edit" name="ClDir_Edit" maxlength="100" style="text-transform: uppercase" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -451,20 +451,48 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 					e.preventDefault();
-                    var rs,dep,mun,adr,pho,what,ema,tc,td,nd,rep,tdrep,ndrep;
-                    rs = $(this).find('span:nth-child(2)').text();
-                    dep = $(this).find('span:nth-child(3)').text();
-                    mun = $(this).find('span:nth-child(4)').text();
-                    adr = $(this).find('span:nth-child(5)').text();
-                    pho = $(this).find('span:nth-child(6)').text();
-                    what = $(this).find('span:nth-child(7)').text();
-                    ema = $(this).find('span:nth-child(8)').text();
-                    tc = $(this).find('span:nth-child(9)').text();
-                    td = $(this).find('span:nth-child(10)').text();
-                    nd = $(this).find('span:nth-child(11)')text();
-                    rep = $(this).find('span:nth-child(12)').text();
-                    tdrep = $(this).find('span:nth-child(13)').text();
-                    ndrep = $(this).find('span:nth-child(14)').text();
+                    var cid,rs,dep,mun,adr,pho,what,ema,tc,td,nd,rep,tdrep,ndrep;
+                    cid = $(this).find('span:nth-child(2)').text();
+                    rs = $(this).find('span:nth-child(3)').text();
+                    dep = $(this).find('span:nth-child(4)').text();
+                    mun = $(this).find('span:nth-child(5)').text();
+                    adr = $(this).find('span:nth-child(6)').text();
+                    pho = $(this).find('span:nth-child(7)').text();
+                    what = $(this).find('span:nth-child(8)').text();
+                    ema = $(this).find('span:nth-child(9)').text();
+                    tc = $(this).find('span:nth-child(10)').text();
+                    td = $(this).find('span:nth-child(11)').text();
+                    nd = $(this).find('span:nth-child(12)').text();
+                    rep = $(this).find('span:nth-child(13)').text();
+                    tdrep = $(this).find('span:nth-child(14)').text();
+                    ndrep = $(this).find('span:nth-child(15)').text();
+                    $('select[name=ClSocial_Edit]').val(rs);
+                    $('select[name=ClDep_Edit]').val(dep);
+                    $('select[name=ClMun_Edit]').empty();
+                    $('select[name=ClMun_Edit]').append("<option value=''>Seleccione un Municipio</option>");
+                    $.get("{{route('getMunicipalities')}}",{DepId: dep}, function(objectMunicipality){
+						var count = Object.keys(objectMunicipality).length;
+						if (count > 0) {
+							for (let index = 0; index < count; index++) {
+								if (objectMunicipality[index]['munid'] == mun) {
+									$('select[name=ClMun_Edit]').append("<option value='"+objectMunicipality[index]['munid']+"' selected>"+objectMunicipality[index]['munname']+"</option>");
+								} else {
+									$('select[name=ClMun_Edit]').append("<option value='"+objectMunicipality[index]['munid']+"'>"+objectMunicipality[index]['munname']+"</option>");
+								}
+							}
+						}
+					});
+                    $('input[name=ClDir_Edit]').val(adr);
+                    $('input[name=ClTel_Edit]').val(pho);
+                    $('input[name=ClWhat_Edit]').val(what);
+                    $('input[name=ClEma_Edit]').val(ema);
+                    $('select[name=CltypeCli_Edit]').val(tc);
+                    $('select[name=ClDoc_Edit]').val(td);
+                    $('input[name=ClNumero_Edit]').val(nd);
+                    $('input[name=ClRepresentante_Edit]').val(rep);
+                    $('select[name=ClDocRepre_Edit]').val(tdrep);
+                    $('input[name=ClNumeroRepre_Edit]').val(ndrep);
+                    $('input[name=id_Edit]').val(cid);
 					$('#newCreationEdit-modal').modal();
 				}
 			})

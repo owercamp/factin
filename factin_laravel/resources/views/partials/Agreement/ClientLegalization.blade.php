@@ -78,17 +78,8 @@
                                 <span class="icon-proxmox"></span>
                                 <span hidden>{{$item->legal_id}}</span>
                                 <span hidden>{{$item->legal_social}}</span>
-                                <span hidden>{{$item->legal_dep}}</span>
-                                <span hidden>{{$item->legal_mun}}</span>
-                                <span hidden>{{$item->legal_adr}}</span>
-                                <span hidden>{{$item->legal_pho}}</span>
-                                <span hidden>{{$item->legal_what}}</span>
-                                <span hidden>{{$item->legal_ema}}</span>
                                 <span hidden>{{$item->legal_typeClient}}</span>
-                                <span hidden>{{$item->legal_typeDocRSocial}}</span>
-                                <span hidden>{{$item->legal_DocRSocial}}</span>
                                 <span hidden>{{$item->legal_repre}}</span>
-                                <span hidden>{{$item->legal_typeDocRepre}}</span>
                                 <span hidden>{{$item->legal_DocRepre}}</span>
                             </a>
                         </td>
@@ -408,6 +399,41 @@
         </div>
     </div>
 
+    {{-- creacion del formulario de eliminación --}}
+    <div class="modal fade" id="newCreationDelete-modal">
+        <div class="modal-dialog" style="font-size: 15px;">
+            <div class="modal-content">
+                <div class="modal-header" style="margin: auto">
+                    <h5>ELIMINACION LEGALIZACION CLIENTE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <small class="text-muted">TIPO CLIENTE</small><br>
+                            <span class="text-muted"><b class="typeCDelete"></b></span><br>
+                            <small class="text-muted">RAZON SOCIAL</small><br>
+                            <span class="text-muted"><b class="rsocialDelete"></b></span><br>
+                            <small class="text-muted">DOCUMENTO</small><br>
+                            <span class="text-muted"><b class="DocDelete"></b></span><br>
+                            <small class="text-muted">REPRESENTANTE LEGAL</small><br>
+                            <span class="text-muted"><b class="repreDelete"></b></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3 border-top text-center">
+                        <form action="#" method="post" class="cold-md-6 DeleteSend" style="margin: auto">
+                            @csrf
+                            <input type="hidden" name="LegalCli_Delete" class="form-control form-control-sm" readonly required>
+                            <button type="submit" class="btn btn-edit form-control-sm my-3" >ELIMINAR</button>
+                        </form>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-delete form-control-sm mt-3" data-dismiss="modal">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
@@ -497,6 +523,23 @@
 				}
 			})
 		});
+
+        // llama al formulario de eliminacion
+        $('.deleteCreation-link').click(function (e) {
+            e.preventDefault();
+            var lid,rsocial,docrepre,repre, tyrepre;
+            lid = $(this).find('span:nth-child(2)').text();
+            rsocial = $(this).find('span:nth-child(3)').text();
+            docrepre = $(this).find('span:nth-child(6)').text();
+            repre = $(this).find('span:nth-child(5)').text();
+            tyrepre = $(this).find('span:nth-child(4)').text();
+            $('input[name=LegalCli_Delete]').val(lid);
+            $('b.typeCDelete').text(rsocial);
+            $('b.DocDelete').text(docrepre);
+            $('b.repreDelete').text(repre);
+            $('b.typeCDelete').text(tyrepre);
+            $('#newCreationDelete-modal').modal();
+        });
 
     </script>
     @if(session('SuccessCreation'))

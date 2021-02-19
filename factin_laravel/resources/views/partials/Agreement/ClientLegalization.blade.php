@@ -420,7 +420,7 @@
                         </div>
                     </div>
                     <div class="row mt-3 border-top text-center">
-                        <form action="#" method="post" class="cold-md-6 DeleteSend" style="margin: auto">
+                        <form action="{{route('ClientLegalization.delete')}}" method="post" class="cold-md-6 DeleteSend" style="margin: auto">
                             @csrf
                             <input type="hidden" name="LegalCli_Delete" class="form-control form-control-sm" readonly required>
                             <button type="submit" class="btn btn-edit form-control-sm my-3" >ELIMINAR</button>
@@ -534,12 +534,45 @@
             repre = $(this).find('span:nth-child(5)').text();
             tyrepre = $(this).find('span:nth-child(4)').text();
             $('input[name=LegalCli_Delete]').val(lid);
-            $('b.typeCDelete').text(rsocial);
+            $.get("{{route('getRazonSocialActive')}}", {data: rsocial},
+                function (objectSocial) {
+                    for (let index = 0; index < objectSocial.length; index++) {
+                        if(objectSocial[index]['lead_id'] == rsocial){
+                            $('b.rsocialDelete').text(objectSocial[0].bt_social);
+                        }
+                    }
+                }
+            );
             $('b.DocDelete').text(docrepre);
             $('b.repreDelete').text(repre);
             $('b.typeCDelete').text(tyrepre);
             $('#newCreationDelete-modal').modal();
         });
+
+        // envia el formulario de eliminación
+		$('.DeleteSend').submit('click', function(e){
+			e.preventDefault();
+			Swal.fire({
+				title: '¡¡Eliminación!!',
+				text: "Desea continuar con la eliminación",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#f58f4d',
+				confirmButtonText: 'Si, Eliminar',
+				cancelButtonText: 'No',
+				showClass: {
+				popup: 'animate__animated animate__flipInX'
+				},
+				hideClass: {
+				popup: 'animate__animated animate__flipOutX'
+				},
+			}).then((result) => {
+				if (result.isConfirmed) {
+					this.submit();
+				}
+			})
+		});
 
     </script>
     @if(session('SuccessCreation'))
@@ -582,7 +615,7 @@
 			Swal.fire({
 				icon: 'error',
 				title: 'Oops..',
-				text: 'Producto Web no encontrado',
+				text: 'Legalización cliente no encontrado',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,

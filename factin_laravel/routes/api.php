@@ -123,3 +123,14 @@ Route::get('getRazonSocial',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getRazonSocial');
+
+Route::get('getRazonSocialActive',function(Request $request){
+    $query = Lead::where('lead_id',trim($request->data))
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getRazonSocialActive');
+
+Route::get('getDepartament',function(Request $request){
+    $query = Location::where('depid',trim($request->data))->get();
+    return response()->json($query);
+})->name('getDepartament');

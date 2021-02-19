@@ -50,7 +50,7 @@
                         <td>{{$row++}}</td>
                         <td>{{$item->depname}}</td>
                         <td>{{$item->munname}}</td>
-                        <td>                            
+                        <td>
                             <a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
                                 <span class="icon-magic"></span>
                                 <span hidden>{{ $item->munid }}</span>
@@ -196,7 +196,7 @@
 							<small class="text-muted">NOMBRE DEL MUNICIPIO</small><br>
                             <span class="text-muted"><b class="munname_Delete"></b></span><br>
                             <small class="text-muted">NOMBRE DEL DEPARTAMENTO</small><br>
-							<span class="text-muted"><b class="mundep_Delete"></b></span><br>							
+							<span class="text-muted"><b class="mundep_Delete"></b></span><br>
 						</div>
 					</div>
 					<div class="row mt-3 border-top text-center">
@@ -222,10 +222,10 @@
 		$('.newMunipality-link').on('click',function(){
 			$('#newCreationMun-modal').modal();
 		});
-    
+
 
         // Llama al formulario modal edit de edición
-        $('.editCreation-link').on('click',function(e){				
+        $('.editCreation-link').on('click',function(e){
             Swal.fire({
                 title: 'Desea editar este registro?',
                 icon: 'info',
@@ -246,7 +246,7 @@
                     var munid, munname, mundepid;
                     munid = $(this).find('span:nth-child(2)').text();
                     munname = $(this).find('span:nth-child(4)').text();
-                    mundepid = $(this).find('span:nth-child(3)').text();					
+                    mundepid = $(this).find('span:nth-child(3)').text();
                     $('input[name=munname_Edit]').val(munname);
                     $('input[name=munid_Edit]').val(munid);
                     $('select[name=mundepid_Edit] option').each(function(){
@@ -261,17 +261,22 @@
         });
 
         // Llama al formulario de eliminación
-		$('.deleteCreation-link').on('click',function(e){			
+		$('.deleteCreation-link').on('click',function(e){
 			e.preventDefault();
+            $('.mundep_Delete').text('');
 			var munId = $(this).find('span:nth-child(2)').text();
 			var munName = $(this).find('span:nth-child(4)').text();
 			var department = $(this).find('span:nth-child(3)').text();
 			$('input[name=mundepid_Delete]').val(munId);
-            $('.munname_Delete').text(munName);             
-			$('.mundep_Delete').text(department);
-			$('#deleteCreationMun-modal').modal();					
+            $('.munname_Delete').text(munName);
+            $.get("{{route('getDepartament')}}", {data: department},
+            function (objectDepartment) {
+                    $('.mundep_Delete').text(objectDepartment[0].depname);
+                }
+            );
+			$('#deleteCreationMun-modal').modal();
         })
-        
+
         // envia el formulario de eliminación
 		$('.DeleteSend').submit('click', function(e){
 			e.preventDefault();
@@ -367,7 +372,7 @@
 				popup: 'animate__animated animate__flipOutX'
 				}
 			})
-		</script>		
+		</script>
 	@endif
 	@if (session('WarningCreation'))
 		<script>

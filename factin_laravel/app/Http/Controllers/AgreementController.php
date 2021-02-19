@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agreement;
+use App\Models\Contract;
 use App\Models\Lead;
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -87,9 +88,27 @@ class AgreementController extends Controller
         }
     }
 
+    function ClientLegalizationDelete(Request $request)
+    {
+        // return $request;
+        $validate = Agreement::where(trim($request->LegalCli_Delete));
+        if ($validate != null) {
+            Agreement::findOrFail($request->LegalCli_Delete)->delete();
+            return redirect()->route('ClientLegalization.index')->with('WarningCreation','Eliminación Satisfatoria');
+        }else{
+            return redirect()->route('ClientLegalization.index')->with('SecondCreation','NoEncontrado');
+        }
+    }
+
     function ContractLegalization()
     {
-        return \view('partials.Agreement.ContractLegalization');
+        $contract = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*','locations.*','municipalities.*')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
+        return \view('partials.Agreement.ContractLegalization',compact('contract'));
     }
 
     function ContractsFile()

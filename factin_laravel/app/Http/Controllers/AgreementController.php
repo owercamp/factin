@@ -102,13 +102,65 @@ class AgreementController extends Controller
 
     function ContractLegalization()
     {
+        $Departament = Location::all();
+        $legal = Agreement::select('agreements.*','leads.*','business_trackings.*')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         $contract = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*','locations.*','municipalities.*')
         ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
-        return \view('partials.Agreement.ContractLegalization',compact('contract'));
+        return \view('partials.Agreement.ContractLegalization',compact('contract','Departament','legal'));
+    }
+
+    function ContractLegalizationSave(Request $request)
+    {
+        // return $request;
+        $validate = Contract::where('conNumber',trim($request->ClContract))
+        ->first();
+        if($validate == null){
+            $MyDate = $this->fu($request->ClFQuota);
+            $DateNumber = mb_split(",",$MyDate);
+            $Dat = mb_split("-",$DateNumber[1]);
+            $Mont = $this->fu($Dat[1]);
+            $MyDatesArray = array('01','02','03','04','05','06','07','08','09','10','11','12');
+            switch ($Mont) {
+                case 'Enero': $mon = $MyDatesArray[0]; break;
+                case 'Febrero': $mon = $MyDatesArray[1]; break;
+                case 'Marzo': $mon = $MyDatesArray[2]; break;
+                case 'Abril': $mon = $MyDatesArray[3]; break;
+                case 'Mayo': $mon = $MyDatesArray[4]; break;
+                case 'Junio': $mon = $MyDatesArray[5]; break;
+                case 'Julio': $mon = $MyDatesArray[6]; break;
+                case 'Agosto': $mon = $MyDatesArray[7]; break;
+                case 'Septiembre': $mon = $MyDatesArray[8]; break;
+                case 'Octubre': $mon = $MyDatesArray[9]; break;
+                case 'Noviembre': $mon = $MyDatesArray[10]; break;
+                case 'Diciembre': $mon = $MyDatesArray[11]; break;
+            }
+            $day = $this->fu($Dat[0]); $year = $this->fu($Dat[2]);
+            $MyDates = $year.'-'.$mon.'-'.$day;
+            $price = str_replace('.','',$request->ClValue);
+            $priceq = str_replace('.','',$request->ClQuotaValue);
+            Contract::create([
+                'conNumber' => trim($request->ClContract),
+                'con_social' => trim($request->ClSocial),
+                'con_typeiderepre' => $this->fu($request->ClDoc),
+                'con_repre' => $this::upper($request->ClRepre),
+                'con_numero' => trim($request->ClTel),
+                'con_ini' => $this->fu($request->ClFIni),
+                'con_final' => $this->fu($request->ClFFinal),
+                'con_price' => $price,
+                'con_quota' => $this->fu($request->ClQuota),
+                'con_valueqouta' => $priceq,
+                'con_fquota' => $MyDates,
+            ]);
+            return redirect()->route('ContractLegalization.index')->with('SuccessCreation','Contrato almacenado');
+        }else{
+            return redirect()->route('ContractLegalization.index')->with('SecondaryCreation','Contrato no pudo ser almacenado');
+        }
     }
 
     function ContractsFile()

@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Agreement;
 use App\Models\BusinessTracking;
+use App\Models\Contract;
 use App\Models\Hardware;
 use App\Models\icon_name;
 use App\Models\Lead;
@@ -134,3 +136,15 @@ Route::get('getDepartament',function(Request $request){
     $query = Location::where('depid',trim($request->data))->get();
     return response()->json($query);
 })->name('getDepartament');
+
+Route::get('getContract',function(){
+    $query = Contract::latest()->get();
+    return response()->json($query);
+})->name('getContract');
+
+Route::get('getLegalContract',function(Request $request){
+    $query = Agreement::where('legal_id',trim($request->data))
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getLegalContract');

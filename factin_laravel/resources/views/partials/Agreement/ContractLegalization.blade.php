@@ -1,5 +1,4 @@
 
-
 @extends('modules.settingAgreement')
 
 @section('info')
@@ -50,21 +49,26 @@
                     $row=1;
                 @endphp
                 @foreach ($contract as $item)
-                    <tr>
-                        <td>{{$row++}}</td>
-                        <td>{{sprintf("%'.04d\n",$item->conNumber)}}</td>
-                        <td>{{$item->bt_social}}</td>
-                        <td>{{$item->con_typeiderepre}}</td>
-                        <td>{{number_format($item->con_price,0,',','.')}}</td>
-                        <td>
-                            <a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
-                                <span class="icon-magic"></span>
-                            </a>
-                            <a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
-                                <span class="icon-proxmox"></span>
-                            </a>
-                        </td>
-                    </tr>
+                    @if ($item->con_fquota >= date("Y-m-d"))
+                        <tr>
+                            <td>{{$row++}}</td>
+                            <td>{{sprintf("%'.04d\n",$item->conNumber)}}</td>
+                            <td>{{$item->bt_social}}</td>
+                            <td>{{$item->con_typeiderepre}}</td>
+                            <td>{{number_format($item->con_price,0,',','.')}}</td>
+                            <td>
+                                <a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
+                                    <span class="icon-magic"></span>
+                                </a>
+                                <a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
+                                    <span class="icon-proxmox"></span>
+                                </a>
+                                <a href="#" title="Imprimir" class="btn-edit form-control-sm Imprimir-PDF">
+                                    <span class="icon-arrow-circle-down"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
@@ -83,95 +87,47 @@
     @endphp
 
     {{-- creacion de formulario para ingresar legalización cliente --}}
-    {{-- <div class="modal fade" id="newCreation-modal">
+    <div class="modal fade" id="newCreationContract-modal">
         <div class="modal-dialog modal-lg" style="font-size: 15px">
             <div class="modal-content">
                 <div class="modal-header text-justify">
-                    <h5 class="text-primary" style="margin-top: 5px"><em><b>LEGALIZACION CLIENTE</b></em></h5>
+                    <h5 class="text-primary" style="margin-top: 5px"><em><b>LEGALIZACION CONTRATO</b></em></h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('ClientLegalization.save')}}" method="POST">
+                    <form action="{{route('ContractLegalization.save')}}" method="POST">
                         @csrf
                         <div style="padding: 2%">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <small class="text-muted">NUMERO CONTRATO</small><br>
+                                                <span class="text-muted" style="margin-left: 20%; font-size: 18px"><b class="ClContract text-primary"></b></span>
+                                                <input type="hidden" name="ClContract" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <small class="text-muted">RAZON SOCIAL:</small>
                                                 <select id="ClSocial" name="ClSocial" style="text-transform: uppercase" class="form-control form-control-sm" required>
                                                     <option value="">Seleccione Razón Social</option>
-                                                    @foreach ($Client as $item)
-                                                        @if($item->lead_status == "APROBADO")
-                                                            <option value="{{$item->lead_id}}">{{$item->bt_social}}</option>
-                                                        @endif
+                                                    @foreach ($legal as $item)
+                                                            <option value="{{$item->legal_id}}">{{$item->bt_social}}</option>
                                                     @endforeach
-                                                </select> --}}
-                                                {{-- traer la informacion de aprobados de las archivo comercial --}}
-                                            {{-- </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <small class="text-muted">DEPARTAMENTO:</small>
-                                                <select name="ClDep" id="DepName" class="form-control form-control-sm" required>
-                                                    <option value="">Seleccione un departamento</option>
-                                                    @foreach ($Departament as $item)
-                                                        <option value="{{$item->depid}}">{{$item->depname}}</option>
-                                                    @endforeach --}}
-                                                    {{-- api de busqueda que carga los departamentos segun razón social en ScriptZone ↓ --}}
-                                                {{-- </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <small class="text-muted">MUNICIPIO:</small>
-                                                <select name="ClMun" id="MunName" class="form-control form-control-sm" required>
-                                                    <option value=''>Seleccione un Municipio</option> --}}
-                                                    {{-- api de busqueda que carga los municipios segun departamento en ScriptZone ↓ --}}
-                                                {{-- </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <small class="text-muted">DIRECCION:</small>
-                                                <input type="text" id="ClDir" name="ClDir" maxlength="100" style="text-transform: uppercase" class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <small class="text-muted">TELEFONO:</small>
-                                                <input type="text" name="ClTel" maxlength="10" class="form-control form-control-sm" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <small class="text-muted">WHATSAPP:</small>
-                                                <input type="text" name="ClWhat" maxlength="10" class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <small class="text-muted">CORREO ELECTRONICO</small>
-                                                <input type="email" name="ClEma" maxlength="100" placeholder="example@correo.com.co" class="form-control form-control-sm">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <small class="text-muted">TIPO CLIENTE:</small>
-                                                <select name="CltypeCli" class="form-control form-control-sm" required>
-                                                    <option value="">Seleccione..</option>
-                                                    <option value="PERSONA NATURAL">PERSONA NATURAL</option>
-                                                    <option value="PERSONA JURIDICA">PERSONA JURIDICA</option>
                                                 </select>
+                                                {{-- traer la informacion de aprobados de las archivo comercial --}}
                                             </div>
                                         </div>
+                                        <div class="col-md-5">
+                                            <small class="text-muted">REPRESENTANTE</small>
+                                            <input type="text" name="ClRepre" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <small class="text-muted">TIPO DOCUMENTO:</small>
+                                                <small class="text-muted">TIPO IDENTIFICACION</small>
                                                 <select name="ClDoc" class="form-control form-control-sm" required>
                                                     <option value="">Seleccione un tipo</option>
                                                     <option value="CEDULA DE CIUDADANIA">CEDULA DE CIUDADANIA</option>
@@ -183,41 +139,54 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <small class="text-muted">NUMERO DE DOCUMENTO:</small>
-                                                <input type="text" name="ClNumero" maxlength="15" style="text-transform: uppercase" class="form-control form-control-sm" required>
+                                                <small class="text-muted">FECHA INICIO:</small>
+                                                <input type="text" name="ClFIni" class="form-control form-control-sm datepicker">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <small class="text-muted">FECHA TERMINACION:</small>
+                                                <input type="text" name="ClFFinal" class="form-control form-control-sm datepicker">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <small class="text-muted">REPRESENTANTE LEGAL:</small>
-                                                <input type="text" name="ClRepresentante" maxlength="50" style="text-transform: uppercase" class="form-control form-control-sm" required>
+                                                <small class="text-muted">TELEFONO</small>
+                                                <input type="text" name="ClTel" class="form-control form-control-sm">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <small class="text-muted">TIPO DOCUMENTO REPRESENTANTE LEGAL:</small>
-                                                <select name="ClDocRepre" class="form-control form-control-sm" required>
-                                                    <option value="">Seleccione un tipo</option>
-                                                    <option value="CEDULA DE CIUDADANIA">CEDULA DE CIUDADANIA</option>
-                                                    <option value="NIT">NIT</option>
-                                                    <option value="PASAPORTE">PASAPORTE</option>
-                                                    <option value="CEDULA DE EXTRANJERIA">CEDULA DE EXTRANJERIA</option>
-                                                </select>
+                                                <small class="text-muted">PRIMERA CUOTA</small>
+                                                <input type="text" name="ClFQuota" class="form-control form-control-sm datepicker">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <small class="text-muted">N° DOCUMENTO REPRESENTANTE LEGAL:</small>
-                                                <input type="text" name="ClNumeroRepre" maxlength="15" style="text-transform: uppercase" class="form-control form-control-sm" required>
+                                                <small class="text-muted">VALOR CONTRATO:</small>
+                                                <input type="text" name="ClValue" style="font-weight: bold" class="form-control form-control-sm text-primary" required>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <small class="text-muted">CANTIDAD CUOTAS:</small>
+                                                <input type="text" name="ClQuota" style="text-align: center; font-weight: bold;" class="form-control form-control-sm text-primary" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted">VALOR CUOTA:</small>
+                                            <input type="text" name="ClQuotaValue" style="text-align: center; font-weight: bold;" class="form-control form-control-sm text-primary">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12" style="padding-top: 3%">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-edit" style="margin: 1% 45%">GUARDAR</button>
+                                                <button type="submit" class="btn btn-edit" style="margin: 1% 40%">GUARDAR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -228,7 +197,7 @@
                 </div>
             </div>
         </div>
-    </div>  --}}
+    </div>
 
     {{-- creacion del formulario de edicion --}}
     {{-- <div class="modal fade" id="newCreationEdit-modal">
@@ -421,9 +390,69 @@
 @section('ScriptZone')
     <script>
         // lanza formulario creación
-		// $('.newCreation-link').on('click',function(){
-		// 	$('#newCreation-modal').modal();
-		// });
+		$('.newCreation-link').on('click',function(){
+            $('b.ClContract').empty();
+            $.get("{{route('getContract')}}",
+            function (objectContract) {
+                if (objectContract == 0) {
+                    let val = 1;
+                    $('b.ClContract').append(("0000"+val).slice(-4));
+                    $('input[name=ClContract]').val(val);
+                }else{
+                    let sum = objectContract[0].conNumber + 1;
+                    $('b.ClContract').append(("0000"+sum).slice(-4));
+                    $('input[name=ClContract]').val(sum);
+                }
+            }
+            );
+			$('#newCreationContract-modal').modal();
+		});
+
+        $('input[name=ClValue]').change(function () {
+            let value = $('input[name=ClValue]').val();
+            let quota = $('input[name=ClQuota]').val();
+            let valuecl = value.replace(/\./g,"");
+            let strTotal = valuecl / quota;
+            $('input[name=ClQuotaValue]').val(Math.round(strTotal));
+            $('input[name=ClQuotaValue]').focus();
+        });
+
+        $('input[name=ClValue]').focus(function () {
+            let ClValue = $('input[name=ClValue]').val();
+            let clValue = ClValue.replace(/\./g,"");
+            $('input[name=ClValue]').val(clValue);
+        });
+
+        $('input[name=ClQuotaValue]').focus(function () {
+            let MyValue = $('input[name=ClQuotaValue]').val();
+            let strMyValue = MyValue.replace(/\./g,"");
+            $('input[name=ClQuotaValue]').val(strMyValue);
+        });
+
+        $('input[name=ClQuota]').change(function () {
+            let quota = $('input[name=ClQuota]').val();
+            let ClValue = $('input[name=ClValue]').val();
+            let strClValue = ClValue.replace(/\./g,"");
+            let total = strClValue / quota;
+            $('input[name=ClQuotaValue]').val(Math.round(total));
+            $('input[name=ClQuotaValue]').focus();
+        });
+
+        $('select[name=ClSocial]').change(function () {
+            let social = $('select[name=ClSocial]').val();
+            $('input[name=ClRepre]').val('');
+            $('input[name=ClTel]').val('');
+            $('select[name=ClDoc]').val("");
+            $.get("{{route('getLegalContract')}}", {data: social},
+                function (objectSocialContract) {
+                    console.log(objectSocialContract);
+                    $('input[name=ClRepre]').val(objectSocialContract[0].legal_repre);
+                    $('select[name=ClDoc]').val(objectSocialContract[0].legal_typeDocRepre);
+                    $('input[name=ClTel]').val(objectSocialContract[0].legal_pho);
+                }
+            );
+        });
+
         // selecciona municipio dependiendo de cambio del departamento
 		// $('#DepName').on('change',function(e){
 		// 	var Departament = e.target.value;

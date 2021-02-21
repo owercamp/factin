@@ -6,11 +6,14 @@ $(function(){
 	$('input[name=CoSub]').maskMoney();
 	$('input[name=CoVIva]').maskMoney();
 	$('input[name=CoTotal]').maskMoney();
+	$('input[name=ClValue]').maskMoney();
+    $('input[name=ClQuotaValue]').maskMoney();
 	$('input[name=CoNumero]').mask('000000000000000');
 	$('input[name=CoWhat]').mask('0000000000');
 	$('input[name=CoTel]').mask('0000000000');
 	$('input[name=CoCan]').mask('0000');
 	$('input[name=CoIva]').mask('0000');
+	$('input[name=ClQuota]').mask('00');
 	
     var direccionActual = $('.directionUri').html();
 	$('.directionUri').html(seeDirection(direccionActual));

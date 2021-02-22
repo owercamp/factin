@@ -163,6 +163,52 @@ class AgreementController extends Controller
         }
     }
 
+    function ContractLegalizationUpdate(Request $request)
+    {
+        // return $request;
+        $validate = Contract::where('conNumber',trim($request->ClContract_Edit))
+        ->where('con_id','!=',trim($request->Cl_id_Edit))->first();
+        if ($validate == null) {
+            $valu = Contract::find($request->Cl_id_Edit);
+            if ($valu != null) {
+                $price = str_replace('.','',$request->ClValue_Edit);
+                $priceq = str_replace('.','',$request->ClQuotaValue_Edit);
+                $valu->conNumber = $this->fu($request->ClContract_Edit);
+                $valu->con_social = $this->fu($request->ClSocial_Edit);
+                $valu->con_typeiderepre = $this::upper($request->ClDoc_Edit);
+                $valu->con_repre = $this::upper($request->ClRepre_Edit);
+                $valu->con_numero = $this->fu($request->ClTel_Edit);
+                $valu->con_ini = $this->fu($request->ClFIni_Edit);
+                $valu->con_final = $this->fu($request->ClFFinal_Edit);
+                $valu->con_price = $price;
+                $valu->con_quota = $this->fu($request->ClQuota_Edit);
+                $valu->con_valueqouta = $priceq;
+                $valu->con_fquota = $this->fu($request->ClFQuota_Edit);
+                $valu->save();
+                return redirect()->route('ContractLegalization.index')->with('PrimaryCreation','actualización correctamente');
+            }else{
+                return redirect()->route('ContractLegalization.index')->with('SecondaryCreation','error al actualizar');
+            }
+        }
+    }
+
+    function ContractLegalizationDelete(Request $request)
+    {
+        // return $request;
+        $validate = Contract::where(trim($request->LegalCli_Delete));
+        if ($validate != null) {
+            $del = Contract::find(trim($request->LegalCli_Delete));
+            $Cont = sprintf("%'.04d\n",$del->conNumber);
+            Contract::findOrFail($request->LegalCli_Delete)->delete();
+            return redirect()->route('ContractLegalization.index')->with('WarningCreation','Contrato N° '.$Cont.' ha sido eliminado');
+        } else {
+            $del = Contract::find(trim($request->LegalCli_Delete));
+            $Cont = sprintf("%'.04d\n",$del->conNumber);
+            return redirect()->route('ContractLegalization.index')->with('SecondaryCreation','Contrato N° '.$Cont.' no encontrado');
+        }
+
+    }
+
     function ContractsFile()
     {
         return \view('partials.Agreement.ContractsFile');

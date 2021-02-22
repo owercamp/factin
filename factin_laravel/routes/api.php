@@ -148,3 +148,11 @@ Route::get('getLegalContract',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getLegalContract');
+
+Route::get('getLegalContractUpdate',function(Request $request){
+    $query = Contract::where('con_id',trim($request->data))
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getLegalContractUpdate');

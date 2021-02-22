@@ -140,6 +140,8 @@ Route::post('/Agreement-ClientLegalization/delete', 'AgreementController@ClientL
 
 Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegalization')->name('ContractLegalization.index');
 Route::post('/Agreement-ContractLegalization/save', 'AgreementController@ContractLegalizationSave')->name('ContractLegalization.save');
+Route::post('/Agreement-ContractLegalization/update', 'AgreementController@ContractLegalizationUpdate')->name('ContractLegalization.update');
+Route::post('/Agreement-ContractLegalization/delete', 'AgreementController@ContractLegalizationDelete')->name('ContractLegalization.delete');
 
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
 Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator')->name('SuccessIndicator.index');

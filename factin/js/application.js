@@ -8,6 +8,8 @@ $(function(){
 	$('input[name=CoTotal]').maskMoney();
 	$('input[name=ClValue]').maskMoney();
     $('input[name=ClQuotaValue]').maskMoney();
+	$('input[name=ClValue_Edit]').maskMoney();
+    $('input[name=ClQuotaValue_Edit]').maskMoney();
 	$('input[name=CoNumero]').mask('000000000000000');
 	$('input[name=CoWhat]').mask('0000000000');
 	$('input[name=CoTel]').mask('0000000000');

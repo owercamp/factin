@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Agreement;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Contract extends Model
@@ -12,7 +14,7 @@ class Contract extends Model
 
     protected $guarded = [];
 
-    public $timestamps = \true;
+    public $timestamps = true;
 
     public function legal()
     {

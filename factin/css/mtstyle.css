@@ -14,6 +14,10 @@
     color: var(--orange);
     text-shadow: var(--gray-dark) 0.5px 0.5px 0.5px;
 }
+.expiration-color {
+    color: var(--pdf);
+    text-shadow: var(--gray-dark) 0.5px 0.5px 0.5px;
+}
 .flex-direction {
     display: flex;
 }
@@ -135,8 +139,6 @@ a.text-iva:hover, a.text-iva:focus {
         max-width: 1240px;
     }
 }
-
-
 .image-pdf{
     float: left;
     margin-top: 3%;

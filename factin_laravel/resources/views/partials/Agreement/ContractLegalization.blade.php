@@ -49,7 +49,7 @@
                     $row=1;
                 @endphp
                 @foreach ($contract as $item)
-                    @if ($item->con_fquota >= date("Y-m-d"))
+                    @if ($item->con_final >= date("Y-m-d"))
                         <tr>
                             <td>{{$row++}}</td>
                             <td>{{sprintf("%'.04d\n",$item->conNumber)}}</td>
@@ -456,7 +456,7 @@
             $('input[name=ClRepre]').val('');
             $('input[name=ClTel]').val('');
             $('select[name=ClDoc]').val("");
-            $.get("{{route('getLegalContractUpdate')}}", {data: social},
+            $.get("{{route('getLegalContract')}}", {data: social},
                 function (objectSocialContract) {
                     console.log(objectSocialContract);
                     $('input[name=ClRepre]').val(objectSocialContract[0].legal_repre);
@@ -521,7 +521,20 @@
                     $('input[name=ClRepre_Edit]').val(repre);
                     $('select[name=ClDoc_Edit]').val(tiderepre);
                     $('input[name=ClFIni_Edit]').val(ini);
-                    $('input[name=ClFFinal_Edit]').val(final);
+                    let fech, year,month,mon,dayl,dayv;
+                    fech = new Date(final);
+                    dayl = final.split('-');
+                    days = fech.getDay()+1;
+                    month = dayl[1];
+                    num = dayl[2];
+                    year = dayl[0];
+                    switch (days) {
+                        case 7: dayv = 'Domingo'; break; case 1: dayv = 'Lunes'; break; case 2: dayv = 'Martes'; break; case 3: dayv = 'Miercoles'; break; case 4: dayv = 'Jueves'; break; case 5: dayv = 'Viernes'; break; case 6: dayv = 'Sabado'; break;
+                    }
+                    switch(month){
+                        case '01': mon = "enero"; break; case '02': mon = "febrero"; break; case '03': mon = "marzo"; break; case '04': mon = "abril"; break; case '05': mon = "mayo"; break; case '06': mon = "junio"; break; case '07': mon = "julio"; break; case '08': mon = "agosto"; break; case '09': mon = "septiembre"; break; case '10': mon = "octubre"; break; case '11': mon = "noviembre"; break; case '12': mon = "diciembre"; break;
+                    }
+                    $('input[name=ClFFinal_Edit]').val(dayv+', '+num+'-'+mon+'-'+year);
                     $('input[name=ClTel_Edit]').val(number);
                     $('input[name=ClFQuota_Edit]').val(fquota);
                     $('input[name=ClQuota_Edit]').val(quota);

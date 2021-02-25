@@ -47,7 +47,7 @@
                     $row=1;
                 @endphp
                 @foreach ($contract as $item)
-                    @if ($item->con_final <= date("Y-m-d"))
+                    @if ($item->con_final < date("Y-m-d"))
                         <tr>
                             <td>{{$row++}}</td>
                             <td>{{sprintf("%'.04d\n",$item->conNumber)}}</td>

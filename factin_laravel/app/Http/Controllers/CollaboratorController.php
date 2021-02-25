@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collaborator;
+use App\Models\Contract;
 use App\Models\Location;
 use App\Models\Municipalities;
+use App\Models\UserClient;
 use Illuminate\Http\Request;
 
 class CollaboratorController extends Controller
@@ -23,7 +25,7 @@ class CollaboratorController extends Controller
         )
         ->join('locations','locations.depid','=','collaborators.col_dep')
         ->join('municipalities','municipalities.munid','=','collaborators.col_mun')
-        ->get();        
+        ->get();
         return view('partials.HumanResources.collaborators', compact('collaborators','departament'));
     }
 
@@ -61,7 +63,7 @@ class CollaboratorController extends Controller
         } else {
             return redirect()->route('collaborator.index')->with('SecondaryCreation', 'Colaborador no pudo ser registrado');
         }
-        
+
     }
 
     function collaboratorupdate(Request $request)
@@ -104,7 +106,7 @@ class CollaboratorController extends Controller
         }else{
             return redirect()->route('collaborator.index')->with('SecondaryCreation','Colaborador '.$this::upper($request->col_name_Edit).' ya esta registrado');
         }
-        
+
     }
 
     function collaboratordelete(Request $request)
@@ -121,6 +123,16 @@ class CollaboratorController extends Controller
 
     function usersclientindex()
     {
-        return \view('partials.HumanResources.client_users');
+        $client = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->get();
+        $user_client = UserClient::select('user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->get();
+        // return $user_client;
+        return view('partials.HumanResources.client_users', compact('user_client','client'));
     }
 }

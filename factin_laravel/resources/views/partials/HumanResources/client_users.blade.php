@@ -40,28 +40,33 @@
 					<th>CLIENTE</th>
 					<th>USUARIO</th>
 					<th>CORREO</th>
-                    <th>TELEFONO</th>
+                    <th>TELEFONOS</th>
                     <th>ACCIONES</th>
 				</tr>
 			</thead>
-			{{-- <tbody>
+			<tbody>
 				@php $row=1; @endphp
-				@foreach ($factin as $item)
-				<tr>
-					<td>{{$row++}}</td>
-					<td>{{$item->pro_name}}</td>
-					<td><b>{{number_format($item->price,0,',','.')}}</b></td>
-					<td>
-						<a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
-							<span class="icon-magic"></span>
-						</a>
-						<a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
-							<span class="icon-proxmox"></span>
-						</a>
-					</td>
-				</tr>
-				@endforeach
-			</tbody> --}}
+                @foreach ($user_client as $item)
+                        <tr>
+                            <th>{{$row++}}</th>
+                            <th>{{$item->bt_social}}</th>
+                            <th>{{$item->uc_users}}</th>
+                            <th>{{$item->uc_email}}</th>
+                            <th>{{$item->uc_pho1}} - {{$item->uc_pho2}} - {{$item->uc_pho3}}</th>
+                            <th>
+                                <a href="#" title="Editar" class=" btn-edit form-control-sm editCreation-link">
+                                    <span class="icon-magic"></span>
+                                </a>
+                                <a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
+                                    <span class="icon-proxmox"></span>
+                                </a>
+                                <a href="#" title="Imprimir" class="btn-edit form-control-sm Imprimir-PDF">
+                                    <span class="icon-arrow-circle-down"></span>
+                                </a>
+                            </th>
+                        </tr>
+                @endforeach
+			</tbody>
 		</table>
 	</div>
 	@php
@@ -76,44 +81,90 @@
 		$yearfutureSeven = date('Y') + 7;
 	@endphp
 	{{-- creación de mi formulario de creación documento --}}
-	{{-- <div class="modal fade" id="newCreationWeb-modal">
-		<div class="modal-dialog" style="font-size: 15px;"> <!-- modal-lg -->
+	<div class="modal fade" id="newCreation-modal">
+		<div class="modal-dialog modal-lg" style="font-size: 15px;"> <!-- modal-lg -->
 			<div class="modal-content">
 				<div class="modal-header text-justify">
-					<h6>NUEVO PORTAFOLIO WEB</h6>
+					<h6>NUEVO USUARIO CLIENTE</h6>
 				</div>
 				<div class="modal-body">
-					<form action="#" method="POST">
+					<form action="#" method="POST" style="padding: 1% 3%">
 						@csrf
 						<div class="row">
-							<div class="col-md-12 container-sm">
-								<div class="row justify-content-center">
-									<div class="col-md-6">
-										<div class="form-group">
-											<small class="text-muted">NOMBRE DEL PRODUCTO WEB:</small>
-											<select name="porweb" class="form-control form-control-sm" required>
-												<option value="">Seleccione Producto</option>
-												@foreach ($configpro as $item)
-													<option value="{{$item->pc_id}}">{{$item->pro_name}}</option>
-												@endforeach
-											</select>
-										</div>
-										<div class="form-group">
-											<small class="text-muted">PRECIO:</small>
-											<input type="text" name="porprice" id="priceMoney" class="form-control form-control-sm" required>
-										</div>
-									</div>
-								</div>
-							</div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">CLIENTE:</small>
+                                    <select name="uc_cli" class="form-control form-control-sm" required>
+                                        <option value="">Seleccione Producto</option>
+                                        @foreach ($client as $item)
+                                            @if ($item->con_final >= date('Y-m-d'))
+                                                <option value="{{$item->id}}">{{$item->bt_social}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">NOMBRE USUARIO</small>
+                                    <input type="text" name="uc_user" style="text-transform: uppercase" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">TIPO DE DOCUMENTO</small>
+                                    <select name="uc_type" class="form-control form-control-sm">
+                                        <option value="">Seleccione ...</option>
+                                        <option value="CEDULA DE CIUDADANIA">CEDULA DE CIUDADANIA</option>
+                                        <option value="NIT">NIT</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                        <option value="CEDULA DE EXTRANJERIA">CEDULA DE EXTRANJERIA</option>
+                                    </select>
+                                </div>
+                            </div>
 						</div>
-						<div class="form-group text-center mt-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">N° DEL DOCUMENTO</small>
+                                    <input type="text" name="uc_ide" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <small class="text-muted">CORREO ELECTRONICO</small>
+                                    <input type="email" name="uc_ema" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">TELEFONO 1</small>
+                                    <input type="text" name="uc_pho1" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">TELEFONO 2</small>
+                                    <input type="text" name="uc_pho2" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <small class="text-muted">TELEFONO 3</small>
+                                    <input type="text" name="uc_pho3" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+						{{-- <div class="form-group text-center mt-3">
 							<button type="submit" class="btn-success form-control-sm btn-saveDefinitive"><b>GUARDAR</b></button>
-						</div>
+						</div> --}}
 					</form>
 				</div>
 			</div>
 		</div>
-	</div> --}}
+	</div>
 
 	{{-- creación de mi formulario de edicion --}}
 	{{-- <div class="modal fade" id="newEditWeb-modal">
@@ -193,6 +244,13 @@
 @endsection
 
 @section('ScriptZone')
+
+    <script>
+        // Llama al formulario modal de creación
+        $('.newProductWeb-link').click(function () {
+            $('#newCreation-modal').modal();
+        });
+    </script>
 
 	@if(session('SuccessCreation'))
 	<script>

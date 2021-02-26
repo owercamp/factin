@@ -135,4 +135,31 @@ class CollaboratorController extends Controller
         // return $user_client;
         return view('partials.HumanResources.client_users', compact('user_client','client'));
     }
+
+    function usersclientsave(Request $request)
+    {
+        // return $request;
+        $validate = UserClient::where('uc_cli',trim($request->uc_cli))
+        ->where('uc_users','=',$this::upper($request->uc_user))->first();
+        $client = Contract::where('con_id',trim($request->uc_cli))
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->first();
+        if ($validate == null) {
+            UserClient::create([
+                'uc_cli' => trim($request->uc_cli),
+                'uc_users' => $this::upper($request->uc_user),
+                'uc_type' => $this::upper($request->uc_type),
+                'uc_ide' => trim($request->uc_ide),
+                'uc_email' => $this->fu($request->uc_ema),
+                'uc_pho1' => trim($request->uc_pho1),
+                'uc_pho2' => trim($request->uc_pho2),
+                'uc_pho3' => trim($request->uc_pho3),
+            ]);
+            return redirect()->route('usersclient.index')->with('SuccessCreation','registro exitoso del usuario '.$this::upper($request->uc_user).' para el cliente '.$this::upper($client->bt_social));
+        } else {
+            return redirect()->route('usersclient.index')->with('SecondaryCreation','ya existe un registro del usuario '.$this::upper($request->uc_user).' para el cliente '.$this::upper($client->bt_social));
+        }
+
+    }
 }

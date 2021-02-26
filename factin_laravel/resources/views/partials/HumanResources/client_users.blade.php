@@ -88,7 +88,7 @@
 					<h6>NUEVO USUARIO CLIENTE</h6>
 				</div>
 				<div class="modal-body">
-					<form action="#" method="POST" style="padding: 1% 3%">
+					<form action="{{route('usersclient.save')}}" method="POST" style="padding: 1% 3%">
 						@csrf
 						<div class="row">
                             <div class="col-md-4">
@@ -98,7 +98,7 @@
                                         <option value="">Seleccione Producto</option>
                                         @foreach ($client as $item)
                                             @if ($item->con_final >= date('Y-m-d'))
-                                                <option value="{{$item->id}}">{{$item->bt_social}}</option>
+                                                <option value="{{$item->con_id}}">{{$item->bt_social}}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -157,6 +157,14 @@
                                 </div>
                             </div>
                         </div>
+						<div class="row">
+							<div class="col-md-6" style="padding: 2% 20%">
+								<button type="submit" class="btn btn-success form-control-sm"><b>GUARDAR</b></button>
+							</div>
+							<div class="col-md-6" style="padding: 2% 12%">
+								<button type="button" class=" btn btn-secondary form-control-sm" data-dismiss="modal"><b>CANCELAR</b></button>
+							</div>
+						</div>
 						{{-- <div class="form-group text-center mt-3">
 							<button type="submit" class="btn-success form-control-sm btn-saveDefinitive"><b>GUARDAR</b></button>
 						</div> --}}
@@ -274,7 +282,7 @@
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops..',
-			text: '¡configuración existente!',
+			text: '¡registro existente!',
 			timer: 3000,
 			timerProgressBar: true,
 			showConfirmButton: false,

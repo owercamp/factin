@@ -13,6 +13,7 @@ use App\Models\Software;
 use App\Models\TechnicalSupport;
 use App\Models\Teken;
 use App\Models\TekenCommercial;
+use App\Models\UserClient;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 
@@ -126,22 +127,26 @@ Route::get('getRazonSocial',function(Request $request){
     return response()->json($query);
 })->name('getRazonSocial');
 
+// consulta la razon social activa para el formulario de edicion de oprtunidad commercial
 Route::get('getRazonSocialActive',function(Request $request){
     $query = Lead::where('lead_id',trim($request->data))
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getRazonSocialActive');
 
+// consulta el departament
 Route::get('getDepartament',function(Request $request){
     $query = Location::where('depid',trim($request->data))->get();
     return response()->json($query);
 })->name('getDepartament');
 
+// consulta el ultimo contrato
 Route::get('getContract',function(){
     $query = Contract::latest()->get();
     return response()->json($query);
 })->name('getContract');
 
+// consulta el nombre de la razon social para el formulario de eliminacion
 Route::get('getLegalContract',function(Request $request){
     $query = Agreement::where('legal_id',trim($request->data))
     ->join('leads','leads.lead_id','=','agreements.legal_id')
@@ -156,3 +161,12 @@ Route::get('getLegalContractUpdate',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getLegalContractUpdate');
+
+Route::get('getRazonSocial',function(Request $request){
+    $query = UserClient::where('id',trim($request->data))
+    ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+    ->join('agreements','agreements.legal_id','=','contracts.con_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getRazonSocial');

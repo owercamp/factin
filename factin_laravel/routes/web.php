@@ -66,6 +66,8 @@ Route::post('/collaborator/delete', 'CollaboratorController@collaboratordelete')
 //rutas usuarios clientes
 Route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('usersclient.index');
 Route::post('users-clients/save', 'CollaboratorController@usersclientsave')->name('usersclient.save');
+Route::post('users-clients/edit', 'CollaboratorController@usersclientedit')->name('usersclient.edit');
+Route::post('users-clients/delete', 'CollaboratorController@usersclientdelete')->name('usersclient.delete');
 //rutas productos
 Route::get('/product', 'ProductController@productindex')->name('product.index');
 Route::post('/product/save','ProductController@productsave')->name('product.save');

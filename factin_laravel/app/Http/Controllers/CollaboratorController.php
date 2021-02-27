@@ -99,12 +99,12 @@ class CollaboratorController extends Controller
                 $validate->col_pho = $photo;
                 $validate->col_fir = $signature;
                 $validate->save();
-                return redirect()->route('collaborator.index')->with('PrimaryCreation','Colaborador '.$this::upper($request->col_name_Edit).' fue actualizado');
+                return redirect()->route('collaborator.index')->with('PrimaryCreation','Colaborador '.$this->upper($request->col_name_Edit).' fue actualizado');
             }else{
                 return redirect()->route('collaborator.index')->with('SecondaryCreation','NoEncontrado');
             }
         }else{
-            return redirect()->route('collaborator.index')->with('SecondaryCreation','Colaborador '.$this::upper($request->col_name_Edit).' ya esta registrado');
+            return redirect()->route('collaborator.index')->with('SecondaryCreation','Colaborador '.$this->upper($request->col_name_Edit).' ya esta registrado');
         }
 
     }
@@ -138,9 +138,8 @@ class CollaboratorController extends Controller
 
     function usersclientsave(Request $request)
     {
-        // return $request;
         $validate = UserClient::where('uc_cli',trim($request->uc_cli))
-        ->where('uc_users','=',$this::upper($request->uc_user))->first();
+        ->where('uc_users','=',$this->upper($request->uc_user))->first();
         $client = Contract::where('con_id',trim($request->uc_cli))
         ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
@@ -148,18 +147,58 @@ class CollaboratorController extends Controller
         if ($validate == null) {
             UserClient::create([
                 'uc_cli' => trim($request->uc_cli),
-                'uc_users' => $this::upper($request->uc_user),
-                'uc_type' => $this::upper($request->uc_type),
+                'uc_users' => $this->upper($request->uc_user),
+                'uc_type' => $this->upper($request->uc_type),
                 'uc_ide' => trim($request->uc_ide),
                 'uc_email' => $this->fu($request->uc_ema),
                 'uc_pho1' => trim($request->uc_pho1),
                 'uc_pho2' => trim($request->uc_pho2),
                 'uc_pho3' => trim($request->uc_pho3),
             ]);
-            return redirect()->route('usersclient.index')->with('SuccessCreation','registro exitoso del usuario '.$this::upper($request->uc_user).' para el cliente '.$this::upper($client->bt_social));
+            return redirect()->route('usersclient.index')->with('SuccessCreation','registro exitoso del usuario '.$this->upper($request->uc_user).' para el cliente '.$this->upper($client->bt_social));
         } else {
-            return redirect()->route('usersclient.index')->with('SecondaryCreation','ya existe un registro del usuario '.$this::upper($request->uc_user).' para el cliente '.$this::upper($client->bt_social));
+            return redirect()->route('usersclient.index')->with('SecondaryCreation','ya existe un registro del usuario '.$this->upper($request->uc_user).' para el cliente '.$this->upper($client->bt_social));
         }
+    }
 
+    function usersclientedit(Request $request)
+    {
+        $validate = UserClient::where('uc_cli',trim($request->uc_cli_Edit))
+        ->where('id','=',trim($request->uc_id_Edit))->first();
+        $client = Contract::where('con_id',trim($request->uc_cli_Edit))
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->first();
+        if($validate != null){
+            $validate->uc_cli = trim($request->uc_cli_Edit);
+            $validate->uc_users = $this->upper($request->uc_user_Edit);
+            $validate->uc_type = $this->upper($request->uc_type_Edit);
+            $validate->uc_ide = trim($request->uc_ide_Edit);
+            $validate->uc_email = $this->fu($request->uc_ema_Edit);
+            $validate->uc_pho1 = $this->fu($request->uc_pho1_Edit);
+            $validate->uc_pho2 = $this->fu($request->uc_pho2_Edit);
+            $validate->uc_pho3 = $this->fu($request->uc_pho3_Edit);
+            $validate->save();
+            return redirect()->route('usersclient.index')->with('PrimaryCreation','actualización de la información del usuario '.$this->upper($validate->uc_users).' para el cliente '.$this->upper($client->bt_social));
+        }else{
+            return redirect()->route('usersclient.index')->with('WarningCreation','Error al actualizar el registro del usuario '.$this->upper($validate->uc_users).' para el cliente '.$this->upper($client->bt_social));
+        }
+    }
+
+    function usersclientdelete(Request $request)
+    {
+        // return $request;
+        $validate = UserClient::where('id',trim($request->uc_id_Delete))
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->first();
+        if ($validate != null)
+        {
+            UserClient::findOrFail($request->uc_id_Delete)->delete();
+            return redirect()->route('usersclient.index')->with('WarningCreation','Eliminación del Usuario '.$this->upper($validate->uc_users).' del cliente '.$this->upper($validate->bt_social).' realizado correctamente');
+        }else{
+            return redirect()->route('usersclient.index')->with('SecondCreation','NoEncontrado');
+        }
     }
 }

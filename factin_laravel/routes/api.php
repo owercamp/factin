@@ -154,6 +154,7 @@ Route::get('getLegalContract',function(Request $request){
     return response()->json($query);
 })->name('getLegalContract');
 
+// consulta para realizar la actualizacion de los contratos
 Route::get('getLegalContractUpdate',function(Request $request){
     $query = Contract::where('con_id',trim($request->data))
     ->join('agreements','agreements.legal_id','=','contracts.con_social')
@@ -162,6 +163,7 @@ Route::get('getLegalContractUpdate',function(Request $request){
     return response()->json($query);
 })->name('getLegalContractUpdate');
 
+// realiza la consulta para realiza la eliminacion
 Route::get('getRazonSocial',function(Request $request){
     $query = UserClient::where('id',trim($request->data))
     ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
@@ -170,3 +172,13 @@ Route::get('getRazonSocial',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getRazonSocial');
+
+// realiza la consulta por el numero de identificacion en las solicitudes
+Route::get('getUserIdentity',function(Request $request){
+    $query = UserClient::where('uc_ide',trim($request->data))
+    ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+    ->join('agreements','agreements.legal_id','=','contracts.con_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getUserIdentity');

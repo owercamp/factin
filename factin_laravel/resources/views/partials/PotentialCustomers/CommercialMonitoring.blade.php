@@ -817,7 +817,7 @@
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops..',
-			text: '¡configuración existente!',
+			text: '¡registro existente!',
 			timer: 3000,
 			timerProgressBar: true,
 			showConfirmButton: false,
@@ -869,7 +869,7 @@
 		<script>
 			Swal.fire({
 				icon: 'success',
-				title: '¡actualizado con exito!',
+				title: '¡Eliminación con exito!',
 				timer: 3000,
 				timerProgressBar: true,
 				showConfirmButton: false,

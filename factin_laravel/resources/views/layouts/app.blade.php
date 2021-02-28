@@ -92,11 +92,11 @@
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">SOPORTE
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu row-cols-1 text-center">
-                                    <li><a href="#">SOLICITUDES</a></li>
-                                    <li><a href="#">PROGRAMACION</a></li>
-                                    <li><a href="#">SEGUIMIENTO</a></li>
-                                    <li><a href="#">CALIFICACION</a></li>
-                                    <li><a href="#">ARCHIVO</a></li>
+                                    <li><a href="{{route('request.index')}}">SOLICITUDES</a></li>
+                                    <li><a href="{{route('programming.index')}}">PROGRAMACION</a></li>
+                                    <li><a href="{{route('tracing.index')}}">SEGUIMIENTO</a></li>
+                                    <li><a href="{{route('qualification.index')}}">CALIFICACION</a></li>
+                                    <li><a href="{{route('archiverequest.index')}}">ARCHIVO</a></li>
                                 </ul>
                             </div>
                             <div class="dropdown">

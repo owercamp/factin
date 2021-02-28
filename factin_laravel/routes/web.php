@@ -135,17 +135,21 @@ Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')
 //pdf
 Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name('commercial.pdf');
 Route::post('/Commercial-Monitoring/StatusPDF','TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');
-//contratación
+//contratación cliente
 Route::get('/Agreement-ClientLegalization', 'AgreementController@ClienteLegalization')->name('ClientLegalization.index');
 Route::post('/Agreement-ClientLegalization/save', 'AgreementController@ClientLegalizationSave')->name('ClientLegalization.save');
 Route::post('/Agreement-ClientLegalization/update', 'AgreementController@ClientLegalizationUpdate')->name('ClientLegalization.update');
 Route::post('/Agreement-ClientLegalization/delete', 'AgreementController@ClientLegalizationDelete')->name('ClientLegalization.delete');
-
+// contratación legalizacion
 Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegalization')->name('ContractLegalization.index');
 Route::post('/Agreement-ContractLegalization/save', 'AgreementController@ContractLegalizationSave')->name('ContractLegalization.save');
 Route::post('/Agreement-ContractLegalization/update', 'AgreementController@ContractLegalizationUpdate')->name('ContractLegalization.update');
 Route::post('/Agreement-ContractLegalization/delete', 'AgreementController@ContractLegalizationDelete')->name('ContractLegalization.delete');
-
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
 Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator')->name('SuccessIndicator.index');
-
+Route::get('/Request', 'RequestController@requestindex')->name('request.index');
+Route::post('/Request/save', 'RequestController@requestsave')->name('request.save');
+Route::get('/Programming', 'RequestController@programmingindex')->name('programming.index');
+Route::get('/Tracing', 'RequestController@tracingindex')->name('tracing.index');
+Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');
+Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');

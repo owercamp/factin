@@ -121,6 +121,16 @@ function seeDirection($urls ='/home')
 			return 'Comercial >> Contratación >> Archivo Contrataciones';
 		case '/factin/Agreement-SuccessIndicator':
 			return 'Comercial >> Contratación >> Indicadores de Exito';
+		case '/factin/Request':
+			return 'Soporte >> Solicitudes';
+		case '/factin/Programming':
+			return 'Soporte >> Programación';
+		case '/factin/Tracing':
+			return 'Soporte >> Seguimiento';
+		case '/factin/Qualification':
+			return 'Soporte >> Calificación';
+		case '/factin/Archive':
+			return 'Soporte >> Archivo';
     }
 }
 

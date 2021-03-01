@@ -2,6 +2,7 @@
 
 use App\Models\Agreement;
 use App\Models\BusinessTracking;
+use App\Models\Collaborator;
 use App\Models\Contract;
 use App\Models\Hardware;
 use App\Models\icon_name;
@@ -182,3 +183,9 @@ Route::get('getUserIdentity',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getUserIdentity');
+
+// realiza la consulta del colaborador asignado
+Route::get('getCollaborator',function(Request $request){
+    $query = Collaborator::where('id',trim($request->data))->get();
+    return response()->json($query);
+})->name('getCollaborator');

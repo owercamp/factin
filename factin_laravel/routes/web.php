@@ -145,11 +145,20 @@ Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegal
 Route::post('/Agreement-ContractLegalization/save', 'AgreementController@ContractLegalizationSave')->name('ContractLegalization.save');
 Route::post('/Agreement-ContractLegalization/update', 'AgreementController@ContractLegalizationUpdate')->name('ContractLegalization.update');
 Route::post('/Agreement-ContractLegalization/delete', 'AgreementController@ContractLegalizationDelete')->name('ContractLegalization.delete');
+// contratación archivos
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
+// contrataciones indicadores
 Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator')->name('SuccessIndicator.index');
+// rutas solicitudes
 Route::get('/Request', 'RequestController@requestindex')->name('request.index');
 Route::post('/Request/save', 'RequestController@requestsave')->name('request.save');
+// rutas programacion
 Route::get('/Programming', 'RequestController@programmingindex')->name('programming.index');
+Route::post('/Programming/update', 'RequestController@programmingupdate')->name('programming.update');
+Route::post('/Programming/assing', 'RequestController@programmingassign')->name('programming.assign');
+// rutas seguimiento
 Route::get('/Tracing', 'RequestController@tracingindex')->name('tracing.index');
+// rutas calificativo
 Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');
+// rutas archivo
 Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');

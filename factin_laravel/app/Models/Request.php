@@ -18,4 +18,9 @@ class Request extends Model
     {
         return $this->belongsTo(UserClient::class, 'id');
     }
+
+    public function collaborator()
+    {
+        return $this->belongsTo(Collaborator::class, 'id');
+    }
 }

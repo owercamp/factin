@@ -22,9 +22,11 @@ class CreateRequestsTable extends Migration
             $table->text('req_sol1',500);
             $table->text('req_sol2',500);
             $table->text('req_sol3',500);
+            $table->integer('req_cola')->unsigned();
             $table->timestamps();
 
             $table->foreign('req_cli')->references('id')->on('user_clients');
+            $table->foreign('req_cola')->references('id')->on('collaborators');
         });
     }
 

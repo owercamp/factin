@@ -146,7 +146,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <small class="text-muted">CORREO ELECTRONICO</small>
-                                    <input type="email" name="uc_ema" class="form-control form-control-sm">
+                                    <input type="text" name="uc_email" class="form-control form-control-sm">
                                 </div>
                             </div>
                         </div>
@@ -201,9 +201,9 @@
                                     <select name="uc_cli_Edit" class="form-control form-control-sm" required>
                                         <option value="">Seleccione Producto</option>
                                         @foreach ($client as $item)
-                                            @if ($item->con_final >= date('Y-m-d'))
+                                            {{-- @if ($item->con_final >= date('Y-m-d')) --}}
                                                 <option value="{{$item->con_id}}">{{$item->bt_social}}</option>
-                                            @endif
+                                            {{-- @endif --}}
                                         @endforeach
                                     </select>
                                 </div>
@@ -237,7 +237,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <small class="text-muted">CORREO ELECTRONICO</small>
-                                    <input type="email" name="uc_ema_Edit" class="form-control form-control-sm">
+                                    <input type="text" name="uc_email_Edit" class="form-control form-control-sm">
                                 </div>
                             </div>
                         </div>
@@ -351,7 +351,7 @@
                     $('input[name=uc_user_Edit]').val(user);
                     $('select[name=uc_type_Edit]').val(type);
                     $('input[name=uc_ide_Edit]').val(ide);
-                    $('input[name=uc_ema_Edit]').val(ema);
+                    $('input[name=uc_email_Edit]').val(ema);
                     $('input[name=uc_pho1_Edit]').val(pho1);
                     $('input[name=uc_pho2_Edit]').val(pho2);
                     $('input[name=uc_pho3_Edit]').val(pho3);

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\response_to_request;
 use App\Models\Collaborator;
 use App\Models\Request as ModelsRequest;
 use App\Models\UserClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
@@ -82,8 +84,15 @@ class RequestController extends Controller
             $search->req_cola = trim($request->assigncol);
             $search->save();
             return redirect()->route('programming.index')->with('PrimaryCreation','Asignación del colaborador '.$this->upper($col->col_name).' al usuario '.$this->upper($search->req_user).' realizada de manera correcta');
+        }else{
+            return redirect()->route('Programming.index')->with('SecondaryCreation','Colaborador '.$this->upper($col->col_name).' no pudo ser asignado');
         }
-        return $search;
+    }
+    function responsetorequest(Request $request)
+    {
+        $newEmail = new response_to_request($request->soldate);
+        Mail::to($request->solemail)->send($newEmail);
+        return redirect()->route('programming.index');
     }
     function tracingindex()
     {

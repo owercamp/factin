@@ -50,7 +50,7 @@
             <div class="flex-direction flex-justified">
                 <div class="figure icon1">
                     <a href="#">
-                        <img src="{{asset('img/logofactin.png')}}" alt="img-factin" class="size-img">
+                        <img id="log1" src="{{asset('img/logofactin.png')}}" alt="img-factin" class="size-img">
                     </a>
                 </div>
                 <div class=" navbar nav-justified flex-justified bg-menu">
@@ -114,7 +114,7 @@
                 </div>
                 <div class="figure icon2">
                     <a href="#">
-                        <img src="{{asset('img/Logojavapri.png')}}" alt="img-javapri" class="size-img">
+                        <img id="log2" src="{{asset('img/Logojavapri.png')}}" alt="img-javapri" class="size-img">
                     </a>
                 </div>
             </div>

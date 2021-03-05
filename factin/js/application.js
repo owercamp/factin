@@ -14,6 +14,7 @@ $(function(){
 	$('input[name=CoWhat]').mask('0000000000');
 	$('input[name=CoTel]').mask('0000000000');
 	$('input[name=CoCan]').mask('0000');
+	$('input[name=req_cont]').mask('0000');
 	$('input[name=CoIva]').mask('0000');
 	$('input[name=ClQuota]').mask('00');
 	
@@ -48,6 +49,7 @@ $(function(){
 	});
 
 });
+
 
 function seeDirection($urls ='/home')
 {

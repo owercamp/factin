@@ -48,14 +48,14 @@ class CollaboratorController extends Controller
             }
             $name = $this->fu($request->col_name);
             Collaborator::create([
-                'col_name' => $this->fu($request->col_name),
+                'col_name' => $this->upper($request->col_name),
                 'col_ide' => $this->fu($request->col_ide),
                 'col_dep' => trim($request->col_dep),
                 'col_mun' => trim($request->col_mun),
                 'col_adr' => $this->fu($request->col_adr),
                 'col_ph1' => trim($request->col_ph1),
                 'col_ph2' => trim($request->col_ph2),
-                'col_ema' => $this->fu($request->col_ema),
+                'col_ema' => $request->col_email,
                 'col_pho' => $photo,
                 'col_fir' => $signature
             ]);
@@ -88,14 +88,14 @@ class CollaboratorController extends Controller
                     $signature = time().$filefir->getClientOriginalName();
                     $filefir->move('public_signature'.'/signature/', $signature);
                 }
-                $validate->col_name = $this->fu($request->col_name_Edit);
+                $validate->col_name = $this->upper($request->col_name_Edit);
                 $validate->col_ide = $this->fu($request->col_ide_Edit);
                 $validate->col_dep = trim($request->col_dep_Edit);
                 $validate->col_mun = trim($request->col_mun_Edit);
                 $validate->col_adr = $this->fu($request->col_adr_Edit);
                 $validate->col_ph1 = trim($request->col_ph1_Edit);
                 $validate->col_ph2 = trim($request->col_ph2_Edit);
-                $validate->col_ema = $this->fu($request->col_ema_Edit);
+                $validate->col_ema = $request->col_email_Edit;
                 $validate->col_pho = $photo;
                 $validate->col_fir = $signature;
                 $validate->save();
@@ -150,7 +150,7 @@ class CollaboratorController extends Controller
                 'uc_users' => $this->upper($request->uc_user),
                 'uc_type' => $this->upper($request->uc_type),
                 'uc_ide' => trim($request->uc_ide),
-                'uc_email' => $this->fu($request->uc_ema),
+                'uc_email' => $request->uc_email,
                 'uc_pho1' => trim($request->uc_pho1),
                 'uc_pho2' => trim($request->uc_pho2),
                 'uc_pho3' => trim($request->uc_pho3),
@@ -174,7 +174,7 @@ class CollaboratorController extends Controller
             $validate->uc_users = $this->upper($request->uc_user_Edit);
             $validate->uc_type = $this->upper($request->uc_type_Edit);
             $validate->uc_ide = trim($request->uc_ide_Edit);
-            $validate->uc_email = $this->fu($request->uc_ema_Edit);
+            $validate->uc_email = $request->uc_email_Edit;
             $validate->uc_pho1 = $this->fu($request->uc_pho1_Edit);
             $validate->uc_pho2 = $this->fu($request->uc_pho2_Edit);
             $validate->uc_pho3 = $this->fu($request->uc_pho3_Edit);

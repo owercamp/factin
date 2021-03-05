@@ -13,7 +13,9 @@
 //
 
 use App\Http\Controllers\TradeController;
+use App\Mail\response_to_request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -162,3 +164,11 @@ Route::get('/Tracing', 'RequestController@tracingindex')->name('tracing.index');
 Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');
 // rutas archivo
 Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');
+
+// ruta de correo envio
+Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
+// Route::get('/Email', function(){
+//     $NewEmail = new response_to_request;
+//     Mail::to('vahof96422@netjook.com')->send($NewEmail);
+//     return redirect()->route('programming.index');
+// });

@@ -51,7 +51,7 @@
             <tbody>
                     @php
                         $row = 1;
-                    @endphp				
+                    @endphp
                     @foreach ($collaborators as $item)
                     <tr>
                         <th>{{$row++}}</th>
@@ -94,7 +94,7 @@
                             </a>
                         </th>
                     </tr>
-                    @endforeach                
+                    @endforeach
             </tbody>
         </table>
     </div>
@@ -132,11 +132,11 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<small class="text-muted">IDENTIFCACION:</small>
-											<input type="text" name="col_ide" maxlength="10" class="form-control form-control-sm" placeholder="C.C/C.E" required>											
+											<input type="text" name="col_ide" maxlength="10" class="form-control form-control-sm" placeholder="C.C/C.E" required>
 										</div>
 									</div>
 								</div>
-								<div class="row">									
+								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group">
 											<small class="text-muted">DEPARTAMENTO:</small>
@@ -174,7 +174,7 @@
 									</div>
 									<div class="col-md-6">
 										<small>CORREO ELECTRONICO</small>
-										<input type="text" name="col_ema" maxlength="50" class="form-control form-control-sm" placeholder="correo@correo.com.co" required>
+										<input type="text" name="col_email" maxlength="50" class="form-control form-control-sm" placeholder="correo@correo.com.co" required>
 									</div>
                                 </div>
                                 <div class="row">
@@ -190,20 +190,20 @@
                                             <input type="file" name="col_fir" id="">
                                         </div>
                                     </div>
-                                </div>								
+                                </div>
 							</div>
 						</div>
 						<div class="my-3">
 							<div class="form-group text-center border-top">
 								<button type="submit" class="btn btn-success form-control-sm my-3">GUARDAR</button>
-							</div>						
+							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	{{-- formulario de edición --}}
 	<div class="modal fade" id="newcollaboratorEdit-modal">
 		<div class="modal-dialog modal-lg" style="font-size: 15px;">
@@ -226,11 +226,11 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<small class="text-muted">IDENTIFCACION:</small>
-											<input type="text" name="col_ide_Edit" maxlength="10" class="form-control form-control-sm" placeholder="C.C/C.E" required>											
+											<input type="text" name="col_ide_Edit" maxlength="10" class="form-control form-control-sm" placeholder="C.C/C.E" required>
 										</div>
 									</div>
 								</div>
-								<div class="row">									
+								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group">
 											<small class="text-muted">DEPARTAMENTO:</small>
@@ -268,7 +268,7 @@
 									</div>
 									<div class="col-md-6">
 										<small>CORREO ELECTRONICO</small>
-										<input type="text" name="col_ema_Edit" maxlength="50" class="form-control form-control-sm" placeholder="correo@correo.com.co" required>
+										<input type="text" name="col_email_Edit" maxlength="50" class="form-control form-control-sm" placeholder="correo@correo.com.co" required>
 									</div>
                                 </div>
                                 <div class="row">
@@ -286,7 +286,7 @@
 											<input type="hidden" name="col_fir_Edit2">
                                         </div>
                                     </div>
-                                </div>								
+                                </div>
 							</div>
 						</div>
 						<div class="row border-top mt-3 text-center">
@@ -303,7 +303,7 @@
 			</div>
 		</div>
     </div>
-    
+
     {{-- formulario de eliminación --}}
 	<div class="modal fade" id="deleteCollaborator-modal">
 		<div class="modal-dialog" style="font-size: 12px;">
@@ -317,7 +317,7 @@
 							<small class="text-muted">NOMBRE DEL COLABORADOR</small><br>
                             <span class="text-muted"><b class="col_name_Delete"></b></span><br>
                             <small class="text-muted">IDENTIFCACION COLABORADOR</small><br>
-							<span class="text-muted"><b class="col_ide_Delete"></b></span><br>							
+							<span class="text-muted"><b class="col_ide_Delete"></b></span><br>
 						</div>
 					</div>
 					<div class="row mt-3 border-top text-center">
@@ -342,7 +342,7 @@
 		$('.newCollaborator-link').on('click',function(){
 			$('#newcollaborator-modal').modal();
         });
-        
+
         //consulta de departamento
 		$('#DepName').on('change',function(e){
 			var Departament = e.target.value;
@@ -409,12 +409,12 @@
 					$('input[name=col_adr_Edit]').val(col_adrs);
 					$('input[name=col_ph1_Edit]').val(col_ph1s);
 					$('input[name=col_ph2_Edit]').val(col_ph2s);
-					$('input[name=col_ema_Edit]').val(col_emas);
+					$('input[name=col_email_Edit]').val(col_emas);
 					$('input[name=col_pho_Edit2]').val(col_phos);
 					$('input[name=col_fir_Edit2]').val(col_firs);
 					$('#newcollaboratorEdit-modal').modal();
 				}
-			})			
+			})
 		});
 
 		//consulta de departamento
@@ -433,18 +433,18 @@
         });
 
         // Llama al formulario de eliminación
-		$('.deleteCreation-link').on('click',function(e){			
+		$('.deleteCreation-link').on('click',function(e){
             e.preventDefault();
             var id, name, ide;
             id = $(this).find('span:nth-child(2)').text();
 			name = $(this).find('span:nth-child(3)').text();
 			ide = $(this).find('span:nth-child(4)').text();
 			$('input[name=id_Delete]').val(id);
-            $('.col_name_Delete').text(name);             
+            $('.col_name_Delete').text(name);
 			$('.col_ide_Delete').text(ide);
-			$('#deleteCollaborator-modal').modal();					
+			$('#deleteCollaborator-modal').modal();
         })
-        
+
         // envia el formulario de eliminación
 		$('.DeleteSend').submit('click', function(e){
 			e.preventDefault();
@@ -469,7 +469,7 @@
 				}
 			})
 		})
-        
+
     </script>
     @if(session('SuccessCreation'))
 	<script>
@@ -539,7 +539,7 @@
 				popup: 'animate__animated animate__flipOutX'
 				}
 			})
-		</script>		
+		</script>
 	@endif
 	@if (session('WarningCreation'))
 		<script>

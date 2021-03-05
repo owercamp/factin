@@ -80,6 +80,7 @@
                             </a>
                             <a href="#" title="Respuesta" class="btn-delete form-control-sm RequestCreation-link">
                                 <span class="icon-telegram"></span>
+                                <span hidden>{{$item->uc_email}}</span>
                             </a>
                             <a href="#" title="Asignación" class="btn-edit form-control-sm AssignCreation-link">
                                 <span class="icon-handshake-o"></span>
@@ -214,10 +215,45 @@
             </div>
         </div>
     </div>
+
+    {{-- formulario de respuesta  --}}
+    <div class="modal face" id="newResponsetoRequest-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-justify">
+                    <h5 class="text-primary">FECHA SOLUCION</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('responsetorequest.response')}}" method="post">
+                    @csrf
+                    <div class="col-md-12" style="padding: 1% 15%">
+                        <div class="form-group">
+                            <small class="text-muted">FECHA PROXIMA PARA LA SOLUCION</small>
+                            <input type="text" name="soldate" class="form-control form-control-sm datepicker text-center">
+                            <input type="hidden" name="solemail" class="form-control form-control-sm text-center">
+                        </div>
+                    </div>
+                    <div class="form-group text-center mt-2">
+                        <button type="submit" class="btn-outline-success form-control-sm"><b>GUARDAR</b></button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('ScriptZone')
 	<script>
+
+        $('.RequestCreation-link').click(function (e) {
+            e.preventDefault();
+            let email;
+            email = $(this).find('span:nth-child(2)').text();
+            $('input[name=solemail]').val(email);
+            $('#newResponsetoRequest-modal').modal();
+        });
+
         $('.AssignCreation-link').click(function (e) {
             e.preventDefault();
             let id = $(this).find('span:nth-child(2)').text();

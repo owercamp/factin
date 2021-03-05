@@ -117,12 +117,34 @@
             let ide = $('input[name=req_ide]').val();
             $.get("{{route('getUserIdentity')}}", {data: ide},
                 function (objectUserIdentity) {
-                    console.log(objectUserIdentity);
                     $('select[name=req_cli]').val(objectUserIdentity[0]['uc_cli']);
                     $('input[name=req_user]').val(objectUserIdentity[0]['uc_users']);
                     let date = new Date(); let month = date.getMonth()+1; let year = date.getFullYear(); let day = date.getDate(); let monthfor = ('00'+month).slice(-2);
                     if (objectUserIdentity[0]['con_final'] < year+'-'+monthfor+'-'+day) {
-                        $('input[name=req_cont]').val('NO TIENE CONTRATO VIGENTE POR FAVOR COMUNICARSE CON SERVICIO AL CLIENTE');
+                        const Alerta = Swal.mixin({
+                            timer: 5000,
+                            timerProgressBar: true,
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            },
+                            showClass: {
+                            popup: 'animate__animated animate__flipInX'
+                            },
+                            hideClass: {
+                            popup: 'animate__animated animate__flipOutX'
+                            }
+                        })
+                        Alerta.fire({
+                            icon: 'error',
+                            title: '<h3 class="text-danger"><em>CONTRATO VENCIDO</em><h3>',
+                            html: '<b class="text-dark text-capitalize">Por favor comuníquese con servicio al cliente<b>',
+                        })
+                    $('select[name=req_cli]').val("");
+                    $('input[name=req_user]').val("");
+                    $('input[name=req_cont]').val("");
                     }else{
                         $('input[name=req_cont]').val(("0000"+objectUserIdentity[0]['conNumber']).slice(-4));
                     }

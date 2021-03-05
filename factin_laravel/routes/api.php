@@ -184,8 +184,3 @@ Route::get('getUserIdentity',function(Request $request){
     return response()->json($query);
 })->name('getUserIdentity');
 
-// realiza la consulta del colaborador asignado
-Route::get('getCollaborator',function(Request $request){
-    $query = Collaborator::where('id',trim($request->data))->get();
-    return response()->json($query);
-})->name('getCollaborator');

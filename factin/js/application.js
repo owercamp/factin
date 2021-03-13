@@ -37,11 +37,7 @@ $(function(){
 	var MyDate = dia + ' de ' + meses[mes] + ' de ' + yyy;
 
 	
-	$('.NowDate').append(MyDate);
-	
-	gsap.from(".directionUri",{duration: 10, opacity: 0.1});
-	gsap.to(".directionUri",{duration: 10, color:'#0676a4', delay: 6});
-	gsap.to(".NowDate",{duration: 7,color:'#0676a4',delay:3});
+	$('.NowDate').append(MyDate);	
 	
 	$('.datepicker').datepicker({
 		dateFormat: 'DD, dd-MM-yy',
@@ -49,6 +45,16 @@ $(function(){
 	});
 
 });
+let uri = () =>{
+	let directUri = $('.directionUri');
+	directUri.animate({opacity: 0.1 });
+	directUri.animate({opacity: 1}, 10000);
+	directUri.animate({color: '#0676a4'}, 10000);
+	directUri.animate({color: '#212529'}, 10000);
+	directUri.animate({color: '#0676a4'}, 10000);
+	directUri.animate({opacity: 0.1 }, 10000);
+}
+setInterval(uri,50000);
 
 
 function seeDirection($urls ='/home')

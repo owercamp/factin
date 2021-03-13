@@ -6,6 +6,7 @@ use App\Models\Agreement;
 use App\Models\Contract;
 use App\Models\Lead;
 use App\Models\Location;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\This;
 
@@ -42,16 +43,16 @@ class AgreementController extends Controller
                 'legal_pho' =>$this->fu($request->ClTel),
                 'legal_what' =>$this->fu($request->ClWhat),
                 'legal_ema' =>$this->fu($request->ClEma),
-                'legal_typeClient' =>$this::upper($request->CltypeCli),
+                'legal_typeClient' =>$this->upper($request->CltypeCli),
                 'legal_typeDocRSocial' =>$this->upper($request->ClDoc),
                 'legal_DocRSocial' =>$this->fu($request->ClNumero),
-                'legal_repre' =>$this::upper($request->ClRepresentante),
-                'legal_typeDocRepre' =>$this::upper($request->ClDocRepre),
+                'legal_repre' =>$this->upper($request->ClRepresentante),
+                'legal_typeDocRepre' =>$this->upper($request->ClDocRepre),
                 'legal_DocRepre' =>$this->fu($request->ClNumeroRepre)
             ]);
-                return \redirect()->route('ClientLegalization.index')->with('SuccessCreation','Legalización del cliente con representante legal '.$this::upper($request->ClRepresentante).' almacenada correctamente');
+                return \redirect()->route('ClientLegalization.index')->with('SuccessCreation','Legalización del cliente con representante legal '.$this->upper($request->ClRepresentante).' almacenada correctamente');
         }else {
-            return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation','legalización del cliente con representante legal '.$this::upper($request->ClRepresentante).' no pudo ser almacena existe datos duplicados');
+            return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation','legalización del cliente con representante legal '.$this->upper($request->ClRepresentante).' no pudo ser almacena existe datos duplicados');
         }
     }
 
@@ -72,16 +73,16 @@ class AgreementController extends Controller
                 $vali->legal_pho = $this->fu($request->ClTel_Edit);
                 $vali->legal_what = $this->fu($request->ClWhat_Edit);
                 $vali->legal_Ema = $this->fu($request->ClEma_Edit);
-                $vali->legal_typeClient = $this::upper($request->CltypeCli_Edit);
-                $vali->legal_typeDocRSocial = $this::upper($request->ClDoc_Edit);
+                $vali->legal_typeClient = $this->upper($request->CltypeCli_Edit);
+                $vali->legal_typeDocRSocial = $this->upper($request->ClDoc_Edit);
                 $vali->legal_DocRSocial = trim($request->ClNumero_Edit);
-                $vali->legal_repre = $this::upper($request->ClRepresentante_Edit);
-                $vali->legal_typeDocRepre = $this::upper($request->ClDocRepre_Edit);
+                $vali->legal_repre = $this->upper($request->ClRepresentante_Edit);
+                $vali->legal_typeDocRepre = $this->upper($request->ClDocRepre_Edit);
                 $vali->legal_DocRepre = trim($request->ClNumeroRepre_Edit);
                 $vali->save();
-                return \redirect()->route('ClientLegalization.index')->with('PrimaryCreation', 'Actualización del registro con representante legal '.$this::upper($request->ClRepresentante_Edit).' se ejecuto correctamente');
+                return \redirect()->route('ClientLegalization.index')->with('PrimaryCreation', 'Actualización del registro con representante legal '.$this->upper($request->ClRepresentante_Edit).' se ejecuto correctamente');
             }else{
-                return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation', 'Actualización del registro con representante legal '.$this::upper($request->ClRepresentante_Edit).' no pudo ser ejecutado');
+                return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation', 'Actualización del registro con representante legal '.$this->upper($request->ClRepresentante_Edit).' no pudo ser ejecutado');
             }
         }else{
             return \redirect()->route('ClientLegalization.index')->with('SecondaryCreation', 'No se encontro registro para actualizar');
@@ -148,7 +149,7 @@ class AgreementController extends Controller
                 'conNumber' => trim($request->ClContract),
                 'con_social' => trim($request->ClSocial),
                 'con_typeiderepre' => $this->fu($request->ClDoc),
-                'con_repre' => $this::upper($request->ClRepre),
+                'con_repre' => $this->upper($request->ClRepre),
                 'con_numero' => trim($request->ClTel),
                 'con_ini' => $this->fu($request->ClFIni),
                 'con_final' => $MyDates,
@@ -196,8 +197,8 @@ class AgreementController extends Controller
                 $MyDates = $year.'-'.$mon.'-'.$day;
                 $valu->conNumber = $this->fu($request->ClContract_Edit);
                 $valu->con_social = $this->fu($request->ClSocial_Edit);
-                $valu->con_typeiderepre = $this::upper($request->ClDoc_Edit);
-                $valu->con_repre = $this::upper($request->ClRepre_Edit);
+                $valu->con_typeiderepre = $this->upper($request->ClDoc_Edit);
+                $valu->con_repre = $this->upper($request->ClRepre_Edit);
                 $valu->con_numero = $this->fu($request->ClTel_Edit);
                 $valu->con_ini = $this->fu($request->ClFIni_Edit);
                 $valu->con_final = $MyDates;
@@ -228,6 +229,18 @@ class AgreementController extends Controller
             return redirect()->route('ContractLegalization.index')->with('SecondaryCreation','Contrato N° '.$Cont.' no encontrado');
         }
 
+    }
+    function ContractLegalizationPrinter(Request $request)
+    {
+        $info = Contract::where('con_id',$request->id_printer)
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
+
+        $pdf = PDF::loadView('partials.pdf.ContractPDF', compact('info'));
+        return $pdf->stream('Contrato.pdf');
     }
 
     function ContractsFile()

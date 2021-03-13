@@ -81,6 +81,7 @@
                             <a href="#" title="Respuesta" class="btn-delete form-control-sm RequestCreation-link">
                                 <span class="icon-telegram"></span>
                                 <span hidden>{{$item->uc_email}}</span>
+                                <span hidden>{{$item->req_id}}</span>
                             </a>
                             <a href="#" title="Asignación" class="btn-edit form-control-sm AssignCreation-link">
                                 <span class="icon-handshake-o"></span>
@@ -231,6 +232,7 @@
                             <small class="text-muted">FECHA PROXIMA PARA LA SOLUCION</small>
                             <input type="text" name="soldate" class="form-control form-control-sm datepicker text-center">
                             <input type="hidden" name="solemail" class="form-control form-control-sm text-center">
+                            <input type="hidden" name="solid" class="form-control form-control-sm text-center">
                         </div>
                     </div>
                     <div class="form-group text-center mt-2">
@@ -248,9 +250,11 @@
 
         $('.RequestCreation-link').click(function (e) {
             e.preventDefault();
-            let email;
+            let email, id;
             email = $(this).find('span:nth-child(2)').text();
+            id = $(this).find('span:nth-child(3)').text();
             $('input[name=solemail]').val(email);
+            $('input[name=solid]').val(id);
             $('#newResponsetoRequest-modal').modal();
         });
 
@@ -300,8 +304,6 @@
 				}
 			})
 		});
-
-
 	</script>
     @if(session('SuccessCreation'))
 	<script>
@@ -406,5 +408,30 @@
 				}
 			})
 		</script>
+	@endif
+    @if(session('Correct') == 'SendRequest')
+	<script>
+        const message =Swal.mixin({
+            timer: 5000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__flipOutX'
+            }
+        })
+		message.fire({
+			icon: 'info',
+			title: '<h4>¡Respuesta enviada!</h4>',
+            html: '<p class="text-info">Respuesta enviada al correo del cliente<br>registro ahora sera encontrado en:<br> <em>Soporte >> Seguimiento</em></p>'
+		})
+	</script>
 	@endif
 @endsection

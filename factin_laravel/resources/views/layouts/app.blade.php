@@ -25,7 +25,6 @@
     <script src="{{asset('js/DataTables/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('js/DataTables/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('js/greensockjs.js')}}"></script>
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script src="{{asset('js/jquery.maskMoney.js')}}"></script>
     <script src="{{asset('js/application.js')}}"></script>

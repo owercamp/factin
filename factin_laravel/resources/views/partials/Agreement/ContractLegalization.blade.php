@@ -367,11 +367,23 @@
         </div>
     </div>
 
+    <form action="{{route('contract.printer')}}" method="post" class="invisible printer">
+    @csrf
+    <input type="text" name="id_printer">
+    </form>
+
 
 @endsection
 
 @section('ScriptZone')
     <script>
+
+        $('.Imprimir-PDF').click(function () {
+            let id = $(this).find('span:nth-child(2)').text();
+            $('input[name=id_printer]').val(id);
+            $('.printer').submit();
+        });
+
         // lanza formulario creación
 		$('.newCreation-link').on('click',function(){
             $('b.ClContract').empty();

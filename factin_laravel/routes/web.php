@@ -147,6 +147,7 @@ Route::get('/Agreement-ContractLegalization', 'AgreementController@ContractLegal
 Route::post('/Agreement-ContractLegalization/save', 'AgreementController@ContractLegalizationSave')->name('ContractLegalization.save');
 Route::post('/Agreement-ContractLegalization/update', 'AgreementController@ContractLegalizationUpdate')->name('ContractLegalization.update');
 Route::post('/Agreement-ContractLegalization/delete', 'AgreementController@ContractLegalizationDelete')->name('ContractLegalization.delete');
+Route::post('/Agreement-ContractLegalization/printer', 'AgreementController@ContractLegalizationPrinter')->name('contract.printer');
 // contratación archivos
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
 // contrataciones indicadores
@@ -164,11 +165,6 @@ Route::get('/Tracing', 'RequestController@tracingindex')->name('tracing.index');
 Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');
 // rutas archivo
 Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');
-
 // ruta de correo envio
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
-// Route::get('/Email', function(){
-//     $NewEmail = new response_to_request;
-//     Mail::to('vahof96422@netjook.com')->send($NewEmail);
-//     return redirect()->route('programming.index');
-// });
+

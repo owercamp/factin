@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\response_to_request;
 use App\Models\Collaborator;
+use App\Models\Following;
 use App\Models\Request as ModelsRequest;
 use App\Models\UserClient;
 use Illuminate\Http\Request;
@@ -76,7 +77,6 @@ class RequestController extends Controller
     }
     function programmingassign(Request $request)
     {
-        // return $request;
         $col = Collaborator::find($request->assigncol);
         $search = ModelsRequest::find($request->req_id_assign);
         if($search != null)
@@ -90,13 +90,59 @@ class RequestController extends Controller
     }
     function responsetorequest(Request $request)
     {
+        // envio de mensaje al correo del cliente
         $newEmail = new response_to_request($request->soldate);
         Mail::to($request->solemail)->send($newEmail);
-        return redirect()->route('programming.index');
+
+        // crea registro en la tabla follow de seguimiento
+        $register = ModelsRequest::find($request->solid);
+        if ($register != null) {
+            $MyDate = $this->fu($request->soldate);
+            $DateNumber = mb_split(",",$MyDate);
+            $Dat = mb_split("-",$DateNumber[1]);
+            $Mont = $this->fu($Dat[1]);
+            $MyDatesArray = array('01','02','03','04','05','06','07','08','09','10','11','12');
+            switch ($Mont) {
+                case 'Enero': $mon = $MyDatesArray[0]; break;
+                case 'Febrero': $mon = $MyDatesArray[1]; break;
+                case 'Marzo': $mon = $MyDatesArray[2]; break;
+                case 'Abril': $mon = $MyDatesArray[3]; break;
+                case 'Mayo': $mon = $MyDatesArray[4]; break;
+                case 'Junio': $mon = $MyDatesArray[5]; break;
+                case 'Julio': $mon = $MyDatesArray[6]; break;
+                case 'Agosto': $mon = $MyDatesArray[7]; break;
+                case 'Septiembre': $mon = $MyDatesArray[8]; break;
+                case 'Octubre': $mon = $MyDatesArray[9]; break;
+                case 'Noviembre': $mon = $MyDatesArray[10]; break;
+                case 'Diciembre': $mon = $MyDatesArray[11]; break;
+            }
+            $day = $this->fu($Dat[0]); $year = $this->fu($Dat[2]);
+            $MyDates = $year.'-'.$mon.'-'.$day;
+            Following::create([
+                'foll_ide' => $register->req_ide,
+                'foll_cli' => $register->req_cli,
+                'foll_user' => $this->upper($register->req_user),
+                'fol_con' => $register->req_con,
+                'foll_sol1' => $register->req_sol1,
+                'foll_sol2' => $register->req_sol2,
+                'foll_sol3' => $register->req_sol3,
+                'foll_cola' => $register->req_cola,
+                'foll_date' => $MyDates
+            ]);
+            ModelsRequest::FindOrFail($request->solid)->delete();
+        }
+        return redirect()->route('programming.index')->with('Correct','SendRequest');
     }
     function tracingindex()
     {
-        return view('partials.Support.Tracing');
+        $collaborator = Collaborator::all();
+        $follow = Following::select('followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
+        ->join('user_clients','user_clients.id','=','followings.foll_cli')
+        ->join('contracts','contracts.con_id','=','user_clients.id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+        return view('partials.Support.Tracing', compact('follow','collaborator'));
     }
     function qualificationindex()
     {

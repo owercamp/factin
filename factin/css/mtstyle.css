@@ -52,6 +52,10 @@ a {
     left: 250px;
     z-index: 1;
     border-radius: 80px;
+    -webkit-border-radius: 80px;
+    -moz-border-radius: 80px;
+    -ms-border-radius: 80px;
+    -o-border-radius: 80px;
 }
 .icon2::before {
     content: "";
@@ -62,17 +66,17 @@ a {
     top: 48px;
     left: -26px;
     z-index: 1;
-    border-radius: 80px;
+    border-radius:80px;
+    -webkit-border-radius:80px;
+    -moz-border-radius:80px;
+    -ms-border-radius:80px;
+    -o-border-radius:80px;
 }
 .login {
     position: relative;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -ms-flex-align: center;
     align-items: center;
-    -ms-flex-pack: justify;
     justify-content: center;
     padding: 0.5rem 1rem;
 }
@@ -119,13 +123,20 @@ a {
 .nav-config-user{
     background: #bbca62;
     border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
 }
 .border-personalice{
     border-right: 2px double var(--orange);
 }
 #formlist{
+    -moz-column-count:2;
     column-count:2;
+    -moz-column-gap: 20%;
     column-gap: 20%;
+    -moz-column-rule: 1px dashed var(--primary);
     column-rule: 1px dashed var(--primary);
 }
 .text-iva {
@@ -144,6 +155,10 @@ a.text-iva:hover, a.text-iva:focus {
     margin-top: 3%;
     margin-left: 1%;
     border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
 }
 .display-flex{
     float: right;
@@ -158,6 +173,10 @@ a.text-iva:hover, a.text-iva:focus {
     border: cadetblue solid 1.5px;
     height: 22% !important;
     border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
 }
 .labeltext{
     float: left;
@@ -168,6 +187,10 @@ a.text-iva:hover, a.text-iva:focus {
     padding-bottom: .9%;
     border: cadetblue solid 1.5px;
     border-radius: 45%;
+    -webkit-border-radius: 45%;
+    -moz-border-radius: 45%;
+    -ms-border-radius: 45%;
+    -o-border-radius: 45%;
 }
 .myborder2{
     margin-top: 2.5%;
@@ -175,6 +198,10 @@ a.text-iva:hover, a.text-iva:focus {
     border: cadetblue solid 1.5px;
     height: 32% !important;
     border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
 }
 .labeltext2{
     float: left;
@@ -184,4 +211,8 @@ a.text-iva:hover, a.text-iva:focus {
     padding: auto 7%;
     border: cadetblue solid 1.5px;
     border-radius: 45%;
+    -webkit-border-radius: 45%;
+    -moz-border-radius: 45%;
+    -ms-border-radius: 45%;
+    -o-border-radius: 45%;
 }

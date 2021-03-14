@@ -45,6 +45,7 @@ $(function(){
 	});
 
 });
+
 let uri = () =>{
 	let directUri = $('.directionUri');
 	directUri.animate({opacity: 0.1 });

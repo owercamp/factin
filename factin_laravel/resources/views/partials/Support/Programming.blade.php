@@ -107,7 +107,7 @@
     @endphp
 
     {{-- formulario de edicion --}}
-    <div class="modal face" id="newEdit-modal">
+    <div class="modal fade" id="newEdit-modal">
         <div class="modal-dialog modal-xl" style="font-size: 16px">
             <div class="modal-content">
                 <div class="modal-header text-justify">
@@ -189,7 +189,7 @@
     </div>
 
     {{-- labla con los colaboradores --}}
-    <div class="modal face" id="newCollaborator-modal">
+    <div class="modal fade" id="newCollaborator-modal">
         <div class="modal-dialog modal-md" style="font-size: 16px">
             <div class="modal-content">
                 <div class="modal-header text-justify">
@@ -218,7 +218,7 @@
     </div>
 
     {{-- formulario de respuesta  --}}
-    <div class="modal face" id="newResponsetoRequest-modal">
+    <div class="modal fade" id="newResponsetoRequest-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header text-justify">
@@ -327,7 +327,7 @@
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops..',
-			text: '¡registro existente!',
+			text: '¡Error al enviar la respuesta!',
 			timer: 3000,
 			timerProgressBar: true,
 			showConfirmButton: false,

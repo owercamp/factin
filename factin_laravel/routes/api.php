@@ -4,6 +4,7 @@ use App\Models\Agreement;
 use App\Models\BusinessTracking;
 use App\Models\Collaborator;
 use App\Models\Contract;
+use App\Models\Following;
 use App\Models\Hardware;
 use App\Models\icon_name;
 use App\Models\Lead;
@@ -14,6 +15,7 @@ use App\Models\Software;
 use App\Models\TechnicalSupport;
 use App\Models\Teken;
 use App\Models\TekenCommercial;
+use App\Models\TekenRequest;
 use App\Models\UserClient;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
@@ -183,4 +185,15 @@ Route::get('getUserIdentity',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getUserIdentity');
+
+Route::get('getFollow',function(Request $request){
+    $query = TekenRequest::where('tkreq_follid',trim($request->data))
+    ->join('followings','followings.foll_id','teken_requests.tkreq_follid')
+    ->join('user_clients','user_clients.id','=','followings.foll_cli')
+    ->join('contracts','contracts.con_id','=','user_clients.id')
+    ->join('agreements','agreements.legal_id','=','contracts.con_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getFollow');
 

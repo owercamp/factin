@@ -49,35 +49,38 @@
                     $row = 1;
                 @endphp
                 @foreach ($follow as $item)
-                    <tr>
-                        <th>{{$row++}}</th>
-                        <th>{{$item->foll_ide}}</th>
-                        <th>{{$item->bt_social}}</th>
-                        <th>{{$item->foll_user}}</th>
-                        <th>{{sprintf("%'.04d\n",$item->fol_con)}}</th>
-                        @if ($item->foll_cola != null)
+                    @if ($item->foll_date_close < date('Y-m-d'))
+                        <tr>
+                            <th>{{$row++}}</th>
+                            <th>{{$item->foll_ide}}</th>
+                            <th>{{$item->bt_social}}</th>
+                            <th>{{$item->foll_user}}</th>
+                            <th>{{sprintf("%'.04d\n",$item->fol_con)}}</th>
+                            @if ($item->foll_cola != null)
+                                <th>
+                                    @foreach ($collaborator as $col)
+                                        @if($col->id = $item->foll_cola)
+                                            {{$col->col_name}}
+                                        @endif
+                                    @endforeach
+                                </th>
+                            @else
+                                <th>{{__('AUN NO ASIGNADO')}}</th>
+                            @endif
                             <th>
-                                @foreach ($collaborator as $col)
-                                    @if($col->id = $item->foll_cola)
-                                        {{$col->col_name}}
-                                    @endif
-                                @endforeach
+                                <a href="#" title="Bitacora" class=" btn-edit form-control-sm BitacoraCreation-link">
+                                    <span class="icon-list-alt"></span>
+                                    <span hidden>{{$item->foll_id}}</span>
+                                    <span hidden>{{$item->bt_social}}</span>
+                                </a>
+                                <a href="#" title="Cierre" class="btn-delete form-control-sm RequestCreation-link">
+                                    <span class="icon-check-square-o"></span>
+                                    <span hidden>{{$item->foll_id}}</span>
+                                    <span hidden>{{$item->uc_email}}</span>
+                                </a>
                             </th>
-                        @else
-                            <th>{{__('AUN NO ASIGNADO')}}</th>
-                        @endif
-                        <th>
-                            <a href="#" title="Bitacora" class=" btn-edit form-control-sm BitacoraCreation-link">
-                                <span class="icon-list-alt"></span>
-                                <span hidden>{{$item->foll_id}}</span>
-                                <span hidden>{{$item->bt_social}}</span>
-                            </a>
-                            <a href="#" title="Cierre" class="btn-delete form-control-sm RequestCreation-link">
-                                <span class="icon-check-square-o"></span>
-                                <span hidden>{{$item->foll_cli}}</span>
-                            </a>
-                        </th>
-                    </tr>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
@@ -164,7 +167,8 @@
     <div class="invisible">
         <form action="{{route('tracing.close')}}" method="post" class="tracingClose">
         @csrf
-        <input type="hidden" name="tkreq_folls_id">
+        <input type="hidden" name="folls_id">
+        <input type="hidden" name="foll_email">
         </form>
     </div>
 
@@ -174,8 +178,10 @@
 	<script>
         $('.RequestCreation-link').click(function (e) {
             e.preventDefault();
-            let cli = $(this).find('span:nth-child(2)').text();
-            $('input[name=tkreq_folls_id]').val(cli);
+            let id = $(this).find('span:nth-child(2)').text();
+            let email = $(this).find('span:nth-child(3)').text();
+            $('input[name=folls_id]').val(id);
+            $('input[name=foll_email]').val(email);
             $('.tracingClose').submit();
         });
 

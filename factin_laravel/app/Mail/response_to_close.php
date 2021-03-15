@@ -6,13 +6,12 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Request;
 
-class response_to_request extends Mailable
+class response_to_close extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = "Respuesta a su solicitud";
+    public $subject = "Cierre de solicitud";
     /**
      * Create a new message instance.
      *
@@ -28,9 +27,8 @@ class response_to_request extends Mailable
      *
      * @return $this
      */
-    public function build(Request $request)
+    public function build()
     {
-        $dates = $request->soldate;
-        return $this->view('partials.Email.ResponseToRequest',compact('dates'));
+        return $this->view('partials.Email.ResponseToClose');
     }
 }

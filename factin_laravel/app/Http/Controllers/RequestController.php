@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\response_to_close;
 use App\Mail\response_to_request;
 use App\Models\Collaborator;
 use App\Models\Following;
@@ -26,6 +27,7 @@ class RequestController extends Controller
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Requests',compact('req'));
     }
+    // almacena un a nueva solicitud a la tbl teken_requests
     function requestsave(Request $request)
     {
         $validate = ModelsRequest::where('req_cli',trim($request->req_cli))
@@ -47,6 +49,7 @@ class RequestController extends Controller
             return redirect()->route('request.index')->with('SecondaryCreation','Solicitud del usuario '.$this->upper($request->req_user).' no pudo ser almacenado');
         }
     }
+    // Pasa a la vista de Soporte >> Programación todas las solicitudes programadas.
     function programmingindex()
     {
         $Collaborator = Collaborator::all();
@@ -63,6 +66,7 @@ class RequestController extends Controller
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Programming',compact('soli','req','Collaborator'));
     }
+    // permite la actualizacion de las solicitudes de servicio para soporte tecnico.
     function programmingupdate(Request $request)
     {
         $validate = ModelsRequest::where('req_id','=',trim($request->req_id))->first();
@@ -76,6 +80,7 @@ class RequestController extends Controller
             return redirect()->route('programming.index')->with('SecondaryCreation','registro del usuario '.$this->upper($request->req_user).' no pudo ser actualizado');
         }
     }
+    // asigna un colaborador al cliente seleccionado.
     function programmingassign(Request $request)
     {
         $col = Collaborator::find($request->assigncol);
@@ -89,6 +94,7 @@ class RequestController extends Controller
             return redirect()->route('Programming.index')->with('SecondaryCreation','Colaborador '.$this->upper($col->col_name).' no pudo ser asignado');
         }
     }
+    // envia correo al quiente con la fecha del restablecimiento del servicio adicionalmente genera un caso de solicitud
     function responsetorequest(Request $request)
     {
 
@@ -137,6 +143,7 @@ class RequestController extends Controller
             return redirect()->route('programming.index')->with('SecondaryCreation', 'Error al enviar y almacenar la respuesta, debe asignar un colaborador');
         }
     }
+    // pasa la consulta de todos mis seguimientos en la vista Soporte >> Seguimiento
     function tracingindex()
     {
         $collaborator = Collaborator::all();
@@ -148,6 +155,7 @@ class RequestController extends Controller
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Tracing', compact('follow','collaborator'));
     }
+    // almacena registros en la bitacora de la tbl teken_requests
     function tracingsave(Request $request)
     {
         if ($request != null) {
@@ -182,19 +190,39 @@ class RequestController extends Controller
             return redirect()->route('tracing.index')->with('SecondaryCreation','Error al almacenar la bitacora del cliente '.$this->upper($request->name));
         }
     }
+    // cierre de la solicitud modifica la fecha del cierre en la tbl followings
     function tracingclose(Request $request)
     {
-        $validate = TekenRequest::where('tkreq_follid', trim($request->tkreq_folls_id))->get();
+        $validate = Following::where('foll_id', trim($request->folls_id))->get();
         if ($validate != null) {
+            // actualizacion de fecha del cierre
             $date = date('Y-m-d');
-            TekenRequest::where('tkreq_follid', trim($request->tkreq_folls_id))->update(['tkreq_close' => $date]);
+            Following::where('foll_id', trim($request->folls_id))->update(['foll_date_close' => $date]);
+            // envia correo al cliente informando el cierre de la solicitud.
+            $newEmail = new response_to_close();
+            Mail::to($request->foll_email)->send($newEmail);
+
             return redirect()->route('tracing.index')->with('PrimaryCreation','Cierre de bitacora completo');
+        }else{
+            return redirect()->route('tracing.index')->with('SecondaryCreation','el cierre de la bitacora no pudo ser ejecutado');
         }
-        // return $validate;
     }
+    // Pasa a mi vista Soporte >> Calificación todas las solicitudes que se han cerrado para ser calificadas
     function qualificationindex()
     {
-        return view('partials.Support.Qualification');
+        $collaborator = Collaborator::all();
+        $follow = Following::select('followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
+        ->join('user_clients','user_clients.id','=','followings.foll_cli')
+        ->join('contracts','contracts.con_id','=','user_clients.id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+        return view('partials.Support.Qualification', compact('follow','collaborator'));
+    }
+    // Pasa la calificacion del cliente a la tbl user_rating(calificacion usuario)
+    function qualificationuser()
+    {
+        return redirect()->route('qualification.index')->with('Message','MessageError');
     }
     function archiveindex()
     {

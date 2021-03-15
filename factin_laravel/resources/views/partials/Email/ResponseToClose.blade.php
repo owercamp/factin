@@ -20,6 +20,10 @@
                 color: #007bff !important;
             }a.text-primary:hover, a.text-primary:focus {
                 color: #0056b3 !important;
+            }.text-danger {
+                color: #dc3545 !important;
+            }a.text-danger:hover, a.text-danger:focus {
+                color: #a71d2a !important;
             }
             @media screen (max-width: 993px){
                 img{width: 100%;}
@@ -34,13 +38,12 @@
             </div>
         </header>
         <section class="my-4 mx-3">
-            <h6 class="text-primary">Apreciado usuario</h6>
+            <h6 class="text-primary">Apreciado usuario</h6><br>
             <div>
-                <p>Nuestro equipo de trabajo a recibido con exito su solicitud. Y estamos trabajaremos para darte una solución lo mas pronto posible.</p>
-                <p>porque para nosotros nuestros clientes son primero!</p>
-                <p>fecha estimada para la solución: {{$dates}}</p>
+                <p>Su solicitud ha sido resuelta, lo invitamos ha calificar nuestros servicios</p><br>
                 <p>cordialmente</p><br>
-                <p>Soporte Tecnico Factin Online Service</p>
+                <p>Soporte Tecnico</p>
+                <p class="text-danger"><em>Factin Online Service</em></p>
             </div>
         </section>
     </body>

@@ -165,8 +165,11 @@ Route::post('/Tracing/save', 'RequestController@tracingsave')->name('tracing.sav
 Route::post('/Tracing/close', 'RequestController@tracingclose')->name('tracing.close');
 // rutas calificativo
 Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');
+// ruta calificación cliente
+Route::post('/Qualification/user-rating', 'RequestController@qualificationuser')->name('user.rating');
 // rutas archivo
 Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');
 // ruta de correo envio
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
+
 

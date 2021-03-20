@@ -185,7 +185,7 @@ Route::get('getUserIdentity',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getUserIdentity');
-
+// realiza la consulta de las bitacoras de un cliente especifico
 Route::get('getFollow',function(Request $request){
     $query = TekenRequest::where('tkreq_follid',trim($request->data))
     ->join('followings','followings.foll_id','teken_requests.tkreq_follid')
@@ -196,4 +196,13 @@ Route::get('getFollow',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollow');
-
+// realiza la consulta de mis seguimiento dependiendo del id en mi tbl followings
+Route::get('getFollowings',function(Request $request){
+    $query = Following::where('foll_id',trim($request->data))
+    ->join('user_clients','user_clients.id','=','followings.foll_cli')
+    ->join('contracts','contracts.con_id','=','user_clients.id')
+    ->join('agreements','agreements.legal_id','=','contracts.con_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getFollowings');

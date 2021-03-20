@@ -75,6 +75,7 @@
                                 </a>
                                 <a href="#" title="Imprimir" class="btn-edit form-control-sm Imprimir-PDF">
                                     <span class="icon-arrow-circle-down"></span>
+                                    <span hidden>{{$item->id}}</span>
                                 </a>
                             </th>
                         </tr>
@@ -308,11 +309,21 @@
 			</div>
 		</div>
 	</div>
+
+    <form action="{{route('userclient.printer')}}" method="post" class="invisible usercli">
+        @csrf
+        <input type="text" name="user_cli_id">
+    </form>
 @endsection
 
 @section('ScriptZone')
-
     <script>
+        // envia el id del usuario a imprimir
+        $('.Imprimir-PDF').click(function () {
+            let id = $(this).find('span:nth-child(2)').text();
+            $('input[name=user_cli_id]').val(id);
+            $('.usercli').submit();
+        });
         // Llama al formulario modal de creación
         $('.newProductWeb-link').click(function () {
             $('#newCreation-modal').modal();

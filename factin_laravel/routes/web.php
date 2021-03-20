@@ -70,6 +70,7 @@ Route::get('/users-clients', 'CollaboratorController@usersclientindex')->name('u
 Route::post('users-clients/save', 'CollaboratorController@usersclientsave')->name('usersclient.save');
 Route::post('users-clients/edit', 'CollaboratorController@usersclientedit')->name('usersclient.edit');
 Route::post('users-clients/delete', 'CollaboratorController@usersclientdelete')->name('usersclient.delete');
+Route::post('users-clients/printer', 'CollaboratorController@usersclientprinter')->name('userclient.printer');
 //rutas productos
 Route::get('/product', 'ProductController@productindex')->name('product.index');
 Route::post('/product/save','ProductController@productsave')->name('product.save');
@@ -148,6 +149,7 @@ Route::post('/Agreement-ContractLegalization/save', 'AgreementController@Contrac
 Route::post('/Agreement-ContractLegalization/update', 'AgreementController@ContractLegalizationUpdate')->name('ContractLegalization.update');
 Route::post('/Agreement-ContractLegalization/delete', 'AgreementController@ContractLegalizationDelete')->name('ContractLegalization.delete');
 Route::post('/Agreement-ContractLegalization/printer', 'AgreementController@ContractLegalizationPrinter')->name('contract.printer');
+Route::post('/Agreement-ContractLegalization/fail', 'AgreementController@ContractLegalizationFail')->name('contract.fail');
 // contratación archivos
 Route::get('/Agreement-ContractsFile', 'AgreementController@ContractsFile')->name('ContractsFile.index');
 // contrataciones indicadores

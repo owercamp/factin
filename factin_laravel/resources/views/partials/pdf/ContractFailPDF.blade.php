@@ -58,12 +58,20 @@
             margin-left: 21%;
             color:#0050a7;
         }
+        .text-danger {
+            color: #dc3545 !important;
+        }
+        a.text-danger:hover, a.text-danger:focus {
+            color: #a71d2a !important;
+        }
         .val{border-bottom: black solid 1px;}
         .td1{width: 43%; padding-top: 1.5%;}
         .td2{width: 57%; border-bottom: black solid 1px; padding-top: 1.5%;}
         .titles{text-align: right;}
         .data{text-align: center;}
         tr{margin: 1px 0px }
+        .defeat{color:#a71d2a; border: 1px solid #a71d2a; float: left; padding: 0.2% 7%; font-size: 3.5em; text-align: center; background-color: transparent; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -ms-border-radius: 20px; -o-border-radius: 20px;}
+        .defeatpos{margin-left: 20%; margin-top: -12%; transform: rotate(-35deg); -webkit-transform: rotate(-35deg); -moz-transform: rotate(-35deg); -ms-transform: rotate(-35deg); -o-transform: rotate(-35deg);}
     </style>
     <title>Contrato</title>
 </head>
@@ -75,38 +83,39 @@
             <tbody>
                 <tr>
                     <td class="titles td1">Numero de Contrato:</td>
-                    <td class="data td2">{{sprintf("%'.04d\n",$info[0]['conNumber'])}}</td>
+                    <td class="data td2">{{sprintf("%'.04d\n",$fail[0]['conNumber'])}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Cliente:</td>
-                    <td class="data td2">{{$info[0]['bt_social']}}</td>
+                    <td class="data td2">{{$fail[0]['bt_social']}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Fecha Inicio:</td>
-                    <td class="data td2">{{$info[0]['con_ini']}}</td>
+                    <td class="data td2">{{$fail[0]['con_ini']}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Fecha Finalización:</td>
-                    <td class="data td2">{{$db_date}}</td>
+                    <td class="data td2 text-danger">{{$db_date}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Valor Contrato:</td>
-                    <td class="data td2">{{__('$ ')}}{{number_format($info[0]['con_price'],0,',','.')}}</td>
+                    <td class="data td2">{{__('$ ')}}{{number_format($fail[0]['con_price'],0,',','.')}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Numero Cuotas:</td>
-                    <td class="data td2">{{$info[0]['con_quota']}}</td>
+                    <td class="data td2">{{$fail[0]['con_quota']}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Valor Cuota:</td>
-                    <td class="data td2">{{__('$ ')}}{{number_format($info[0]['con_valueqouta'],0,',','.')}}</td>
+                    <td class="data td2">{{__('$ ')}}{{number_format($fail[0]['con_valueqouta'],0,',','.')}}</td>
                 </tr>
                 <tr>
                     <td class="titles td1">Fecha Cuota Inicial</td>
-                    <td class="data td2">{{$info[0]['con_fquota']}}</td>
+                    <td class="data td2">{{$fail[0]['con_fquota']}}</td>
                 </tr>
             </tbody>
         </table>
+        <div class="defeat defeatpos">Defeated</div>
     </section>
     <footer class="pdf-footer">
         <strong class="text">Factin Online Service versión 21.01.01  |  <em>Copyright © Javapri</em></strong>

@@ -79,12 +79,18 @@
         $yearfutureSeven = date('Y') + 7;
     @endphp
 
+    <form action="{{route('contract.fail')}}" method="post" class="invisible fail">
+        @csrf
+        <input type="text" name="id_fail">
+    </form>
 @endsection
 
-@section('scripts')
+@section('ScriptZone')
 	<script>
-		$(function(){
-
-		});
+		$('.Imprimir-PDF').click(function () {
+            let id = $(this).find('span:nth-child(2)').text();
+            $('input[name=id_fail]').val(id);
+            $('.fail').submit();
+        });
 	</script>
 @endsection

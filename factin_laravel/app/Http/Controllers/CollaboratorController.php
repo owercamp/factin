@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Municipalities;
 use App\Models\UserClient;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CollaboratorController extends Controller
 {
@@ -200,5 +201,17 @@ class CollaboratorController extends Controller
         }else{
             return redirect()->route('usersclient.index')->with('SecondCreation','NoEncontrado');
         }
+    }
+
+    function usersclientprinter(Request $request)
+    {
+        $user = UserClient::where('id',trim($request->user_cli_id))
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->get();
+
+        $pdf = PDF::loadView('partials.pdf.UserClientPDF',compact('user'));
+        return $pdf->stream('Users.pdf');
     }
 }

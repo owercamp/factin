@@ -7,6 +7,7 @@ use App\Models\Contract;
 use App\Models\Lead;
 use App\Models\Location;
 use Barryvdh\DomPDF\Facade as PDF;
+use DateTime;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\This;
 
@@ -230,6 +231,7 @@ class AgreementController extends Controller
         }
 
     }
+
     function ContractLegalizationPrinter(Request $request)
     {
         $info = Contract::where('con_id',$request->id_printer)
@@ -238,8 +240,23 @@ class AgreementController extends Controller
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
+        // captura mi fecha de la consulta superior y la modificamos para mostarla entera.
+        $dates = $info[0]['con_final'];
+        $date = new DateTime($dates);
+        $day = $date->format('d');
+        $year = $date->format('Y');
+        $month = $date->format('m');
+        $dayl = $date->format('N');
+        switch ($month) {
+            case '01': $mon = "enero"; break; case '02': $mon = "febrero"; break; case '03': $mon = "marzo"; break; case '04': $mon = "abril"; break; case '05': $mon = "mayo"; break; case '06': $mon = "junio"; break; case '07': $mon = "julio"; break; case '08': $mon = "agosto"; break; case '09': $mon = "septiembre"; break; case '10': $mon = "octubre"; break; case '11': $mon = "noviembre"; break; case '12': $mon = "diciembre"; break;
+        }
+        switch ($dayl) {
+            case 7: $dayv = 'Domingo'; break; case 1: $dayv = 'Lunes'; break; case 2: $dayv = 'Martes'; break; case 3: $dayv = 'Miercoles'; break; case 4: $dayv = 'Jueves'; break; case 5: $dayv = 'Viernes'; break; case 6: $dayv = 'Sabado'; break;
+        }
+        $db_date = $dayv.', '.$day.'-'.$mon.'-'.$year;
 
-        $pdf = PDF::loadView('partials.pdf.ContractPDF', compact('info'));
+        // return view('partials.pdf.ContractPDF',compact('info'));
+        $pdf = PDF::loadView('partials.pdf.ContractPDF', compact('info','db_date'));
         return $pdf->stream('Contrato.pdf');
     }
 
@@ -256,6 +273,33 @@ class AgreementController extends Controller
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
         return \view('partials.Agreement.ContractsFile', compact('contract','Departament','legal'));
+    }
+
+    function ContractLegalizationFail(Request $request)
+    {
+        $fail = Contract::where('con_id',$request->id_fail)
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
+        ->join('locations','locations.depid','=','leads.lead_dep')
+        ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
+        // captura mi fecha de la consulta superior y la modificamos para mostarla entera.
+        $dates = $fail[0]['con_final'];
+        $date = new DateTime($dates);
+        $day = $date->format('d');
+        $year = $date->format('Y');
+        $month = $date->format('m');
+        $dayl = $date->format('N');
+        switch ($month) {
+            case '01': $mon = "enero"; break; case '02': $mon = "febrero"; break; case '03': $mon = "marzo"; break; case '04': $mon = "abril"; break; case '05': $mon = "mayo"; break; case '06': $mon = "junio"; break; case '07': $mon = "julio"; break; case '08': $mon = "agosto"; break; case '09': $mon = "septiembre"; break; case '10': $mon = "octubre"; break; case '11': $mon = "noviembre"; break; case '12': $mon = "diciembre"; break;
+        }
+        switch ($dayl) {
+            case 7: $dayv = 'Domingo'; break; case 1: $dayv = 'Lunes'; break; case 2: $dayv = 'Martes'; break; case 3: $dayv = 'Miercoles'; break; case 4: $dayv = 'Jueves'; break; case 5: $dayv = 'Viernes'; break; case 6: $dayv = 'Sabado'; break;
+        }
+        $db_date = $dayv.', '.$day.'-'.$mon.'-'.$year;
+
+        $pdf = PDF::loadView('partials.pdf.ContractFailPDF',compact('fail','db_date'));
+        return $pdf->stream('Contrato Vencido.pdf');
     }
 
     function SuccessIndicator()

@@ -9,6 +9,7 @@ use App\Models\Following;
 use App\Models\Request as ModelsRequest;
 use App\Models\TekenRequest;
 use App\Models\UserClient;
+use App\Models\UserRating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -220,9 +221,21 @@ class RequestController extends Controller
         return view('partials.Support.Qualification', compact('follow','collaborator'));
     }
     // Pasa la calificacion del cliente a la tbl user_rating(calificacion usuario)
-    function qualificationuser()
+    function qualificationuser(Request $request)
     {
-        return redirect()->route('qualification.index')->with('Message','MessageError');
+        // return $request;
+        $validate = UserRating::where('ur_cli',trim($request->qua_cli))->first();
+        if ($validate == null) {
+            UserRating::create([
+                'ur_cli' => trim($request->qua_cli),
+                'ur_user' => $this->upper($request->qua_user),
+                'ur_cali' => $this->upper($request->qua_cal),
+                'ur_obs' => $request->qua_obs
+            ]);
+            return redirect()->route('qualification.index')->with('SuccessCreation','Gracias por su calificación');
+        }else{
+            return redirect()->route('qualification.index')->with('SecondaryCreation','Error no pudo ser calificado el servicio');
+        }
     }
     function archiveindex()
     {

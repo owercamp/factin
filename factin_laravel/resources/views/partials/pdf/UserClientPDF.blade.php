@@ -74,36 +74,36 @@
         <table width="100%" height="50%">
             <tbody>
                 <tr>
-                    <td class="titles td1">Numero de Contrato:</td>
-                    <td class="data td2">{{sprintf("%'.04d\n",$info[0]['conNumber'])}}</td>
-                </tr>
-                <tr>
                     <td class="titles td1">Cliente:</td>
-                    <td class="data td2">{{$info[0]['bt_social']}}</td>
+                    <td class="data td2">{{$user[0]['bt_social']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Fecha Inicio:</td>
-                    <td class="data td2">{{$info[0]['con_ini']}}</td>
+                    <td class="titles td1">Nombre Usuario:</td>
+                    <td class="data td2">{{$user[0]['uc_users']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Fecha Finalización:</td>
-                    <td class="data td2">{{$db_date}}</td>
+                    <td class="titles td1">Tipo Documento:</td>
+                    <td class="data td2">{{$user[0]['uc_type']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Valor Contrato:</td>
-                    <td class="data td2">{{__('$ ')}}{{number_format($info[0]['con_price'],0,',','.')}}</td>
+                    <td class="titles td1">Identificación Usuario:</td>
+                    <td class="data td2">{{$user[0]['uc_ide']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Numero Cuotas:</td>
-                    <td class="data td2">{{$info[0]['con_quota']}}</td>
+                    <td class="titles td1">Correo Electronico:</td>
+                    <td class="data td2">{{$user[0]['uc_email']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Valor Cuota:</td>
-                    <td class="data td2">{{__('$ ')}}{{number_format($info[0]['con_valueqouta'],0,',','.')}}</td>
+                    <td class="titles td1">Telefonos:</td>
+                    <td class="data td2">{{$user[0]['uc_pho1']}}</td>
                 </tr>
                 <tr>
-                    <td class="titles td1">Fecha Cuota Inicial</td>
-                    <td class="data td2">{{$info[0]['con_fquota']}}</td>
+                    <td class="titles td1"></td>
+                    <td class="data td2">{{$user[0]['uc_pho2']}}</td>
+                </tr>
+                <tr>
+                    <td class="titles td1"></td>
+                    <td class="data td2">{{$user[0]['uc_pho3']}}</td>
                 </tr>
             </tbody>
         </table>

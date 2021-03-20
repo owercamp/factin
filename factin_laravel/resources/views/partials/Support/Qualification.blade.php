@@ -70,6 +70,7 @@
                             <th>
                                 <a href="#" title="Calificación" class=" btn-edit form-control-sm QualityCreation-link">
                                     <span class="icon-connectdevelop"></span>
+                                    <span hidden>{{$item->foll_id}}</span>
                                 </a>
                             </th>
                         </tr>
@@ -156,6 +157,16 @@
 	<script>
 		$('.QualityCreation-link').click(function (e) {
             e.preventDefault();
+
+            let id = $(this).find('span:nth-child(2)').text();
+            $.get("{{route('getFollowings')}}", {data: id},
+                function (objectFollows) {
+                    console.log(objectFollows);
+                    $('.qua_cli').text(objectFollows[0]['bt_social']);
+                    $('input[name=qua_cli]').val(objectFollows[0]['foll_cli']);
+                    $('.qua_user').text(objectFollows[0]['foll_user']);
+                    $('input[name=qua_user]').val(objectFollows[0]['foll_user']);
+                });
             $('#newQuality-modal').modal();
         });
 	</script>
@@ -181,7 +192,7 @@
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops..',
-			text: '¡configuración existente!',
+			text: '¡error al calificar!',
 			timer: 3000,
 			timerProgressBar: true,
 			showConfirmButton: false,

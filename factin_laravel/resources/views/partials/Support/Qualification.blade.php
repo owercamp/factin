@@ -157,7 +157,6 @@
 	<script>
 		$('.QualityCreation-link').click(function (e) {
             e.preventDefault();
-
             let id = $(this).find('span:nth-child(2)').text();
             $.get("{{route('getFollowings')}}", {data: id},
                 function (objectFollows) {

@@ -255,7 +255,6 @@ class AgreementController extends Controller
         }
         $db_date = $dayv.', '.$day.'-'.$mon.'-'.$year;
 
-        // return view('partials.pdf.ContractPDF',compact('info'));
         $pdf = PDF::loadView('partials.pdf.ContractPDF', compact('info','db_date'));
         return $pdf->stream('Contrato.pdf');
     }

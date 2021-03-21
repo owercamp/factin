@@ -10,6 +10,8 @@ use App\Models\Request as ModelsRequest;
 use App\Models\TekenRequest;
 use App\Models\UserClient;
 use App\Models\UserRating;
+use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -237,8 +239,48 @@ class RequestController extends Controller
             return redirect()->route('qualification.index')->with('SecondaryCreation','Error no pudo ser calificado el servicio');
         }
     }
+    // envio de formulario para la impreción
+    function requestprinter(Request $request)
+    {
+        $register = UserClient::where('id',trim($request->requestprinter))
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+
+        $request1 = $request->requestsol1;
+        $request2 = $request->requestsol2;
+        $request3 = $request->requestsol3;
+
+        $pdf = PDF::loadView('partials.pdf.RequestPDF', compact('register','request1','request2','request3'));
+        return $pdf->stream('Solicitud.pdf');
+    }
     function archiveindex()
     {
-        return view('partials.Support.Archive');
+        $collaborator = Collaborator::all();
+        $user_rating = UserRating::select('user_ratings.*','followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
+        ->join('followings','followings.foll_id','=','user_ratings.ur_cli')
+        ->join('user_clients','user_clients.id','=','followings.foll_cli')
+        ->join('contracts','contracts.con_id','=','user_clients.id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+        return view('partials.Support.Archive',compact('collaborator','user_rating'));
+    }
+    function archivePDF(Request $request)
+    {
+        $alls = UserRating::where('ur_id',trim($request->archivepdf))
+        ->join('followings','followings.foll_id','=','user_ratings.ur_cli')
+        ->join('collaborators','collaborators.id','=','followings.foll_cola')
+        ->join('user_clients','user_clients.id','=','followings.foll_cli')
+        ->join('contracts','contracts.con_id','=','user_clients.id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+
+        $teken = TekenRequest::where('tkreq_follid',trim($request->archivepdf))->get();
+
+        $pdf = PDF::loadView('partials.pdf.ArchivesPDF', compact('alls','teken'));
+        return $pdf->stream('Informe.pdf');
     }
 }

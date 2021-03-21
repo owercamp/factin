@@ -95,7 +95,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-edit" style="margin: auto calc(100%/2.2)">ENVIAR</button>
+                                    <button type="submit" style="margin-left: calc(100% /2.5)" class="btn btn-outline-primary" >ENVIAR</button>
+                                    <button type="button" style="margin-left: 2%" class="btn btn-outline-danger printer">IMPRIMIR</button>
                                 </div>
                             </div>
                         </div>
@@ -103,22 +104,68 @@
                 </div>
             </form>
         </div>
-
     </div>
-@endsection
 
-@section('ScriptZone')
+    <form action="{{route('request.print')}}" method="post" class="invisible requestprint">
+        @csrf
+        <input type="text" name="requestprinter">
+        <textarea name="requestsol1" cols="30" rows="10"></textarea>
+        <textarea name="requestsol2" cols="30" rows="10"></textarea>
+        <textarea name="requestsol3" cols="30" rows="10"></textarea>
+    </form>
+    @endsection
+
+    @section('ScriptZone')
 	<script>
+        // imprime mu solicitud
+        $('.printer').click(function () {
+            let print_id = $('input[name=requestprinter]').val();
+            let sol1 = $('textarea[name=req_sol1]').val();
+            let sol2 = $('textarea[name=req_sol2]').val();
+            let sol3 = $('textarea[name=req_sol3]').val();
+            $('textarea[name=requestsol1]').val(sol1);
+            $('textarea[name=requestsol2]').val(sol2);
+            $('textarea[name=requestsol3]').val(sol3);
+            if (print_id > null) {
+                $('.requestprint').submit();
+            }else{
+                const Message = Swal.mixin({
+                    toast: true,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    backdrop: `rgba(0,0,123,0.2)`,
+                    showClass: {
+                        popup: 'animate__animated animate__flipInX'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__flipOutX'
+                    },
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Message.fire({
+                    title: '<strong style="color: red;">Sin Consulta:</strong>',
+                    html: '<em>no hay un registro para imprimir</em>'
+                })
+            }
+        });
+        // consulta al cliemte por la identificación
 		$('input[name=req_ide]').change(function (e) {
             e.preventDefault();
             $('select[name=req_cli]').val("");
             $('input[name=req_user]').val("");
             $('input[name=req_cont]').val("");
+            $('input[name=requestprinter]').val("");
             let ide = $('input[name=req_ide]').val();
             $.get("{{route('getUserIdentity')}}", {data: ide},
                 function (objectUserIdentity) {
                     $('select[name=req_cli]').val(objectUserIdentity[0]['uc_cli']);
                     $('input[name=req_user]').val(objectUserIdentity[0]['uc_users']);
+                    $('input[name=requestprinter]').val(objectUserIdentity[0]['id']);
                     let date = new Date(); let month = date.getMonth()+1; let year = date.getFullYear(); let day = date.getDate(); let monthfor = ('00'+month).slice(-2);
                     if (objectUserIdentity[0]['con_final'] < year+'-'+monthfor+'-'+day) {
                         const Alerta = Swal.mixin({
@@ -145,12 +192,14 @@
                     $('select[name=req_cli]').val("");
                     $('input[name=req_user]').val("");
                     $('input[name=req_cont]').val("");
+                    $('input[name=requestprinter]').val("");
                     }else{
                         $('input[name=req_cont]').val(("0000"+objectUserIdentity[0]['conNumber']).slice(-4));
                     }
                 }
             );
         });
+
 	</script>
     @if(session('SuccessCreation'))
 	<script>

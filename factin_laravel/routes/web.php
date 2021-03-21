@@ -157,6 +157,7 @@ Route::get('/Agreement-SuccessIndicator', 'AgreementController@SuccessIndicator'
 // rutas solicitudes
 Route::get('/Request', 'RequestController@requestindex')->name('request.index');
 Route::post('/Request/save', 'RequestController@requestsave')->name('request.save');
+Route::post('/Request/printer', 'RequestController@requestprinter')->name('request.print');
 // rutas programacion
 Route::get('/Programming', 'RequestController@programmingindex')->name('programming.index');
 Route::post('/Programming/update', 'RequestController@programmingupdate')->name('programming.update');
@@ -171,6 +172,7 @@ Route::get('/Qualification', 'RequestController@qualificationindex')->name('qual
 Route::post('/Qualification/user-rating', 'RequestController@qualificationuser')->name('user.rating');
 // rutas archivo
 Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.index');
+Route::post('/Archive/follow', 'RequestController@archivePDF')->name('archive.print');
 // ruta de correo envio
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
 

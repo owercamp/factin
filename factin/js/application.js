@@ -57,9 +57,9 @@ let uri = () =>{
 }
 let titles = () =>{
 	let title = $('.version-color');
-	title.delay(1800000).animate({color: '#02affc'}, 100000);
-	title.delay(1800000).animate({color:'#9aad30'},100000);
-	title.delay(1800000).animate({color:'#fe9a00'},100000);
+	title.delay(60000).animate({color: '#02affc'}, 6000);
+	title.delay(60000).animate({color:'#9aad30'}, 6000);
+	title.delay(60000).animate({color:'#fe9a00'}, 6000);
 }
 setInterval(titles,1000);
 setInterval(uri,50000);

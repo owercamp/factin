@@ -25,8 +25,8 @@ class RequestController extends Controller
     {
         $req = UserClient::select('user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Requests',compact('req'));
     }
@@ -58,14 +58,14 @@ class RequestController extends Controller
         $Collaborator = Collaborator::all();
         $req = UserClient::select('user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         $soli = ModelsRequest::select('requests.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('user_clients','user_clients.id','=','requests.req_cli')
-        ->join('contracts','contracts.con_id','=','user_clients.id')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Programming',compact('soli','req','Collaborator'));
     }
@@ -152,9 +152,9 @@ class RequestController extends Controller
         $collaborator = Collaborator::all();
         $follow = Following::select('followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('user_clients','user_clients.id','=','followings.foll_cli')
-        ->join('contracts','contracts.con_id','=','user_clients.id')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Tracing', compact('follow','collaborator'));
     }
@@ -216,9 +216,9 @@ class RequestController extends Controller
         $collaborator = Collaborator::all();
         $follow = Following::select('followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('user_clients','user_clients.id','=','followings.foll_cli')
-        ->join('contracts','contracts.con_id','=','user_clients.id')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Qualification', compact('follow','collaborator'));
     }
@@ -244,8 +244,8 @@ class RequestController extends Controller
     {
         $register = UserClient::where('id',trim($request->requestprinter))
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
 
         $request1 = $request->requestsol1;
@@ -261,9 +261,9 @@ class RequestController extends Controller
         $user_rating = UserRating::select('user_ratings.*','followings.*','user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('followings','followings.foll_id','=','user_ratings.ur_cli')
         ->join('user_clients','user_clients.id','=','followings.foll_cli')
-        ->join('contracts','contracts.con_id','=','user_clients.id')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         return view('partials.Support.Archive',compact('collaborator','user_rating'));
     }
@@ -273,9 +273,9 @@ class RequestController extends Controller
         ->join('followings','followings.foll_id','=','user_ratings.ur_cli')
         ->join('collaborators','collaborators.id','=','followings.foll_cola')
         ->join('user_clients','user_clients.id','=','followings.foll_cli')
-        ->join('contracts','contracts.con_id','=','user_clients.id')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
-        ->join('leads','leads.lead_id','=','agreements.legal_id')
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
 
         $teken = TekenRequest::where('tkreq_follid',trim($request->archivepdf))->get();

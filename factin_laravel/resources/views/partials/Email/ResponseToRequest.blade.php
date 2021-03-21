@@ -36,9 +36,9 @@
         <section class="my-4 mx-3">
             <h6 class="text-primary">Apreciado usuario</h6>
             <div>
-                <p>Nuestro equipo de trabajo a recibido con exito su solicitud. Y estamos trabajaremos para darte una solución lo mas pronto posible.</p>
-                <p>porque para nosotros nuestros clientes son primero!</p>
-                <p>fecha estimada para la solución: {{$dates}}</p>
+                <p>Nuestro equipo de trabajo a recibido con exito su solicitud. Y estamos trabajaremos para darte una solución lo mas pronto posible.</p><br>
+                <p>porque para nosotros nuestros clientes son primero!</p><br>
+                <p>fecha estimada para la solución: {{$dates}}</p><br>
                 <p>cordialmente</p><br>
                 <p>Soporte Tecnico Factin Online Service</p>
             </div>

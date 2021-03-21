@@ -570,10 +570,11 @@
             $('input[name=LegalCli_Delete]').val(cid);
             $.get("{{route('getLegalContract')}}", {data: rsocial},
                 function (objectSocial) {
+                    console.log(objectSocial);
                     for (let index = 0; index < objectSocial.length; index++) {
-                        if(objectSocial[index]['lead_id'] == rsocial){
+                        // if(objectSocial[index]['lead_id'] == rsocial){
                             $('b.rsocialDelete').text(objectSocial[0].bt_social);
-                        }
+                        // }
                     }
                 }
             );

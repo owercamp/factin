@@ -120,7 +120,7 @@
                                                 <small class="text-muted">RAZON SOCIAL:</small>
                                                 <select id="ClSocial" name="ClSocial" style="text-transform: uppercase" class="form-control form-control-sm" required>
                                                     <option value="">Seleccione Razón Social</option>
-                                                    @foreach ($Client as $item)
+                                                    @foreach ($ClientActive as $item)
                                                         @if($item->lead_status == "APROBADO")
                                                             <option value="{{$item->lead_id}}">{{$item->bt_social}}</option>
                                                         @endif

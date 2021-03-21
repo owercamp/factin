@@ -379,8 +379,9 @@
             cli = $(this).find('span:nth-child(3)').text();
             user = $(this).find('span:nth-child(4)').text();
             ema = $(this).find('span:nth-child(5)').text();
-            $.get("{{route('getRazonSocial')}}", {data: cli},
+            $.get("{{route('getRazonSocialUser')}}", {data: id},
                 function (objectSocialClientUser) {
+                    console.log(objectSocialClientUser);
                     $('b.uc_cli_Delete').text(objectSocialClientUser[0]['bt_social']);
                 }
             );

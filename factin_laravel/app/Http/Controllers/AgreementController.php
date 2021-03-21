@@ -21,12 +21,14 @@ class AgreementController extends Controller
     function ClienteLegalization()
     {
         $Departament = Location::all();
+        $ClientActive = Lead::select('leads.*','business_trackings.*')
+        ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         $Client = Agreement::select('agreements.*','leads.*','business_trackings.*','locations.*','municipalities.*')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
-        return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament'));
+        return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament','ClientActive'));
     }
 
     function ClientLegalizationSave(Request $request)

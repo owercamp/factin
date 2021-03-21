@@ -125,7 +125,7 @@ Route::get('getSupportPrice',function(Request $request){
 
 // consulta la razon social para el formulario de edicion de oprtunidad commercial
 Route::get('getRazonSocial',function(Request $request){
-    $query = Lead::where('lead_social',trim($request->data))
+    $query = Lead::where('lead_id',trim($request->data))
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getRazonSocial');
@@ -152,7 +152,7 @@ Route::get('getContract',function(){
 // consulta el nombre de la razon social para el formulario de eliminacion
 Route::get('getLegalContract',function(Request $request){
     $query = Agreement::where('legal_id',trim($request->data))
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getLegalContract');
@@ -161,27 +161,27 @@ Route::get('getLegalContract',function(Request $request){
 Route::get('getLegalContractUpdate',function(Request $request){
     $query = Contract::where('con_id',trim($request->data))
     ->join('agreements','agreements.legal_id','=','contracts.con_social')
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getLegalContractUpdate');
 
 // realiza la consulta para realiza la eliminacion
-Route::get('getRazonSocial',function(Request $request){
+Route::get('getRazonSocialUser',function(Request $request){
     $query = UserClient::where('id',trim($request->data))
     ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-    ->join('agreements','agreements.legal_id','=','contracts.con_id')
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
-})->name('getRazonSocial');
+})->name('getRazonSocialUser');
 
 // realiza la consulta por el numero de identificacion en las solicitudes
 Route::get('getUserIdentity',function(Request $request){
     $query = UserClient::where('uc_ide',trim($request->data))
     ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-    ->join('agreements','agreements.legal_id','=','contracts.con_id')
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getUserIdentity');
@@ -190,9 +190,9 @@ Route::get('getFollow',function(Request $request){
     $query = TekenRequest::where('tkreq_follid',trim($request->data))
     ->join('followings','followings.foll_id','teken_requests.tkreq_follid')
     ->join('user_clients','user_clients.id','=','followings.foll_cli')
-    ->join('contracts','contracts.con_id','=','user_clients.id')
-    ->join('agreements','agreements.legal_id','=','contracts.con_id')
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollow');
@@ -200,9 +200,9 @@ Route::get('getFollow',function(Request $request){
 Route::get('getFollowings',function(Request $request){
     $query = Following::where('foll_id',trim($request->data))
     ->join('user_clients','user_clients.id','=','followings.foll_cli')
-    ->join('contracts','contracts.con_id','=','user_clients.id')
-    ->join('agreements','agreements.legal_id','=','contracts.con_id')
-    ->join('leads','leads.lead_id','=','agreements.legal_id')
+    ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollowings');

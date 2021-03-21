@@ -126,6 +126,7 @@
             $('textarea[name=requestsol1]').val(sol1);
             $('textarea[name=requestsol2]').val(sol2);
             $('textarea[name=requestsol3]').val(sol3);
+            let ide = $('input[name=req_ide]').val();
             if (print_id > null) {
                 $('.requestprint').submit();
             }else{

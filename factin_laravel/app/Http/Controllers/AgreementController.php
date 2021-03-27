@@ -10,6 +10,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\This;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AgreementController extends Controller
 {
@@ -45,7 +46,7 @@ class AgreementController extends Controller
                 'legal_adr' =>$this->fu($request->ClDir),
                 'legal_pho' =>$this->fu($request->ClTel),
                 'legal_what' =>$this->fu($request->ClWhat),
-                'legal_ema' =>$this->fu($request->ClEma),
+                'legal_ema' =>$request->ClEma,
                 'legal_typeClient' =>$this->upper($request->CltypeCli),
                 'legal_typeDocRSocial' =>$this->upper($request->ClDoc),
                 'legal_DocRSocial' =>$this->fu($request->ClNumero),
@@ -75,7 +76,7 @@ class AgreementController extends Controller
                 $vali->legal_adr = $this->fu($request->ClDir_Edit);
                 $vali->legal_pho = $this->fu($request->ClTel_Edit);
                 $vali->legal_what = $this->fu($request->ClWhat_Edit);
-                $vali->legal_Ema = $this->fu($request->ClEma_Edit);
+                $vali->legal_Ema = $request->ClEma_Edit;
                 $vali->legal_typeClient = $this->upper($request->CltypeCli_Edit);
                 $vali->legal_typeDocRSocial = $this->upper($request->ClDoc_Edit);
                 $vali->legal_DocRSocial = trim($request->ClNumero_Edit);
@@ -94,13 +95,18 @@ class AgreementController extends Controller
 
     function ClientLegalizationDelete(Request $request)
     {
-        // return $request;
+        // return $request; se debe configurar para la eliminacion
         $validate = Agreement::where(trim($request->LegalCli_Delete));
         if ($validate != null) {
-            Agreement::findOrFail($request->LegalCli_Delete)->delete();
-            return redirect()->route('ClientLegalization.index')->with('WarningCreation','Eliminación Satisfatoria');
+            try {
+                Agreement::FindOrFail($request->LegalCli_Delete)->delete();
+                return redirect()->route('ClientLegalization.index')->with('WarningCreation','Eliminación Satisfatoria');
+            } catch (\Illuminate\Database\QueryException $th) {
+                // \dd(\get_class($th));
+                return redirect()->route('ClientLegalization.index')->with('SecondaryCreation','No es posible eliminar el cliente ya que cuenta con contratos asociados.');
+            }
         }else{
-            return redirect()->route('ClientLegalization.index')->with('SecondCreation','NoEncontrado');
+            return redirect()->route('ClientLegalization.index')->with('SecondaryCreation','No es posible la eliminación.');
         }
     }
 

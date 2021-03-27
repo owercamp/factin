@@ -83,13 +83,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <small class="text-muted">SOLICITUD 2</small>
-                                        <textarea name="req_sol2" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+                                        <textarea name="req_sol2" cols="30" rows="10" class="form-control form-control-sm"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <small class="text-muted">SOLICITUD 3</small>
-                                        <textarea name="req_sol3" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+                                        <textarea name="req_sol3" cols="30" rows="10" class="form-control form-control-sm"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +164,8 @@
             let ide = $('input[name=req_ide]').val();
             $.get("{{route('getUserIdentity')}}", {data: ide},
                 function (objectUserIdentity) {
-                    $('select[name=req_cli]').val(objectUserIdentity[0]['uc_cli']);
+                    console.log(objectUserIdentity);
+                    $('select[name=req_cli]').val(objectUserIdentity[0]['id']);
                     $('input[name=req_user]').val(objectUserIdentity[0]['uc_users']);
                     $('input[name=requestprinter]').val(objectUserIdentity[0]['id']);
                     let date = new Date(); let month = date.getMonth()+1; let year = date.getFullYear(); let day = date.getDate(); let monthfor = ('00'+month).slice(-2);

@@ -205,9 +205,10 @@ class CollaboratorController extends Controller
 
     function usersclientprinter(Request $request)
     {
+        // return $request;
         $user = UserClient::where('id',trim($request->user_cli_id))
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->get();
 

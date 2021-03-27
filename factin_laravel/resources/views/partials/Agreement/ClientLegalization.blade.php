@@ -597,7 +597,7 @@
 		Swal.fire({
 			icon: 'error',
 			title: 'Oops..',
-			text: '¡registro ya existente!',
+			text: '¡ha ocurrido un error!',
 			timer: 3000,
 			timerProgressBar: true,
 			showConfirmButton: false,

@@ -100,7 +100,6 @@ class RequestController extends Controller
     // envia correo al quiente con la fecha del restablecimiento del servicio adicionalmente genera un caso de solicitud
     function responsetorequest(Request $request)
     {
-
         // crea registro en la tabla follow de seguimiento
         $register = ModelsRequest::find($request->solid);
         if ($register != null && $register->req_cola  != null) {

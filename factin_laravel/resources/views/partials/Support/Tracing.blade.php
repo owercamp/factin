@@ -72,6 +72,9 @@
                                     <span class="icon-list-alt"></span>
                                     <span hidden>{{$item->foll_id}}</span>
                                     <span hidden>{{$item->bt_social}}</span>
+                                    <span hidden>{{$item->foll_sol1}}</span>
+                                    <span hidden>{{$item->foll_sol2}}</span>
+                                    <span hidden>{{$item->foll_sol3}}</span>
                                 </a>
                                 <a href="#" title="Cierre" class="btn-delete form-control-sm RequestCreation-link">
                                     <span class="icon-check-square-o"></span>
@@ -131,11 +134,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <small class="text-muted">Solicitud N° 1</small>
+                                            <b style="overflow: auto; height: 112px;" class="form-control form-control-sm sol1"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <small class="text-muted">Solicitud N° 2</small>
+                                            <b style="overflow: auto; height: 112px;" class="form-control form-control-sm sol2"></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <small class="text-muted">Solicitud N° 3</small>
+                                            <b style="overflow: auto; height: 112px;" class="form-control form-control-sm sol3"></b>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 row bloq" style="display: none">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <small class="text-muted">Observaciones</small>
-                                            <textarea name="tkreq_obs" id="" cols="30" rows="5" class="form-control form-control-sm" required></textarea>
+                                            <textarea name="tkreq_obs" cols="30" rows="5" class="form-control form-control-sm" required></textarea>
                                             <input type="hidden" name="tkreq_foll_id">
                                             <input type="hidden" name="name">
                                         </div>
@@ -147,7 +170,7 @@
                             </div>
                         </div>
                     </form>
-                    <table id="tableDatatable" class="table table-hover table-bordered text-center top-modal tblhistorial" witdh="100%">
+                    <table id="tableDatatable" class="table table-hover table-bordered text-center top-modal tblhistorial">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -194,6 +217,12 @@
             let year = days.getFullYear();
             let myid = $(this).find('span:nth-child(2)').text();
             let cli = $(this).find('span:nth-child(3)').text();
+            let sol1 =$(this).find('span:nth-child(4)').text();
+            let sol2 =$(this).find('span:nth-child(5)').text();
+            let sol3 =$(this).find('span:nth-child(6)').text();
+            $('.sol1').text(sol1);
+            $('.sol2').text(sol2);
+            $('.sol3').text(sol3);
             $('.Client').text(cli);
             $('input[name=name]').val(cli);
             switch (dayl) {
@@ -208,14 +237,13 @@
             $.get("{{route('getFollow')}}", {data: myid},
             function (objectFollow) {
                 $('.tblhistorial tbody').empty();
-                console.log(objectFollow);
                 let counter = 1;
                 for (let i =0; i < objectFollow.length; i++) {
                     $('.tblhistorial tbody').append(
                         "<tr>"+
                             "<td>"+ counter++ +"</td>"+
                             "<td>"+objectFollow[i]['tkreq_date']+"</td>"+
-                            "<td>"+objectFollow[i]['tkreq_obs']+"</td>"+
+                            "<td style='display:Block; width:567px; text-align: start;'>"+objectFollow[i]['tkreq_obs']+"</td>"+
                         "</tr>"
                     );
                 }

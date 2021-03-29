@@ -50,12 +50,10 @@
             border-top-style: groove;
             border-top-width: 1.5px;
             height: 5%;
+            padding-top: 15px;
             text-align: center;
         }
         .text{
-            float: left;
-            margin-top: 40%;
-            margin-left: 21%;
             color:#0050a7;
         }
         .border{border-bottom: black solid 1px; text-align: center;}
@@ -136,7 +134,7 @@
                         $db_date = $dayv.', '.$day.'-'.$mon.'-'.$year;
                     @endphp
                     <td class="center" style="border: 1.5px solid gray">{{$db_date}}</td>
-                    <td style="border: 1.5px solid gray">{{$item->tkreq_obs}}</td>
+                    <td style="border: 1.5px solid gray; text-overflow: clip;" width="120">{{$item->tkreq_obs}}</td>
                 </tr>
             @endforeach
         </table>

@@ -165,6 +165,7 @@ Route::post('/Programming/assing', 'RequestController@programmingassign')->name(
 // rutas seguimiento
 Route::get('/Tracing', 'RequestController@tracingindex')->name('tracing.index');
 Route::post('/Tracing/save', 'RequestController@tracingsave')->name('tracing.save');
+Route::post('/Tracing/editlead', 'RequestController@tracingeditlead')->name('Edit.lead');
 Route::post('/Tracing/close', 'RequestController@tracingclose')->name('tracing.close');
 // rutas calificativo
 Route::get('/Qualification', 'RequestController@qualificationindex')->name('qualification.index');

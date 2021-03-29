@@ -54,10 +54,11 @@
                                         <small class="text-muted">CLIENTE</small>
                                         <select name="req_cli" class="form-control form-control-sm">
                                             <option value="">Seleccione ...</option>
-                                            @foreach ($req as $item)
-                                                <option value="{{$item->id}}">{{$item->bt_social}}</option>
+                                            @foreach ($bt as $item)
+                                                <option value="{{$item->bt_id}}">{{$item->bt_social}}</option>
                                             @endforeach
                                         </select>
+                                        <input type="hidden" name="beforeValue">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -103,6 +104,11 @@
                     </div>
                 </div>
             </form>
+            <form action="{{route('Edit.lead')}}" method="post" class="invisible Changes">
+                @csrf
+                <input type="text" name="editlead">
+                <input type="text" name="userClientValue">
+            </form>
         </div>
     </div>
 
@@ -116,7 +122,40 @@
     @endsection
 
     @section('ScriptZone')
-	<script>
+	<script>        
+        $('select[name=req_cli]').change(function (e) { 
+            e.preventDefault();
+            let MySelect = $('select[name=req_cli]').val();
+            let MyId = $('selector').val();
+            Swal.fire({
+                icon: 'warning',
+                title: '<h3 class="text-danger text-uppercase"><em>advertencia</em></h3>',
+                html: `<p>Tenga en cuenta que al modificar <em class="text-info text-capitalize"><b>el cliente</b></em> los registros asociados seran alterados.</p>`,
+                showConfirmButton: true,
+                confirmButtonText: 'Si',
+                confirmButtonColor: '#3085d6',
+                showDenyButton: true,
+                denyButtonText: 'No',
+                denyButtonColor: '#f58f4d',
+                showClass: {
+                popup: 'animate__animated animate__flipInX'
+                },
+                hideClass: {
+                popup: 'animate__animated animate__flipOutX'
+                },
+            }).then((result)=>{
+                if (result.isConfirmed) {
+                    let MySelect = $('select[name=req_cli]').val();
+                    $('input[name=editlead]').val(MySelect);
+                    $('.Changes').submit();
+                    console.log(MySelect);
+                } else if(result.isDenied){
+                    let beforeVal = $('input[name=beforeValue]').val();
+                    $('select[name=req_cli]').val(beforeVal);
+                }
+            })
+            console.log(MySelect);
+        });
         // imprime mu solicitud
         $('.printer').click(function () {
             let print_id = $('input[name=requestprinter]').val();
@@ -165,7 +204,9 @@
             $.get("{{route('getUserIdentity')}}", {data: ide},
                 function (objectUserIdentity) {
                     console.log(objectUserIdentity);
-                    $('select[name=req_cli]').val(objectUserIdentity[0]['id']);
+                    $('select[name=req_cli]').val(objectUserIdentity[0]['bt_id']);//se cambia de id a bt_id 
+                    $('input[name=beforeValue]').val(objectUserIdentity[0]['bt_id']);
+                    $('input[name=userClientValue]').val(objectUserIdentity[0]['id']);
                     $('input[name=req_user]').val(objectUserIdentity[0]['uc_users']);
                     $('input[name=requestprinter]').val(objectUserIdentity[0]['id']);
                     let date = new Date(); let month = date.getMonth()+1; let year = date.getFullYear(); let day = date.getDate(); let monthfor = ('00'+month).slice(-2);

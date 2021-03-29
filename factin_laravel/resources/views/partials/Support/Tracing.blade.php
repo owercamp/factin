@@ -158,7 +158,7 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <small class="text-muted">Observaciones</small>
-                                            <textarea name="tkreq_obs" cols="30" rows="5" class="form-control form-control-sm" required></textarea>
+                                            <textarea name="tkreq_obs" cols="30" rows="5" class="form-control form-control-sm" maxlength="500" required></textarea>
                                             <input type="hidden" name="tkreq_foll_id">
                                             <input type="hidden" name="name">
                                         </div>

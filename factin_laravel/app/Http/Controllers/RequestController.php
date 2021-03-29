@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Mail\response_to_close;
 use App\Mail\response_to_request;
+use App\Models\BusinessTracking;
 use App\Models\Collaborator;
 use App\Models\Following;
+use App\Models\Lead;
 use App\Models\Request as ModelsRequest;
 use App\Models\TekenRequest;
 use App\Models\UserClient;
 use App\Models\UserRating;
 use Barryvdh\DomPDF\Facade as PDF;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -23,12 +24,13 @@ class RequestController extends Controller
     }
     function requestindex()
     {
+        $bt = BusinessTracking::all();        
         $req = UserClient::select('user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
         ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
-        return view('partials.Support.Requests',compact('req'));
+        return view('partials.Support.Requests',compact('req','bt'));
     }
     // almacena un a nueva solicitud a la tbl teken_requests
     function requestsave(Request $request)
@@ -281,5 +283,20 @@ class RequestController extends Controller
 
         $pdf = PDF::loadView('partials.pdf.ArchivesPDF', compact('alls','teken'));
         return $pdf->stream('Informe.pdf');
+    }
+    function tracingeditlead(Request $request)
+    {
+        //se debe editar el registro de la tabla leads
+        $soli = UserClient::where('id',trim($request->userClientValue))
+        ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
+        ->join('leads','leads.lead_id','=','agreements.legal_social')->get();
+        $val = Lead::find($soli[0]['lead_id']);  
+        if ($val != null) {
+            $val->lead_social = trim($request->editlead);
+            $val->save();
+            return redirect()->route('request.index')->with('PrimaryCreation','se ha actualizado el cliente de los registros relacionados');
+        }
+        
     }
 }

@@ -154,19 +154,19 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <small class="text-muted">SOLICITUD 1</small>
-                                                <textarea name="req_sol1" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+                                                <textarea name="req_sol1" cols="30" rows="10" class="form-control form-control-sm" maxlength="500" required></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <small class="text-muted">SOLICITUD 2</small>
-                                                <textarea name="req_sol2" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+                                                <textarea name="req_sol2" cols="30" rows="10" class="form-control form-control-sm" maxlength="500"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <small class="text-muted">SOLICITUD 3</small>
-                                                <textarea name="req_sol3" cols="30" rows="10" class="form-control form-control-sm" required></textarea>
+                                                <textarea name="req_sol3" cols="30" rows="10" class="form-control form-control-sm" maxlength="500"></textarea>
                                             </div>
                                         </div>
                                     </div>

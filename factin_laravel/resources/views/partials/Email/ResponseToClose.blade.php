@@ -6,8 +6,14 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <style>
             .font-header{
-                background: radial-gradient(circle 160px at 100% 50%, transparent 50%,rgba(0,123,255,0.4) 45%),radial-gradient(circle 160px at 70% 100%, transparent 50%,rgba(0,123,255,0.6) 45%),radial-gradient(circle 160px at 40% 50%, transparent 50%,rgba(0,123,255,0.5) 45%);
+                background: radial-gradient(circle 160px at 100% 50%, transparent 50%,rgba(0,123,255,0.4) 45%),radial-gradient(circle 160px at 70% 100%, transparent 50%,rgba(0,123,255,0.6) 45%),radial-gradient(circle 160px at 40% 50%, transparent 50%,rgba(0,123,255,0.5) 45%);                
+                background: -moz-radial-gradient(circle 160px at 100% 50%, transparent 50%,rgba(0,123,255,0.4) 45%),-moz-radial-gradient(circle 160px at 70% 100%, transparent 50%,rgba(0,123,255,0.6) 45%),-moz-radial-gradient(circle 160px at 40% 50%, transparent 50%,rgba(0,123,255,0.5) 45%);
+                background: -webkit-radial-gradient(circle 160px at 100% 50%, transparent 50%,rgba(0,123,255,0.4) 45%),-webkit-radial-gradient(circle 160px at 70% 100%, transparent 50%,rgba(0,123,255,0.6) 45%),-webkit-radial-gradient(circle 160px at 40% 50%, transparent 50%,rgba(0,123,255,0.5) 45%);
                 border-radius: 15px;
+                -webkit-border-radius: 15px;
+                -moz-border-radius: 15px;
+                -ms-border-radius: 15px;
+                -o-border-radius: 15px;
             }.row {
                 display: -ms-flexbox;display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;
             }.version-color {

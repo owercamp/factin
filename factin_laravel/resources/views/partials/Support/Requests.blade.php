@@ -59,6 +59,7 @@
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="beforeValue">
+                                        <input type="hidden" name="req_cli_add">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -206,6 +207,7 @@
                     console.log(objectUserIdentity);
                     $('select[name=req_cli]').val(objectUserIdentity[0]['bt_id']);//se cambia de id a bt_id 
                     $('input[name=beforeValue]').val(objectUserIdentity[0]['bt_id']);
+                    $('input[name=req_cli_add]').val(objectUserIdentity[0]['id']);
                     $('input[name=userClientValue]').val(objectUserIdentity[0]['id']);
                     $('input[name=req_user]').val(objectUserIdentity[0]['uc_users']);
                     $('input[name=requestprinter]').val(objectUserIdentity[0]['id']);

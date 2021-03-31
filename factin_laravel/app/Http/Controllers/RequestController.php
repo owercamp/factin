@@ -42,7 +42,7 @@ class RequestController extends Controller
             $numberChar = intval($request->req_cont);
             ModelsRequest::create([
                 'req_ide' => $this->fu($request->req_ide),
-                'req_cli' => trim($request->req_cli),
+                'req_cli' => trim($request->req_cli_add),
                 'req_user' => $this->upper($request->req_user),
                 'req_con' => $this->fu($numberChar),
                 'req_sol1' => $this->fu($request->req_sol1),

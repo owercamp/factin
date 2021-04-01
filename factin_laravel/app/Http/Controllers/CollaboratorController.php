@@ -189,15 +189,15 @@ class CollaboratorController extends Controller
     function usersclientdelete(Request $request)
     {
         // return $request;
-        $validate = UserClient::where('id',trim($request->uc_id_Delete))
+        $validate = UserClient::where('id','=',trim($request->uc_id_Delete))
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
-        ->join('agreements','agreements.legal_id','=','contracts.con_id')
+        ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')
-        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->first();
+        ->join('business_trackings','business_trackings.bt_id','leads.lead_social')->get();
         if ($validate != null)
         {
             UserClient::findOrFail($request->uc_id_Delete)->delete();
-            return redirect()->route('usersclient.index')->with('WarningCreation','Eliminación del Usuario '.$this->upper($validate->uc_users).' del cliente '.$this->upper($validate->bt_social).' realizado correctamente');
+            return redirect()->route('usersclient.index')->with('WarningCreation','Eliminación del Usuario '.$this->upper($validate[0]['uc_users']).' del cliente '.$this->upper($validate[0]['bt_social']).' realizado correctamente');
         }else{
             return redirect()->route('usersclient.index')->with('SecondCreation','NoEncontrado');
         }

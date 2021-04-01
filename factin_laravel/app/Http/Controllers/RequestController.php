@@ -24,7 +24,7 @@ class RequestController extends Controller
     }
     function requestindex()
     {
-        $bt = BusinessTracking::all();        
+        $bt = BusinessTracking::all();
         $req = UserClient::select('user_clients.*','contracts.*','agreements.*','leads.*','business_trackings.*')
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
         ->join('agreements','agreements.legal_id','=','contracts.con_social')
@@ -291,12 +291,12 @@ class RequestController extends Controller
         ->join('contracts','contracts.con_id','=','user_clients.uc_cli')
         ->join('agreements','agreements.legal_id','=','contracts.con_social')
         ->join('leads','leads.lead_id','=','agreements.legal_social')->get();
-        $val = Lead::find($soli[0]['lead_id']);  
+        $val = Lead::find($soli[0]['lead_id']);
         if ($val != null) {
             $val->lead_social = trim($request->editlead);
             $val->save();
             return redirect()->route('request.index')->with('PrimaryCreation','se ha actualizado el cliente de los registros relacionados');
         }
-        
+
     }
 }

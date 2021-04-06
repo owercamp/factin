@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agreement;
+use App\Models\Collaborator;
 use App\Models\Contract;
 use App\Models\Lead;
 use App\Models\Location;
@@ -22,6 +23,7 @@ class AgreementController extends Controller
     function ClienteLegalization()
     {
         $Departament = Location::all();
+        $Collaborator = Collaborator::all();
         $ClientActive = Lead::select('leads.*','business_trackings.*')
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
         $Client = Agreement::select('agreements.*','leads.*','business_trackings.*','locations.*','municipalities.*')
@@ -29,7 +31,7 @@ class AgreementController extends Controller
         ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')
         ->join('locations','locations.depid','=','leads.lead_dep')
         ->join('municipalities','municipalities.munid','=','leads.lead_mun')->get();
-        return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament','ClientActive'));
+        return \view('partials.Agreement.ClientLegalization', \compact('Client','Departament','ClientActive','Collaborator'));
     }
 
     function ClientLegalizationSave(Request $request)

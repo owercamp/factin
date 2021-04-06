@@ -73,6 +73,8 @@
                                 <span hidden>{{$item->legal_repre}}</span>
                                 <span hidden>{{$item->legal_typeDocRepre}}</span>
                                 <span hidden>{{$item->legal_DocRepre}}</span>
+                                <span hidden>{{$item->legal_Cola}}</span>
+                                <span hidden>{{$item->legal_comi}}</span>
                             </a>
                             <a href="#" title="Eliminar" class="btn-delete form-control-sm deleteCreation-link">
                                 <span class="icon-proxmox"></span>
@@ -234,6 +236,25 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin: 0% 10%;">
+                                                <small class="text-muted">COLABORADOR</small>
+                                                <select name="ClCola" class="form-control form-control-sm">
+                                                    <option value="">Seleccione...</option>
+                                                    @foreach ($Collaborator as $item)
+                                                        <option value="{{$item->id}}">{{$item->col_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin: 0% 10%;">
+                                                <small class="text-muted">COMISION</small>
+                                                <input type="text" name="ClComi" class="form-control form-control-sm text-primary font-weight-bolder">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-12" style="padding-top: 3%">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-edit" style="margin: 1% 45%">GUARDAR</button>
@@ -381,6 +402,25 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin: 0% 10%;">
+                                                <small class="text-muted">COLABORADOR</small>
+                                                <select name="ClCola_Edit" class="form-control form-control-sm">
+                                                    <option value="">Seleccione...</option>
+                                                    @foreach ($Collaborator as $item)
+                                                        <option value="{{$item->id}}">{{$item->col_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group" style="margin: 0% 10%;">
+                                                <small class="text-muted">COMISION</small>
+                                                <input type="text" name="ClComi_Edit" class="form-control form-control-sm text-primary font-weight-bolder">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row border-top mt-3 text-center">
                                         <div class="col-md-6">
                                             <input type="hidden" class="form-control form-control-sm" name="id_Edit" readonly required>
@@ -477,7 +517,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 					e.preventDefault();
-                    var cid,rs,dep,mun,adr,pho,what,ema,tc,td,nd,rep,tdrep,ndrep;
+                    var cid,rs,dep,mun,adr,pho,what,ema,tc,td,nd,rep,tdrep,ndrep,cola,comi;
                     cid = $(this).find('span:nth-child(2)').text();
                     rs = $(this).find('span:nth-child(3)').text();
                     dep = $(this).find('span:nth-child(4)').text();
@@ -492,6 +532,8 @@
                     rep = $(this).find('span:nth-child(13)').text();
                     tdrep = $(this).find('span:nth-child(14)').text();
                     ndrep = $(this).find('span:nth-child(15)').text();
+                    cola = $(this).find('span:nth-child(16)').text();
+                    comi = $(this).find('span:nth-child(17)').text();
                     $('select[name=ClSocial_Edit]').val(rs);
                     $('select[name=ClDep_Edit]').val(dep);
                     $('select[name=ClMun_Edit]').empty();
@@ -518,6 +560,9 @@
                     $('input[name=ClRepresentante_Edit]').val(rep);
                     $('select[name=ClDocRepre_Edit]').val(tdrep);
                     $('input[name=ClNumeroRepre_Edit]').val(ndrep);
+                    $('select[name=ClCola_Edit]').val(cola);
+                    $('input[name=ClComi_Edit]').val(comi);
+                    $('input[name=ClComi_Edit]').focus();
                     $('input[name=id_Edit]').val(cid);
 					$('#newCreationEdit-modal').modal();
 				}

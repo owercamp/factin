@@ -479,6 +479,38 @@
 
 @section('ScriptZone')
     <script>
+        // consulta clientes de la tbl agreements
+        $('select[name=ClSocial]').change(function (e) { 
+            e.preventDefault();
+            $('select[name=ClDep]').val("");
+            $('select[name=ClMun]').empty();
+            $('select[name=ClMun]').append("<option value=''>Seleccione un Municipio</option>");
+            $('input[name=ClDir]').val("");
+            $('input[name=ClTel]').val("");
+            $('input[name=ClWhat]').val("");
+            let id = $('select[name=ClSocial]').val();            
+            $.get("{{route('getClientLegal')}}", {data: id},
+                function (objectClientLegal) {
+                    $('select[name=ClDep]').val(objectClientLegal[0]['lead_dep']);
+                    $.get("{{route('getMunicipalities')}}",{DepId: objectClientLegal[0]['lead_dep']}, function(objectMunicipality){
+						var count = Object.keys(objectMunicipality).length;
+						if (count > 0) {
+							for (let index = 0; index < count; index++) {
+								if (objectMunicipality[index]['munid'] == objectClientLegal[0]['lead_mun']) {
+									$('select[name=ClMun]').append("<option value='"+objectMunicipality[index]['munid']+"' selected>"+objectMunicipality[index]['munname']+"</option>");
+								} else {
+									$('select[name=ClMun]').append("<option value='"+objectMunicipality[index]['munid']+"'>"+objectMunicipality[index]['munname']+"</option>");
+								}
+							}
+						}
+					});
+                    $('input[name=ClDir]').val(objectClientLegal[0]['lead_adr']);
+                    $('input[name=ClTel]').val(objectClientLegal[0]['lead_pho']);
+                    $('input[name=ClWhat]').val(objectClientLegal[0]['lead_what']);
+                    $('input[name=ClEma]').val(objectClientLegal[0]['lead_ema']);                    
+                }
+            );
+        });
         // lanza formulario creación
 		$('.newCreation-link').on('click',function(){
 			$('#newCreation-modal').modal();

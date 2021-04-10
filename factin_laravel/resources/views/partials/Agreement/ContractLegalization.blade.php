@@ -534,12 +534,7 @@
                     $('select[name=ClDoc_Edit]').val(tiderepre);
                     $('input[name=ClFIni_Edit]').val(ini);
                     let fech, year,month,mon,dayl,dayv;
-                    fech = new Date(final);
-                    dayl = final.split('-');
-                    days = fech.getDay()+1;
-                    month = dayl[1];
-                    num = dayl[2];
-                    year = dayl[0];
+                    fech = new Date(final); dayl = final.split('-'); days = fech.getDay()+1; month = dayl[1]; num = dayl[2]; year = dayl[0];
                     switch (days) {
                         case 7: dayv = 'Domingo'; break; case 1: dayv = 'Lunes'; break; case 2: dayv = 'Martes'; break; case 3: dayv = 'Miercoles'; break; case 4: dayv = 'Jueves'; break; case 5: dayv = 'Viernes'; break; case 6: dayv = 'Sabado'; break;
                     }

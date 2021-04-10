@@ -206,3 +206,17 @@ Route::get('getFollowings',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollowings');
+// consulta de las ventas del mes
+Route::get('getCountsMonth',function(){
+    $query = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*')
+    ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('leads','leads.lead_id','=','agreements.legal_social')
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social') ->get();
+    return response()->json($query);
+})->name('getCountsMonth');
+// consulta para realizar la legalización del cliente
+Route::get('getClientLegal',function(Request $request){
+    $query = Lead::where('lead_id',trim($request->data))
+    ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
+    return response()->json($query);
+})->name('getClientLegal');

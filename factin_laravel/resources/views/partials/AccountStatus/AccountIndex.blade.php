@@ -41,6 +41,15 @@
                     </select>
                 </div>
             </div>
+            @php
+                switch ($mountnow) {
+                    case '01': $mount = 'Enero'; break;
+                    case '02': $mount = 'Febrero'; break;
+                    case '03': $mount = 'Marzo'; break;
+                    case '04': $mount = 'Abril'; break;
+                }
+            @endphp            
+            <div class="w-100 p-sm-2 text-center MyMonth">{{ __('Cuentas Mes: ').$mount.__(' de ').$yearnow }}</div>
             <div class="mt-3">
                 <table id="tableDatatable" class="w-100 table table-bordered table-responsive-md text-center" style="font-size: 15px;" id="tblMonth">
                     <thead>
@@ -70,4 +79,42 @@
             </ul>
         </div>
     </div>
+@endsection
+
+@section('ScriptZone')
+    <script>
+        $('li').each(function (index, element) {
+            $(element).click(function (e) { 
+                e.preventDefault();                
+                let year = $('select[name=YearSelect]').val();
+                switch (index) {
+                    case 0: $('.MyMonth').text('Cuentas Mes: Enero de '+year); break;
+                    case 1: $('.MyMonth').text('Cuentas Mes: Febrero de '+year); break;
+                    case 2: $('.MyMonth').text('Cuentas Mes: Marzo de '+year); break;
+                    case 3: $('.MyMonth').text('Cuentas Mes: Abril de '+year); break;
+                    case 4: $('.MyMonth').text('Cuentas Mes: Mayo de '+year); break;
+                    case 5: $('.MyMonth').text('Cuentas Mes: Junio de '+year); break;
+                    case 6: $('.MyMonth').text('Cuentas Mes: Julio de '+year); break;
+                    case 7: $('.MyMonth').text('Cuentas Mes: Agosto de '+year); break;
+                    case 8: $('.MyMonth').text('Cuentas Mes: Septiembre de '+year); break;
+                    case 9: $('.MyMonth').text('Cuentas Mes: Octubre de '+year); break;
+                    case 10: $('.MyMonth').text('Cuentas Mes: Noviembre de '+year); break;
+                    case 11: $('.MyMonth').text('Cuentas Mes: Diciembre de '+year); break;
+                }
+                $.get("{{route('getCountsMonth')}}",
+                    function (objectDataMonth) {
+                        objectDataMonth.forEach(element => {
+                            let {con_final} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let dateSplit = con_final.split('-'); let mon = dateSplit[1]-1;
+                            console.log(yearSearch);
+                            console.log(year);
+                            if (yearSearch == year && mon <= index) {
+                                // console.log(element);
+                                console.log(con_final);
+                            }
+                        });
+                    }
+                );
+            });            
+        });
+    </script>
 @endsection

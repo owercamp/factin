@@ -49,13 +49,10 @@ $(function(){
 });
 
 let uri = () =>{
-	let directUri = $('.directionUri');
-	directUri.animate({opacity: 0.1 });
-	directUri.animate({opacity: 1}, 10000);
+	let directUri = $('.directionUri');	
 	directUri.animate({color: '#0676a4'}, 10000);
 	directUri.animate({color: '#212529'}, 10000);
 	directUri.animate({color: '#0676a4'}, 10000);
-	directUri.animate({opacity: 0.1 }, 10000);
 }
 let titles = () =>{
 	let title = $('.version-color');
@@ -65,7 +62,6 @@ let titles = () =>{
 }
 setInterval(titles,1000);
 setInterval(uri,50000);
-
 
 function seeDirection($urls ='/home')
 {
@@ -149,6 +145,8 @@ function seeDirection($urls ='/home')
 			return 'Soporte >> Calificación';
 		case '/factin/Archive':
 			return 'Soporte >> Archivo';
+		case '/factin/AccountStatus':
+			return 'Financiera >> Estado de Cuentas';
     }
 }
 

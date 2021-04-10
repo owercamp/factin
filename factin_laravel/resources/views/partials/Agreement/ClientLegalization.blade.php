@@ -550,6 +550,8 @@
 							}
 						}
 					});
+                    $('input[name=ClComi_Edit]').val(comi);
+                    $('input[name=ClComi_Edit]').focus();
                     $('input[name=ClDir_Edit]').val(adr);
                     $('input[name=ClTel_Edit]').val(pho);
                     $('input[name=ClWhat_Edit]').val(what);
@@ -561,8 +563,6 @@
                     $('select[name=ClDocRepre_Edit]').val(tdrep);
                     $('input[name=ClNumeroRepre_Edit]').val(ndrep);
                     $('select[name=ClCola_Edit]').val(cola);
-                    $('input[name=ClComi_Edit]').val(comi);
-                    $('input[name=ClComi_Edit]').focus();
                     $('input[name=id_Edit]').val(cid);
 					$('#newCreationEdit-modal').modal();
 				}

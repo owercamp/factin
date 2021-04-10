@@ -60,51 +60,46 @@
                     <div class="navbar-collapse flex-justified marge-list">
                         <div class="navbar">
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">CONFIGURACION
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu row-cols-1 text-center list-padding">
-                                    <li><a href="{{route('access.roles')}}">ACCESO</a></li>
-                                    <li><a href="{{route('location.located')}}">UBICACIONES</a></li>
-                                    <li><a href="{{route('company.information')}}">EMPRESA</a></li>
+                                <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">CONFIGURACION</button>
+                                <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('access.roles')}}">ACCESO</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('location.located')}}">UBICACIONES</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('company.information')}}">EMPRESA</a>
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">ADMINISTRACION
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu row-cols-1 text-center">
-                                    <li><a href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a></li>
-                                    <li><a href="{{route('product.index')}}">TIPO DE PRODUCTOS</a></li>
-                                    <li><a href="{{route('services.index')}}">TIPO DE SERVICIOS</a></li>
+                                <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">ADMINISTRACION</button>
+                                <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('product.index')}}">TIPO DE PRODUCTOS</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('services.index')}}">TIPO DE SERVICIOS</a>
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">COMERCIAL
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu row-cols-1 text-center">
-                                    <li><a href="{{route('factin.index')}}">PORTAFOLIO</a></li>
-                                    <li><a href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a></li>
-                                    <li><a href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a></li>
-                                    <li><a href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a></li>
+                                <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">COMERCIAL</button>
+                                <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('factin.index')}}">PORTAFOLIO</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a>
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">SOPORTE
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu row-cols-1 text-center">
-                                    <li><a href="{{route('request.index')}}">SOLICITUDES</a></li>
-                                    <li><a href="{{route('programming.index')}}">PROGRAMACION</a></li>
-                                    <li><a href="{{route('tracing.index')}}">SEGUIMIENTO</a></li>
-                                    <li><a href="{{route('qualification.index')}}">CALIFICACION</a></li>
-                                    <li><a href="{{route('archiverequest.index')}}">ARCHIVO</a></li>
+                                <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">SOPORTE</button>
+                                <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('request.index')}}">SOLICITUDES</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('programming.index')}}">PROGRAMACION</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('tracing.index')}}">SEGUIMIENTO</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('qualification.index')}}">CALIFICACION</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('archiverequest.index')}}">ARCHIVO</a>
                                 </ul>
                             </div>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">FINANCIERA
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu row-cols-1 text-center">
-                                    <li><a href="#">ESTADO DE CUENTA</a></li>
-                                    <li><a href="#">MOVIMIENTOS COMERCIALES</a></li>
-                                    <li><a href="#">INFORMES</a></li>
+                                <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">FINANCIERA</button>
+                                <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('account.index')}}">ESTADO DE CUENTA</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="#">MOVIMIENTOS COMERCIALES</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="#">INFORMES</a>
                                 </ul>
                             </div>
                         </div>

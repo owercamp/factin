@@ -36,7 +36,8 @@ class AgreementController extends Controller
 
     function ClientLegalizationSave(Request $request)
     {
-        // return $request;
+        $comision = $request->ClComi;
+        $char = \str_replace('.','',$comision);
         $validate = Agreement::where('legal_social',\trim($request->ClSocial))
         ->where('legal_repre',$this->fu($request->ClRepresentante))
         ->where('legal_DocRepre',\trim($request->ClNumeroRepre))->first();
@@ -54,7 +55,9 @@ class AgreementController extends Controller
                 'legal_DocRSocial' =>$this->fu($request->ClNumero),
                 'legal_repre' =>$this->upper($request->ClRepresentante),
                 'legal_typeDocRepre' =>$this->upper($request->ClDocRepre),
-                'legal_DocRepre' =>$this->fu($request->ClNumeroRepre)
+                'legal_DocRepre' =>$this->fu($request->ClNumeroRepre),
+                'legal_Cola' =>$request->ClCola,
+                'legal_comi' => $char
             ]);
                 return \redirect()->route('ClientLegalization.index')->with('SuccessCreation','Legalización del cliente con representante legal '.$this->upper($request->ClRepresentante).' almacenada correctamente');
         }else {
@@ -64,7 +67,8 @@ class AgreementController extends Controller
 
     function ClientLegalizationUpdate(Request $request)
     {
-        // return $request;
+        $comision = $request->ClComi_Edit;
+        $char = \str_replace('.','',$comision);
         $validate = Agreement::where('legal_repre',trim($request->ClRepresentante_Edit))
         ->where('legal_id','!=',trim($request->id_Edit))
         ->first();
@@ -85,6 +89,8 @@ class AgreementController extends Controller
                 $vali->legal_repre = $this->upper($request->ClRepresentante_Edit);
                 $vali->legal_typeDocRepre = $this->upper($request->ClDocRepre_Edit);
                 $vali->legal_DocRepre = trim($request->ClNumeroRepre_Edit);
+                $vali->legal_Cola = \trim($request->ClCola_Edit);
+                $vali->legal_comi = $char;
                 $vali->save();
                 return \redirect()->route('ClientLegalization.index')->with('PrimaryCreation', 'Actualización del registro con representante legal '.$this->upper($request->ClRepresentante_Edit).' se ejecuto correctamente');
             }else{

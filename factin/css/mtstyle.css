@@ -222,3 +222,7 @@ a.text-iva:hover, a.text-iva:focus {
     -ms-border-radius: 45%;
     -o-border-radius: 45%;
 }
+.bg-primary-50 {
+    color: #004085 !important;
+    background-color: #b8daff !important;
+}

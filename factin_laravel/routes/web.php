@@ -176,5 +176,6 @@ Route::get('/Archive', 'RequestController@archiveindex')->name('archiverequest.i
 Route::post('/Archive/follow', 'RequestController@archivePDF')->name('archive.print');
 // ruta de correo envio
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
-
+//ruta estado de cuentas
+Route::get('/AccountStatus','AccountstatusController@Accountindex')->name('account.index');
 

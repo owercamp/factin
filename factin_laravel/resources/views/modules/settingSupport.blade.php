@@ -5,30 +5,15 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-fire"></span>
-        <a class="text-primary" href="{{route('request.index')}}">{{__('Solicitudes')}}</a>
-    </li>
+    <a class="text-primary" href="{{route('request.index')}}"><span class="icon-fire"></span> {{__('Solicitudes')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-clipboard"></span>
-        <a class="text-primary" href="{{route('programming.index')}}">{{__('Programación')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('programming.index')}}"><span class="icon-clipboard"></span> {{__('Programación')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-folder-open"></span>
-        <a class="text-primary" href="{{route('tracing.index')}}">{{__('Seguimiento')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('tracing.index')}}"><span class="icon-folder-open"></span>{{__('Seguimiento')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-line-chart"></span>
-        <a class="text-primary" href="{{route('qualification.index')}}">{{__('Calificación')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('qualification.index')}}"><span class="icon-line-chart"></span> {{__('Calificación')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-line-chart"></span>
-        <a class="text-primary" href="{{route('archive.index')}}">{{__('Archivo')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('archive.index')}}"><span class="icon-line-chart"></span> {{__('Archivo')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

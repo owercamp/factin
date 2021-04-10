@@ -5,25 +5,13 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-fire"></span>
-        <a class="text-primary" href="{{route('oportunity.index')}}">{{__('Oportunidad de Negocio')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('oportunity.index')}}"><span class="icon-fire"></span> {{__('Oportunidad de Negocio')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-clipboard"></span>
-        <a class="text-primary" href="{{route('tracking.index')}}">{{__('Seguimiento de Negocio')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('tracking.index')}}"><span class="icon-clipboard"></span> {{__('Seguimiento de Negocio')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-folder-open"></span>
-        <a class="text-primary" href="{{route('archive.index')}}">{{__('Archivo de Negocios')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('archive.index')}}"><span class="icon-folder-open"></span> {{__('Archivo de Negocios')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-line-chart"></span>
-        <a class="text-primary" href="{{route('indicators.index')}}">{{__('Indicadores de Exito')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('indicators.index')}}"><span class="icon-line-chart"></span> {{__('Indicadores de Exito')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

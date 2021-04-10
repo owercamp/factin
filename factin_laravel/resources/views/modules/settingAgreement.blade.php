@@ -5,25 +5,13 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-stack-overflow"></span>
-        <a class="text-primary" href="{{route('ClientLegalization.index')}}">{{__('Legalización Cliente')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('ClientLegalization.index')}}"><span class="icon-stack-overflow"></span> {{__('Legalización Cliente')}}</a>    
     <div class="dropdown-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-shield"></span>
-        <a class="text-primary" href="{{route('ContractLegalization.index')}}">{{__('Legalización Contrato')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('ContractLegalization.index')}}"><span class="icon-shield"></span> {{__('Legalización Contrato')}}</a>
     <div class="dropdown-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-group"></span>
-        <a class="text-primary" href="{{route('ContractsFile.index')}}">{{__('Archivo Contrataciones')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('ContractsFile.index')}}"><span class="icon-group"></span> {{__('Archivo Contrataciones')}}</a>
     <div class="dropdown-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-group"></span>
-        <a class="text-primary" href="{{route('SuccessIndicator.index')}}">{{__('Indicadores de Exito')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('SuccessIndicator.index')}}"><span class="icon-group"></span> {{__('Indicadores de Exito')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

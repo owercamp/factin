@@ -5,20 +5,11 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-stack-overflow"></span>        
-        <a class="text-primary" href="{{route('access.roles')}}">{{__('Roles')}}</a>
-    </li>
+    <a class=" list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('access.roles')}}"><span class="icon-stack-overflow"></span> {{__('Roles')}}</a>
     <div class="dropdown-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-shield"></span>
-        <a class="text-primary" href="{{route('access.permission')}}">{{__('Permisos')}}</a>
-    </li>
+    <a class=" list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('access.permission')}}"><span class="icon-shield"></span> {{__('Permisos')}}</a>
     <div class="dropdown-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-group"></span>
-        <a class="text-primary" href="{{route('access.users')}}">{{__('Usuarios')}}</a>
-    </li>
+    <a class=" list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('access.users')}}"><span class="icon-group"></span> {{__('Usuarios')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

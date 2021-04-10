@@ -5,20 +5,11 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-steam"></span>
-        <a class="text-primary" href="{{route('product.index')}}">{{__('Creación de Productos')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('product.index')}}"><span class="icon-steam"></span> {{__('Creación de Productos')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-cube"></span>
-        <a class="text-primary" href="{{route('module.index')}}">{{__('Creación de Modulos')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('module.index')}}"><span class="icon-cube"></span> {{__('Creación de Modulos')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-cubes"></span>
-        <a class="text-primary" href="{{route('config.index')}}">{{__('Configuración de Productos')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('config.index')}}"><span class="icon-cubes"></span> {{__('Configuración de Productos')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

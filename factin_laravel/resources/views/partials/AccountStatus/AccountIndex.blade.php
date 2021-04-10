@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="mt-3">
-                <table class="w-100 table table-bordered table-responsive-md text-center" style="font-size: 15px;" id="tblMonth">
+                <table id="tableDatatable" class="w-100 table table-bordered table-responsive-md text-center" style="font-size: 15px;" id="tblMonth">
                     <thead>
                         <tr>
                             <th># CONTRATO</th>

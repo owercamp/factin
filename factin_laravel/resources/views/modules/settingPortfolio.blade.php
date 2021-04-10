@@ -5,25 +5,13 @@
 
 @section('modules')
 <ul class="col-2 text-center flex-justified">
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-globe"></span>
-        <a class="text-primary" href="{{route('factin.index')}}">{{__('Factin Web')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('factin.index')}}"><span class="icon-globe"></span> {{__('Factin Web')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-code"></span>
-        <a class="text-primary" href="{{route('software.index')}}">{{__('Software')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('software.index')}}"><span class="icon-code"></span> {{__('Software')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-laptop"></span>
-        <a class="text-primary" href="{{route('hardware.index')}}">{{__('Hardware')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('hardware.index')}}"><span class="icon-laptop"></span> {{__('Hardware')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <li class="nav-link nav-config-user text-primary">
-        <span class="icon-cogs"></span>
-        <a class="text-primary" href="{{route('support.index')}}">{{__('Soporte Tecnico')}}</a>
-    </li>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('support.index')}}"><span class="icon-cogs"></span> {{__('Soporte Tecnico')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

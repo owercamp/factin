@@ -208,8 +208,9 @@ Route::get('getFollowings',function(Request $request){
 })->name('getFollowings');
 // consulta de las ventas del mes
 Route::get('getCountsMonth',function(){
-    $query = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*')
+    $query = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*','collaborators.*')
     ->join('agreements','agreements.legal_id','=','contracts.con_social')
+    ->join('collaborators','collaborators.id','=','agreements.legal_cola')
     ->join('leads','leads.lead_id','=','agreements.legal_social')
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social') ->get();
     return response()->json($query);

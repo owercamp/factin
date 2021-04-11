@@ -226,3 +226,30 @@ a.text-iva:hover, a.text-iva:focus {
     color: #004085 !important;
     background-color: #b8daff !important;
 }
+.loader {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: 10px solid;
+    border-color: #004085 #00422300;
+    animation: 1.5s spin infinite;
+    -webkit-animation: 1.5s spin infinite;
+    margin-left: 50%;
+    position: absolute;    
+    display: none;
+    margin-top: 10%;
+    z-index: 10000;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}

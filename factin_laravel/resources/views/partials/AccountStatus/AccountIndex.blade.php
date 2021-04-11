@@ -49,9 +49,10 @@
                     case '04': $mount = 'Abril'; break;
                 }
             @endphp            
-            <div class="w-100 p-sm-2 text-center MyMonth">{{ __('Cuentas Mes: ').$mount.__(' de ').$yearnow }}</div>
-            <div class="mt-3">
-                <table id="tableDatatable" class="w-100 table table-bordered table-responsive-md text-center" style="font-size: 15px;" id="tblMonth">
+            <div class="w-100 p-sm-2 text-center mt-3 text-bold text-info font-weight-bold MyMonth">{{ __('Cuentas Mes: ').$mount.__(' de ').$yearnow }}</div>
+            <div class="loader"></div>            
+            <div class="mt-3 carga">
+                <table id="tableDatatable" class="w-100 table table-bordered text-center tcount" style="font-size: 15px;">
                     <thead>
                         <tr>
                             <th># CONTRATO</th>
@@ -66,7 +67,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <div class="w-100"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal"></div>
         </div>
         <div class="col-md-2">
             <ul class="list-group list-group-flush text-center">
@@ -84,7 +85,9 @@
 @section('ScriptZone')
     <script>
         $('li').each(function (index, element) {
-            $(element).click(function (e) { 
+            $(element).click(function (e) {
+                $('.carga').fadeOut();
+                $('.loader').fadeIn();
                 e.preventDefault();                
                 let year = $('select[name=YearSelect]').val();
                 switch (index) {
@@ -100,20 +103,34 @@
                     case 9: $('.MyMonth').text('Cuentas Mes: Octubre de '+year); break;
                     case 10: $('.MyMonth').text('Cuentas Mes: Noviembre de '+year); break;
                     case 11: $('.MyMonth').text('Cuentas Mes: Diciembre de '+year); break;
-                }
+                }                
                 $.get("{{route('getCountsMonth')}}",
-                    function (objectDataMonth) {
+                    function (objectDataMonth) { console.log(objectDataMonth);
+                        $('.tcount tbody').empty();
+                        var Valueegress = 0;
                         objectDataMonth.forEach(element => {
-                            let {con_final} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let dateSplit = con_final.split('-'); let mon = dateSplit[1]-1;
-                            console.log(yearSearch);
-                            console.log(year);
-                            if (yearSearch == year && mon <= index) {
-                                // console.log(element);
-                                console.log(con_final);
+                            let {con_final, conNumber, con_typeiderepre, bt_social, con_valueqouta, col_name} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let monthSearch = yearDate.getMonth();                            
+                            if (yearSearch == year && index <= monthSearch) {                                
+                                $('.tcount tbody').append(
+                                    "<tr>"+
+                                        "<td>"+('0000'+conNumber).slice(-4)+"</td>"+
+                                        "<td>"+con_typeiderepre+"</td>"+
+                                        "<td>"+bt_social+"</td>"+
+                                        "<td>"+con_valueqouta+"</td>"+
+                                        "<td>"+col_name+"</td>"+
+                                    "</tr>"
+                                    );
                             }
+                            Valueegress += con_valueqouta;
                         });
+                        console.log(Valueegress);
+                        $('input[name=subtotal]').val(Valueegress);
+                        $('input[name=subtotal]').maskMoney();
+                        $('input[name=subtotal]').focus();
                     }
                 );
+                $('.loader').fadeOut(2200);
+                $('.carga').fadeIn(2200);
             });            
         });
     </script>

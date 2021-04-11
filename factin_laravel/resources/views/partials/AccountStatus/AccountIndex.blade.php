@@ -66,8 +66,8 @@
                         {{-- Dinamics --}}
                     </tbody>
                 </table>
+                <div class="w-100"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal" value="0"></div>
             </div>
-            <div class="w-100"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal"></div>
         </div>
         <div class="col-md-2">
             <ul class="list-group list-group-flush text-center">
@@ -105,7 +105,7 @@
                     case 11: $('.MyMonth').text('Cuentas Mes: Diciembre de '+year); break;
                 }                
                 $.get("{{route('getCountsMonth')}}",
-                    function (objectDataMonth) { console.log(objectDataMonth);
+                    function (objectDataMonth) { 
                         $('.tcount tbody').empty();
                         var Valueegress = 0;
                         objectDataMonth.forEach(element => {
@@ -120,10 +120,9 @@
                                         "<td>"+col_name+"</td>"+
                                     "</tr>"
                                     );
+                                    Valueegress += con_valueqouta;
                             }
-                            Valueegress += con_valueqouta;
                         });
-                        console.log(Valueegress);
                         $('input[name=subtotal]').val(Valueegress);
                         $('input[name=subtotal]').maskMoney();
                         $('input[name=subtotal]').focus();

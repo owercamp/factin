@@ -253,3 +253,144 @@ a.text-iva:hover, a.text-iva:focus {
         -o-transform: rotate(360deg);
     }
 }
+input[type="text"] {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+input[type="password"] {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}  
+input[type="text"]:focus {
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+}
+input[type="password"]:focus {
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+}
+.inputWithIcon input[type="text"] {
+    padding-left: 40px;
+}
+.emaIcon input[type="text"] {
+    padding-left: 40px;
+}
+.passIcon input[type="password"] {
+    padding-left: 40px;
+}
+.inputWithIcon {
+    position: relative;
+}
+.emaIcon {
+    position: relative;
+}
+.passIcon {
+    position: relative;
+}
+.inputWithIcon span {
+    position: absolute;
+    left: 37.5%;
+    top: 1px;
+    padding: 7px 6px;
+    color: #aaa;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.emaIcon span {
+    position: absolute;
+    left: 6%;
+    top: 10px;
+    padding: 7px 6px;
+    color: #aaa;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.passIcon span {
+    position: absolute;
+    left: 6%;
+    top: 15%;
+    padding: 7px 6px;
+    color: #aaa;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+.inputWithIcon input[type="text"]:focus + span {
+    color: dodgerBlue;
+}
+.emaIcon input[type="text"]:focus + span {
+    color: dodgerBlue;
+}
+.passIcon input[type="password"]:focus + span {
+    color: dodgerblue;
+}
+.inputWithIcon.inputIconBg span {
+    background-color: #aaa;
+    color: #fff;
+    padding: 7px 6px;
+    border-radius: 4px 0 0 4px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    -o-border-radius: 4px 0 0 4px;
+}
+.emaIcon.emaIconBg span {
+    background-color: #aaa;
+    color: #fff;
+    padding: 9px 9px;
+    border-radius: 4px 0 0 4px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    -o-border-radius: 4px 0 0 4px;
+}
+.passIcon.passIconBg span {
+    background-color: #aaa;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 4px 0 0 4px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    -o-border-radius: 4px 0 0 4px;
+}
+.inputWithIcon.inputIconBg input[type="text"]:focus + span {
+    color: #fff;
+    background-color: dodgerBlue;
+}
+.emaIcon.emaIconBg input[type="text"]:focus + span {
+    color: #fff;
+    background-color: dodgerBlue;
+}
+.passIcon.passIconBg input[type="password"]:focus + span {
+    color: #fff;
+    background-color: dodgerblue;
+}

@@ -66,7 +66,7 @@
                         {{-- Dinamics --}}
                     </tbody>
                 </table>
-                <div class="w-100"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal" value="0"></div>
+                <div class="w-100 inputWithIcon inputIconBg"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal" value="0"><span class="icon-credit-card-alt" aria-hidden="true"></span></div>
             </div>
         </div>
         <div class="col-md-2">

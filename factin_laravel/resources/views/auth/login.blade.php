@@ -8,17 +8,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right bg-warining"> {{ __('Correo') }} <span class="icon-invoiceninja"></span></label>                           
-
-                            <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@correo.com.co">
-
+                            <label for="name" class="col-md-4 p-3 col-form-label text-md-right bg-warining"> {{ __('Correo') }} </label>
+                            <div class="col-md-6 emaIcon emaIconBg">
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@correo.com.co"><span class="icon-envelope-open"></span>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -28,11 +24,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }} <span class="icon-redux"></span></label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="**********">
-
+                            <label for="password" class="col-md-4 p-3 col-form-label text-md-right">{{ __('Contraseña') }}</label>
+                            <div class="col-md-6 passIcon passIconBg">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="**********"><span class="icon-key"></span>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

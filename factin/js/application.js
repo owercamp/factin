@@ -147,6 +147,8 @@ function seeDirection($urls ='/home')
 			return 'Soporte >> Archivo';
 		case '/factin/AccountStatus':
 			return 'Financiera >> Estado de Cuentas';
+		case '/factin/BillingOrder':
+			return 'Financiera >> Movimientos Comerciales >> Orden Facturación';
     }
 }
 

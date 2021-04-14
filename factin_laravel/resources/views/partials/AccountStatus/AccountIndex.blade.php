@@ -30,7 +30,7 @@
                 @endphp
                 <div class="table-bordered w-50 d-flex">
                     <small class="text-body text-bold w-50 p-md-2 bg-primary-50 text-center">AÑO A CONSULTAR:</small>
-                    <select name="YearSelect" class="form-control form-control-sm h-100 text-center text-md-center">
+                    <select name="YearSelect" class="form-control form-control-sm h-100 text-center text-md-center" style="margin: 0">
                         <option value="">Seleccione Año</option>
                         <option value="{{ $yearnow }}" selected>{{ $yearnow }}</option>
 						<option value="{{ $yearfutureOne }}">{{ $yearfutureOne }}</option>
@@ -52,21 +52,34 @@
             <div class="w-100 p-sm-2 text-center mt-3 text-bold text-info font-weight-bold MyMonth">{{ __('Cuentas Mes: ').$mount.__(' de ').$yearnow }}</div>
             <div class="loader"></div>            
             <div class="mt-3 carga">
-                <table id="tableDatatable" class="w-100 table table-bordered text-center tcount" style="font-size: 15px;">
-                    <thead>
-                        <tr>
-                            <th># CONTRATO</th>
-                            <th>IDENTIFICACION</th>
-                            <th>RAZON SOCIAL</th>
-                            <th>VALOR CUOTA</th>
-                            <th>COLABORADOR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- Dinamics --}}
-                    </tbody>
-                </table>
-                <div class="w-100 inputWithIcon inputIconBg"><input class="form-control form-control-sm font-weight-bold text-danger m-auto w-25" type="text" name="subtotal" value="0"><span class="icon-credit-card-alt" aria-hidden="true"></span></div>
+                <form action="{{route('account.fact')}}" method="post" class="formFact">
+                    @csrf
+                    <table id="tableDatatable" class="w-100 table table-hover table-bordered text-center top-modal tcount" style="font-size: 15px;">
+                        <thead>
+                            <tr>
+                                <th># CONTRATO</th>
+                                <th>IDENTIFICACION</th>
+                                <th>RAZON SOCIAL</th>
+                                <th>VALOR CUOTA</th>
+                                <th>COLABORADOR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- Dinamics --}}
+                        </tbody>
+                    </table>
+                    <div class="d-flex" style="height: 112px !important">
+                        <div class="inputWithIcon inputIconBg form-group w-50">
+                            <label class="text-center text-info font-weight-light" style="margin: 1.3% 2%">VENTAS DEL MES</label>
+                            <input class="form-control form-control-sm font-weight-bold text-danger w-50" type="text" name="subtotal" value="0"><span class="icon-credit-card-alt" aria-hidden="true"></span>
+                        </div>
+                        <div class="w-50 m-auto">
+                            <button type="submit" class="btn btn-outline-info font-weight-bold btn-group-sm m-auto fact">FACTURAR</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="Month">
+                    <input type="hidden" name="Year">
+                </form>
             </div>
         </div>
         <div class="col-md-2">
@@ -126,11 +139,49 @@
                         $('input[name=subtotal]').val(Valueegress);
                         $('input[name=subtotal]').maskMoney();
                         $('input[name=subtotal]').focus();
+                        $('input[name=Month]').val(index);
+                        $('input[name=Year]').val(year);
                     }
                 );
                 $('.loader').fadeOut(2200);
                 $('.carga').fadeIn(2200);
             });            
+        });
+
+        $('input[name=subtotal]').focus(function (e) { 
+            e.preventDefault();
+            let MyValue = $('input[name=subtotal]').val();
+            let vsub = MyValue.replace(/\./g,"");
+            $('input[name=subtotal]').val(vsub);
+        });
+        
+        $('.fact').click(function (e) { 
+            e.preventDefault();
+            let month = $('input[name=Month]').val();
+            if (month  !=  "") {
+                $('.formFact').submit();
+            }else{
+                const Month = Swal.mixin({                    
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    },
+                    showClass: {
+					popup: 'animate__animated animate__flipInX'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__flipOutX'
+                    }
+                })
+                Month.fire({
+                    icon: 'info',
+                    title: '<h3 class="text-capitalize text-info">Sin Selección</h3>',
+                    html: '<p class="text-black-50 text-bold">Seleccione un mes para realizar facturación</p>'
+                })
+            }
         });
     </script>
 @endsection

@@ -178,4 +178,7 @@ Route::post('/Archive/follow', 'RequestController@archivePDF')->name('archive.pr
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
 //ruta estado de cuentas
 Route::get('/AccountStatus','AccountstatusController@Accountindex')->name('account.index');
+Route::post('/AccountStatus/factura', 'AccountstatusController@accountfact')->name('account.fact');
+//rutas financiera
+Route::get('/BillingOrder', 'FinanceController@billingorderindex')->name('billingorder.finance');
 

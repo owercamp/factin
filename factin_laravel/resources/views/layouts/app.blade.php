@@ -27,6 +27,7 @@
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script src="{{asset('js/jquery.maskMoney.js')}}"></script>
+    <script src="{{asset('js/jquery.TabletoJSON.js')}}"></script>
     <script src="{{asset('js/application.js')}}"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
@@ -98,8 +99,7 @@
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">FINANCIERA</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
                                     <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('account.index')}}">ESTADO DE CUENTA</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="#">MOVIMIENTOS COMERCIALES</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="#">INFORMES</a>
+                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('billingorder.finance')}}">MOVIMIENTOS COMERCIALES</a>
                                 </ul>
                             </div>
                         </div>

@@ -16,7 +16,7 @@
                             <div class="col-md-6 emaIcon emaIconBg">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@correo.com.co"><span class="icon-envelope-open"></span>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert" style="margin-top: 35px">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -28,7 +28,7 @@
                             <div class="col-md-6 passIcon passIconBg">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="**********"><span class="icon-key"></span>
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert" style="margin-top: 35px">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

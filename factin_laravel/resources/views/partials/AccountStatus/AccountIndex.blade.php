@@ -158,8 +158,32 @@
         $('.fact').click(function (e) { 
             e.preventDefault();
             let month = $('input[name=Month]').val();
+            let body = $('.tcount tbody').text();            
             if (month  !=  "") {
-                $('.formFact').submit();
+                if ( body != "") {                    
+                    $('.formFact').submit();
+                }else{
+                    const alert = Swal.mixin({
+                        timer:2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        },
+                        showClass: {
+                        popup: 'animate__animated animate__flipInX'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__flipOutX'
+                        }
+                    })
+                    alert.fire({
+                        icon: 'warning',
+                        title: '<h3 class="text-info">Sin Registros</h3>',
+                        html: '<p class="text-center text-dark">No hay datos para <em class="text-danger">facturar</em></p>'
+                    })
+                }
             }else{
                 const Month = Swal.mixin({                    
                     timer: 2000,
@@ -184,4 +208,27 @@
             }
         });
     </script>
+    @if (session('Success') == 'Success')
+        <script>
+            const fact = Swal.mixin({
+                timer: 5000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                didOpen: (mouse)=>{
+                    mouse.addEventListener('mouseenter',Swal.stopTimer)
+                    mouse.addEventListener('mouseleave',Swal.resumeTimer)
+                },
+                showClass: {
+                    popup: 'animate__animated animate__flipInX'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__flipOutX'
+                }
+            })
+            fact.fire({
+                icon: 'success',
+                title: '<h3 class="text-capitalize text-md-center text-monospace text-secondary">Facturación Almacenada</h3>'
+            })
+        </script>
+    @endif
 @endsection

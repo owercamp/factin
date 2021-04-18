@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillingOrder;
 use Illuminate\Http\Request;
 
 class FinanceController extends Controller
@@ -12,6 +13,7 @@ class FinanceController extends Controller
     }
     function billingorderindex()
     {
-        return \view('partials.Finances.BillingOrder');
+        $billingOrder = BillingOrder::all();
+        return \view('partials.Finances.BillingOrder', \compact('billingOrder'));
     }
 }

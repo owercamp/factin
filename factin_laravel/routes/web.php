@@ -181,4 +181,5 @@ Route::get('/AccountStatus','AccountstatusController@Accountindex')->name('accou
 Route::post('/AccountStatus/factura', 'AccountstatusController@accountfact')->name('account.fact');
 //rutas financiera
 Route::get('/BillingOrder', 'FinanceController@billingorderindex')->name('billingorder.finance');
+Route::post('/BillingOrder/PrinterOrder', 'FinanceController@billingorderpdf')->name('billing.order');
 

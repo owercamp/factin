@@ -39,38 +39,87 @@
         .three {
             width: 210px; height: 210px; background: rgba(255,255,255,0.4); border-radius: 620%; -webkit-border-radius: 620%; -moz-border-radius: 620%; -ms-border-radius: 620%; -o-border-radius: 620%; position: relative; margin-left: 55%; margin-top: -10%;
         }
-        .text-capitalize {
-            text-transform: capitalize !important;
-        }
-        .col-md-6{
-            margin: 3% 5%;
-        }
         .pdf-footer{
             border-top-color: rgba(0,123,255,.5);
             border-top-style: groove;
             border-top-width: 1.5px;
-            height: 5%;
+            height: 20px !important;
             text-align: center;
         }
         .text{
             float: left;
-            margin-top: 40%;
+            margin-top: 20px;
             margin-left: 21%;
             color:#0050a7;
         }
-        .val{border-bottom: black solid 1px;}
-        .td1{width: 43%; padding-top: 1.5%;}
-        .td2{width: 57%; border-bottom: black solid 1px; padding-top: 1.5%;}
-        .titles{text-align: right;}
-        .data{text-align: center;}
-        tr{margin: 1px 0px }
+        .container{            
+            padding: 1px;            
+            width: 690px !important;
+            margin: 1.5px;
+            height: 830px !important;
+        }
+        .w-100{
+            width: 100% !important;
+        }
+        .border th{
+            border: 1px solid #dee2e6 !important;
+        }
+        .border-secondary th{
+            border-color: #6c757d !important;
+        }
+        .m-1 {
+            margin: 0.25rem !important;
+        }
+        .text-primary {
+            color: #0050a7 !important;
+        }
+        .text-dark {
+            color: #343a40 !important;
+        }
+        .text-right {
+            text-align: right !important;
+        }
+        .text-center {
+            text-align: center !important;
+        }
     </style>
     <title>Contrato</title>
 </head>
-<body>
+<body height="100%">
     <header class="pdf-header"><img class="ima" src="{{asset('img/logofactin.png')}}" alt="img-factin">
     <div class="one"></div><div class="two"></div><div class="three"></div></header>
-    
+    <div class="container">
+        <h3 class="w-100 text-center text-dark">{{$month}} - {{$year}}</h3>
+        <table class="w-100 border border-secondary m-1">
+            <thead>
+                <tr>
+                    <th>N° CONTRATO</th>
+                    <th>IDENTIFICACION</th>
+                    <th>RAZON SOCIAL</th>
+                    <th>COLABORADOR</th>
+                    <th>VALOR CUOTA</th>
+                </tr>
+            </thead>
+            <tbody style="height: 1150px">
+                @foreach ($JsonData as $item)
+                <tr>
+                    <th>{{sprintf("%'.04d\n",$item->conNumber)}}</th>
+                    <th>{{$item->con_typeiderepre}}</th>
+                    <th>{{$item->bt_social}}</th>
+                    <th>{{$item->col_name}}</th>
+                    <th class="text-dark">{{number_format($item->con_valueqouta,0,',','.')}}</th>
+                </tr>                    
+                @endforeach 
+            </tbody>
+            <tfoot>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-dark">{{__('TOTAL FACTURADO: ')}}</td>
+                <td class="text-center text-primary"><strong>{{number_format($sale_month,0,',','.')}}</strong></td>
+            </tfoot>
+        </table>
+    </div>
     <footer class="pdf-footer">
         <strong class="text">Factin Online Service versión 21.01.01  |  <em>Copyright © Javapri</em></strong>
     </footer>

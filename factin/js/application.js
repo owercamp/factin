@@ -149,6 +149,10 @@ function seeDirection($urls ='/home')
 			return 'Financiera >> Estado de Cuentas';
 		case '/factin/BillingOrder':
 			return 'Financiera >> Movimientos Comerciales >> Orden Facturación';
+		case '/factin/Commissions':
+			return 'Financiera >> Movimientos Comerciales >> Liquidación Comisiones';
+		case '/factin/Sales':
+			return 'Financiera >> Movimientos Comerciales >> Estadisticas Ventas';
     }
 }
 

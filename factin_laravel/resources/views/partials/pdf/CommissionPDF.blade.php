@@ -89,34 +89,34 @@
     <header class="pdf-header"><img class="ima" src="{{asset('img/logofactin.png')}}" alt="img-factin">
     <div class="one"></div><div class="two"></div><div class="three"></div></header>
     <div class="container">
-        <h3 class="w-100 text-center text-dark text-capitalize">{{__('Facturación de ')}} {{$month}} - {{$year}}</h3>
+        <h3 class="w-100 text-center text-dark text-capitalize">{{__('Facturación Colaborador ')}} {{$nameCol}}</h3>
         <table class="w-100 border border-secondary m-1">
             <thead>
                 <tr>
                     <th>N° CONTRATO</th>
                     <th>IDENTIFICACION</th>
                     <th>RAZON SOCIAL</th>
-                    <th>COLABORADOR</th>
                     <th>VALOR CUOTA</th>
+                    <th>VALOR COMISION</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($JsonData as $item)
-                <tr>
-                    <th>{{sprintf("%'.04d\n",$item->conNumber)}}</th>
-                    <th>{{$item->con_typeiderepre}}</th>
-                    <th>{{$item->bt_social}}</th>
-                    <th>{{$item->col_name}}</th>
-                    <th class="text-dark">{{number_format($item->con_valueqouta,0,',','.')}}</th>
-                </tr>                    
-                @endforeach 
+                @foreach ($dataFact as $item)
+                    <tr>
+                        <th>{{sprintf("%'.04d\n",$item->conNumber)}}</th>
+                        <th>{{$item->con_typeiderepre}}</th>
+                        <th>{{$item->bt_social}}</th>
+                        <th class="text-dark">{{number_format($item->con_valueqouta,0,',','.')}}</th>
+                        <th>{{number_format($item->legal_comi,0,',','.')}}</th>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="text-dark text-center">{{__('TOTAL FACTURADO: ')}}</td>
-                <td class="text-center text-primary"><strong>{{number_format($sale_month,0,',','.')}}</strong></td>
+                <td class="text-dark text-center">{{__('TOTAL COMISION: ')}}</td>
+                <td class="text-center text-primary"><strong>{{number_format($comi,0,',','.')}}</strong></td>
             </tfoot>
         </table>
     </div>

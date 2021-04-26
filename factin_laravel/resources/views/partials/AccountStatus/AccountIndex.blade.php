@@ -47,6 +47,14 @@
                     case '02': $mount = 'Febrero'; break;
                     case '03': $mount = 'Marzo'; break;
                     case '04': $mount = 'Abril'; break;
+                    case '05': $mount = 'Mayo'; break;
+                    case '06': $mount = 'Junio'; break;
+                    case '07': $mount = 'Julio'; break;
+                    case '08': $mount = 'Agosto'; break;
+                    case '09': $mount = 'Septiembre'; break;
+                    case '10': $mount = 'Octubre'; break;
+                    case '11': $mount = 'Noviembre'; break;
+                    case '12': $mount = 'Diciembre'; break;
                 }
             @endphp            
             <div class="w-100 p-sm-2 text-center mt-3 text-bold text-info font-weight-bold MyMonth">{{ __('Cuentas Mes: ').$mount.__(' de ').$yearnow }}</div>

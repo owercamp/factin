@@ -182,4 +182,9 @@ Route::post('/AccountStatus/factura', 'AccountstatusController@accountfact')->na
 //rutas financiera
 Route::get('/BillingOrder', 'FinanceController@billingorderindex')->name('billingorder.finance');
 Route::post('/BillingOrder/PrinterOrder', 'FinanceController@billingorderpdf')->name('billing.order');
+Route::get('/Commissions', 'FinanceController@comissionsindex')->name('comission.finance');
+Route::post('/Commissions/save', 'FinanceController@commissionsave')->name('commission.save');
+Route::post('/Commissions/PrinterCommission', 'FinanceController@commissionpdf')->name('commission.pdf');
+// rutas de mis graficas con chard js
+Route::get('/Sales', 'FinanceController@salesindex')->name('sales.index');
 

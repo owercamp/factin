@@ -5,6 +5,7 @@
     <table id="tableDatatable" class="w-100 table table-hover table-bordered text-center top-modal">
         <thead>
             <tr>
+                <th>#</th>
                 <th>VENTAS DEL MES</th>
                 <th>AÑO</th>
                 <th>MES</th>
@@ -12,8 +13,12 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $row = 1;
+            @endphp
             @foreach ($billingOrder as $item)
                 <tr>
+                    <th>{{$row++}}</th>
                     <th class="version-color">{{number_format($item->bo_sale_month,0,',','.')}}</th>
                     <th>{{$item->bo_year}}</th>
                     <th>{{$item->bo_month}}</th>

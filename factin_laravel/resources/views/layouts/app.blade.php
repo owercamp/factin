@@ -27,7 +27,6 @@
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/jquery.mask.min.js')}}"></script>
     <script src="{{asset('js/jquery.maskMoney.js')}}"></script>
-    <script src="{{asset('js/jquery.TabletoJSON.js')}}"></script>
     <script src="{{asset('js/application.js')}}"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
@@ -117,7 +116,8 @@
             @yield('content')
         </main>
     </div>
-
+    <script src="{{asset('js/Chart.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
     @yield('ScriptZone')
 </body>
 </html>

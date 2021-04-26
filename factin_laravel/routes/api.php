@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Agreement;
+use App\Models\BillingOrder;
 use App\Models\BusinessTracking;
 use App\Models\Collaborator;
 use App\Models\Contract;
@@ -221,3 +222,8 @@ Route::get('getClientLegal',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getClientLegal');
+// consulta de ventas por año
+Route::get('getChartSales', function(Request $request){
+    $query = BillingOrder::where('bo_year',$request->data)->get();
+    return response()->json($query);
+})->name('getChartSales');

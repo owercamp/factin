@@ -253,6 +253,49 @@ a.text-iva:hover, a.text-iva:focus {
         -o-transform: rotate(360deg);
     }
 }
+/* barra de carga al estilo de google */
+.point-loader {
+    display: block;
+    position: absolute;
+    margin-top: 10%;
+}
+.point-loader span {
+    display: inline-block;
+    margin-top: 10px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+.point-loader span:not(:first-child) {
+    margin-left: 10px;
+}
+.point-loader span:nth-child(1) {
+    background: #27bbfa;
+    animation: move 1s ease-in-out -0.25s infinite alternate;
+}
+.point-loader span:nth-child(2) {
+    background: #fe7e00;
+    animation: move 1s ease-in-out -0.5s infinite alternate;
+}
+.point-loader span:nth-child(3) {
+    background: #90a41e;
+    animation: move 1s ease-in-out -0.75s infinite alternate;
+}
+.point-loader span:nth-child(4) {
+    background: #27bbfa;
+    animation: move 1s ease-in-out -1s infinite alternate;
+}
+@keyframes move {
+    from {
+        transform: translateY(-10px);
+    }
+    to {
+        transform: translateY(5px);
+    }
+}
+.myCanvas {
+    display: none;
+}
 input[type="text"], select, input[type="email"], input[type="password"], textarea {
     width: 100%;
     border: 2px solid #aaa !important;

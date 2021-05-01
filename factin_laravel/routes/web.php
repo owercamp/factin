@@ -186,5 +186,6 @@ Route::get('/Commissions', 'FinanceController@comissionsindex')->name('comission
 Route::post('/Commissions/save', 'FinanceController@commissionsave')->name('commission.save');
 Route::post('/Commissions/PrinterCommission', 'FinanceController@commissionpdf')->name('commission.pdf');
 // rutas de mis graficas con chard js
-Route::get('/Sales', 'FinanceController@salesindex')->name('sales.index');
+Route::get('/YearSales', 'FinanceController@salesindex')->name('sales.index');
+Route::get('/YearCommissions', 'FinanceController@commissionindex')->name('commission.index');
 

@@ -226,6 +226,53 @@ a.text-iva:hover, a.text-iva:focus {
     color: #004085 !important;
     background-color: #b8daff !important;
 }
+/* carga de tres puntos */
+.spinner {
+    margin: 100px auto 0;
+    width: 120px;
+    text-align: center;
+}  
+.spinner > div {
+    width: 25px;
+    height: 25px;
+    background-color: #fe9a00;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.8s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.8s infinite ease-in-out both;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+@-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+}
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+} 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    -o-transform: scale(1.0);
+}
+}
+/* circulo de carga css */
 .loader {
     width: 60px;
     height: 60px;
@@ -287,11 +334,19 @@ a.text-iva:hover, a.text-iva:focus {
 }
 @keyframes move {
     from {
-        transform: translateY(-10px);
-    }
+        transform: translateY(-15px);
+        -webkit-transform: translateY(-15px);
+        -moz-transform: translateY(-15px);
+        -ms-transform: translateY(-15px);
+        -o-transform: translateY(-15px);
+}
     to {
-        transform: translateY(5px);
-    }
+        transform: translateY(10px);
+        -webkit-transform: translateY(10px);
+        -moz-transform: translateY(10px);
+        -ms-transform: translateY(10px);
+        -o-transform: translateY(10px);
+}
 }
 .myCanvas {
     display: none;
@@ -417,4 +472,7 @@ input[type="text"]:focus, select:focus, input[type="email"]:focus, input[type="p
 .passIcon.passIconBg input[type="password"]:focus + span {
     color: #fff;
     background-color: dodgerblue;
+}
+.w-15 {
+    width: 15%;
 }

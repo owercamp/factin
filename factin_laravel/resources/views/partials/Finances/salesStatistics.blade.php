@@ -6,17 +6,17 @@
         @php
             $yearnow = date('Y');
 			$mountnow = date('m');
-			$yearbeforeTwo = date('Y') - 2;
-			$yearbeforeOne = date('Y') - 1;
 			$yearfutureOne = date('Y') + 1;
 			$yearfutureTwo = date('Y') + 2;			
+			$yearfutureThree = date('Y') + 3;
+			$yearfutureFour = date('Y') + 4;
         @endphp
-        <select name="yearSelected" class="w-25 text-monospace text-dark">
-            <option value="{{ $yearbeforeTwo }}">{{ $yearbeforeTwo }}</option>
-            <option value="{{ $yearbeforeOne }}">{{ $yearbeforeOne }}</option>
+        <select name="yearSelected" class="w-15 text-monospace text-dark ml-5">            
             <option value="{{ $yearnow }}" selected>{{ $yearnow }}</option>
 			<option value="{{ $yearfutureOne }}">{{ $yearfutureOne }}</option>
 			<option value="{{ $yearfutureTwo }}">{{ $yearfutureTwo }}</option>
+            <option value="{{ $yearfutureThree }}">{{ $yearfutureThree }}</option>
+            <option value="{{ $yearfutureFour }}">{{ $yearfutureFour }}</option>
         </select>
     </div>
     <div class="w-100 d-flex justify-content-center">
@@ -45,7 +45,7 @@
             }
             let year = $('select[name=yearSelected]').val();
             let Arr = [];
-            $.getJSON("{{route('getChartSales')}}", {data: year},
+            $.get("{{route('getChartSales')}}", {data: year},
             function (objectDataMonth) {
                 let Mes = {'Enero': 0,'Febrero': 0,'Marzo': 0,'Abril': 0,'Mayo': 0,'Junio': 0,'Julio': 0,'Agosto': 0,'Septiembre': 0,'Octubre': 0,'Noviembre': 0,'Diciembre': 0};
                 for (const key in Mes) {
@@ -99,18 +99,20 @@
                                 tooltip: {
                                     backgroundColor: '#0584f6',
                                     titleFont: {
-                                        size: 13,
+                                        size: 18,
+                                        weight: 'bold',
+                                        color: '#FFFFFF',
                                     },
                                     padding: 8,
                                     bodyFont: {
-                                        size: 12,
+                                        size: 13,
                                     },
                                 }                            
                             },
                             elements: {
                                 point: {
                                     pointStyle: 'star',
-                                    radius: 5,
+                                    radius: 6,
                                     hoverRadius: 8,
                                 },
                                 line: {
@@ -137,7 +139,7 @@
         // consulta inicial al cargar mi pages    
         let year = $('select[name=yearSelected]').val();
         let Arr = [];
-        $.getJSON("{{route('getChartSales')}}", {data: year},
+        $.get("{{route('getChartSales')}}", {data: year},
         function (objectDataMonth) {
             let Mes = {'Enero': 0,'Febrero': 0,'Marzo': 0,'Abril': 0,'Mayo': 0,'Junio': 0,'Julio': 0,'Agosto': 0,'Septiembre': 0,'Octubre': 0,'Noviembre': 0,'Diciembre': 0};
             for (const key in Mes) {

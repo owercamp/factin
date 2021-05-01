@@ -106,4 +106,9 @@ class FinanceController extends Controller
     {
         return view('partials.Finances.salesStatistics');
     }
+    // estadistica comissiones
+    function commissionindex()
+    {
+        return view('partials.Finances.commissionStatistics');
+    }
 }

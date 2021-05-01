@@ -4,6 +4,7 @@ use App\Models\Agreement;
 use App\Models\BillingOrder;
 use App\Models\BusinessTracking;
 use App\Models\Collaborator;
+use App\Models\Commission;
 use App\Models\Contract;
 use App\Models\Following;
 use App\Models\Hardware;
@@ -227,3 +228,10 @@ Route::get('getChartSales', function(Request $request){
     $query = BillingOrder::where('bo_year',$request->data)->get();
     return response()->json($query);
 })->name('getChartSales');
+// consulta registros colaboradores todo el año
+Route::get('getCommissionsCollaborator', function(Request $request){
+    $query = Commission::where('co_year',$request->year)
+    ->where('co_month',$request->month)
+    ->join('collaborators','collaborators.id','=','commissions.co_cola')->get();
+    return response()->json($query);
+})->name('getCommissionsCollaborator');

@@ -151,8 +151,10 @@ function seeDirection($urls ='/home')
 			return 'Financiera >> Movimientos Comerciales >> Orden Facturación';
 		case '/factin/Commissions':
 			return 'Financiera >> Movimientos Comerciales >> Liquidación Comisiones';
-		case '/factin/Sales':
+		case '/factin/YearSales':
 			return 'Financiera >> Movimientos Comerciales >> Estadisticas Ventas';
+		case '/factin/YearCommissions':
+			return 'Financiera >> Movimientos Comerciales >> Estadisticas Comisiones';
     }
 }
 

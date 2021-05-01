@@ -11,7 +11,7 @@
     <div class="dropdown-divider form-divider"></div>
     <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('sales.index')}}"><span class="icon-line-chart"></span> {{__('Estadisticas Ventas')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="#"><span class="icon-pie-chart"></span> {{__('Estadisticas Comisiones')}}</a>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('commission.index')}}"><span class="icon-pie-chart"></span> {{__('Estadisticas Comisiones')}}</a>
     <div class="dropdown-divider form-divider"></div>
 </ul>
 <div class="col-9 left-modal">

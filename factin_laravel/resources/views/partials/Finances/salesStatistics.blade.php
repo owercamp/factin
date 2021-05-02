@@ -97,17 +97,17 @@
                                     }
                                 },
                                 tooltip: {
-                                    backgroundColor: '#0584f6',
-                                    titleFont: {
-                                        size: 18,
-                                        weight: 'bold',
-                                        color: '#FFFFFF',
-                                    },
-                                    padding: 8,
-                                    bodyFont: {
-                                        size: 13,
-                                    },
-                                }                            
+									padding: 8,
+									titleFont: {
+										color: '#FFFFFF',
+										size: 15,
+									},
+									backgroundColor: '#6c757d',
+									titleSpacing: 3,
+									bodyFont: {
+									size: 13,
+									}
+								}                            
                             },
                             elements: {
                                 point: {
@@ -167,7 +167,7 @@
                                 data: Arr,
                                 borderColor: '#007bff',
                                 backgroundColor: '#007bff8a',
-                                tension: 0.3,
+                                tension: 0.2,
                             }
                         ]
                     },
@@ -191,25 +191,28 @@
                                 }
                             },
                             tooltip: {
-                                backgroundColor: '#0584f6',
-                                titleFont: {
-                                    size: 13,
-                                },
-                                padding: 8,
-                                bodyFont: {
-                                    size: 12,
-                                },
-                            }                            
+								padding: 8,
+								titleFont: {
+									color: '#FFFFFF',
+									size: 15,
+								},
+								backgroundColor: '#6c757d',
+								titleSpacing: 3,
+								bodyFont: {
+									size: 13,
+								}
+							}                            
                         },
                         elements: {
                             point: {
                                 pointStyle: 'star',
-                                radius: 5,
+                                radius: 4,
+                                color: "#FFF",
+                                borderWidth: 2,
                                 hoverRadius: 8,
+                                hoverBorderWidth: 2,
                             },
                             line: {
-                                borderWidth: 1.5,
-                                borderColor: 'black',
                                 fill: true,
                             }
                         }

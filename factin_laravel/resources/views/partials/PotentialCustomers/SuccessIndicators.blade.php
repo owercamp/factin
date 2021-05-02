@@ -124,7 +124,7 @@
 									point: {
 										pointStyle: 'star',
 										radius: 4,
-										color: '#FFF',									
+										color: '#FFF',				
 										borderWidth: 2,
 										hoverRadius: 8,
 										hoverBorderWidth: 2,

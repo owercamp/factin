@@ -79,13 +79,15 @@
 										label: 'RECHAZADO',
 										data: NonApproved,
 										borderColor: '#dc3545',
-										backgroundColor: '#dc354530',						
+										backgroundColor: '#dc354530',
+										tesion: 0.2,						
 									},
 									{
 										label: 'APROBADO',
 										data: Approved,
 										borderColor: '#28a745',
-										backgroundColor: '#28a74530',						
+										backgroundColor: '#28a74530',
+										tension: 0.2,						
 									}
 								]
 							},

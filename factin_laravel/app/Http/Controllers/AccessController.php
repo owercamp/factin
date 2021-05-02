@@ -67,7 +67,8 @@ class AccessController extends Controller
 
     function permissionindex()
     {
-        return view('partials.Access.permission');
+        $role = Role::all();
+        return view('partials.Access.permission', compact('role'));
     }
 
     /* ===============================================================================================

@@ -46,7 +46,7 @@
         </form>
         @endauth
         <header class="container-fluid">
-            <div class="flex-direction flex-justified">
+            <div class="d-flex flex-justified">
                 <div class="figure icon1">
                     <a href="#">
                         <img id="log1" src="{{asset('img/logofactin.png')}}" alt="img-factin" class="size-img">

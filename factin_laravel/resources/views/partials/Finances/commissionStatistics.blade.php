@@ -41,7 +41,7 @@
         </div>
     </div>
     <div  class="border-info container-fluid" style="width: 900px !important; height: 500px !important">
-        <canvas id="CommissionStatic" class="p-4 "></canvas>
+        <canvas id="CommissionStatic" class="p-4 myCanvas"></canvas>
     </div>
 @endsection
 

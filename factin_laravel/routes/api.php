@@ -242,13 +242,20 @@ Route::get('getCommissionsCollaborator', function(Request $request){
     return response()->json($query);
 })->name('getCommissionsCollaborator');
 
-// consulta de la información para la grafica de oprtinudades de negocio
+// consulta de la información para la grafica de propesta comercial
 Route::get('getBusinessGraph',function(){
     $query = BusinessTracking::all();    
     return response()->json($query);
 })->name('getBusinessGraph');
 
+// consulta de la información para la grafica de oportunidades de negocio
 Route::get('getLeadGraph', function(){
     $query = Lead::all();
     return response()->json($query);
 })->name('getLeadGraph');
+
+// consulta de la información para la grafica legalización contratos
+Route::get('getContractIndicators',function(Request $request){
+    $query = Contract::all();
+    return response()->json($query);
+})->name('getContractIndicators');

@@ -11,7 +11,7 @@
     <div class="dropdown-divider form-divider"></div>
     <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('file.index')}}"><span class="icon-folder-open"></span> {{__('Archivo Comercial')}}</a>
     <div class="dropdown-divider form-divider"></div>
-    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('indicators.index')}}"><span class="icon-line-chart"></span> {{__('Indicadores de Exito')}}</a>
+    <a class="list-group-item-action list-group-item-success w-100 p-3 btn btn-success text-dark" href="{{route('indic.index')}}"><span class="icon-line-chart"></span> {{__('Indicadores de Exito')}}</a>
 </ul>
 <div class="col-9 left-modal">
     @yield('info')

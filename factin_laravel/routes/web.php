@@ -134,7 +134,7 @@ Route::post('/Commercial-Monitoring/teken', 'TradeController@commercialmonitorin
 Route::post('/Commercial-Monitoring/status-approved','TradeController@commercialmonitoringapproved')->name('status.approvedcommercial');
 Route::post('/Commercial-Monitoring/status-nonapproved','TradeController@commercialmonitoringnonapproved')->name('status.non-approvedcommercial');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
-Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indicators.index');
+Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indic.index');
 //pdf
 Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name('commercial.pdf');
 Route::post('/Commercial-Monitoring/StatusPDF','TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');

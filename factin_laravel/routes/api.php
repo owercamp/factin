@@ -187,6 +187,7 @@ Route::get('getUserIdentity',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getUserIdentity');
+
 // realiza la consulta de las bitacoras de un cliente especifico
 Route::get('getFollow',function(Request $request){
     $query = TekenRequest::where('tkreq_follid',trim($request->data))
@@ -198,6 +199,7 @@ Route::get('getFollow',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollow');
+
 // realiza la consulta de mis seguimiento dependiendo del id en mi tbl followings
 Route::get('getFollowings',function(Request $request){
     $query = Following::where('foll_id',trim($request->data))
@@ -208,6 +210,7 @@ Route::get('getFollowings',function(Request $request){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getFollowings');
+
 // consulta de las ventas del mes
 Route::get('getCountsMonth',function(){
     $query = Contract::select('contracts.*','agreements.*','leads.*','business_trackings.*','collaborators.*')
@@ -217,17 +220,20 @@ Route::get('getCountsMonth',function(){
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social') ->get();
     return response()->json($query);
 })->name('getCountsMonth');
+
 // consulta para realizar la legalización del cliente
 Route::get('getClientLegal',function(Request $request){
     $query = Lead::where('lead_id',trim($request->data))
     ->join('business_trackings','business_trackings.bt_id','=','leads.lead_social')->get();
     return response()->json($query);
 })->name('getClientLegal');
+
 // consulta de ventas por año
 Route::get('getChartSales', function(Request $request){
     $query = BillingOrder::where('bo_year',$request->data)->get();
     return response()->json($query);
 })->name('getChartSales');
+
 // consulta registros colaboradores todo el año
 Route::get('getCommissionsCollaborator', function(Request $request){
     $query = Commission::where('co_year',$request->year)
@@ -235,3 +241,14 @@ Route::get('getCommissionsCollaborator', function(Request $request){
     ->join('collaborators','collaborators.id','=','commissions.co_cola')->get();
     return response()->json($query);
 })->name('getCommissionsCollaborator');
+
+// consulta de la información para la grafica de oprtinudades de negocio
+Route::get('getBusinessGraph',function(){
+    $query = BusinessTracking::all();    
+    return response()->json($query);
+})->name('getBusinessGraph');
+
+Route::get('getLeadGraph', function(){
+    $query = Lead::all();
+    return response()->json($query);
+})->name('getLeadGraph');

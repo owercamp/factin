@@ -21,6 +21,7 @@ use App\Models\TekenRequest;
 use App\Models\UserClient;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -259,3 +260,9 @@ Route::get('getContractIndicators',function(Request $request){
     $query = Contract::all();
     return response()->json($query);
 })->name('getContractIndicators');
+
+Route::get('getPermissionRol',function(Request $request){
+    $query = Role::where('id', $request->data)
+    ->join('role_has_permissions','role_has_permissions.role_id','=','roles.id')->get();
+    return response()->json($query);
+})->name('getPermissionRol');

@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
             'name' => 'ower armando campos alfonso',
             'email' => 'owerion22@gmail.com',
             'password' => bcrypt('LoreCamiJuli1')
-        ])->assignRole('ADMINISTRADOR');
+        ]);
 
         User::create([
             'username' => 'jvargas',
             'name' => 'javier vargas prieto',
             'email' => 'javapri@outlook.com',
             'password' => bcrypt('javapri')
-        ])->assignRole('ADMINISTRADOR');
+        ]);
     }
 }

@@ -35,6 +35,7 @@ Route::post('/access/delete', 'AccessController@accessdelete')->name('access.del
 
 //ruta Permisos
 Route::get('/permission', 'AccessController@permissionindex')->name('access.permission');
+Route::post('/permission/add', 'AccessController@permissionaddrole')->name('permmission.add');
 
 //ruta usuarios
 Route::get('/users','AccessController@usersindex')->name('access.users');

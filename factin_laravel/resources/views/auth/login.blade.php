@@ -16,11 +16,11 @@
                             <div class="col-md-6 emaIcon emaIconBg">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@correo.com.co"><span class="icon-envelope-open"></span>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert" style="margin-top: 35px">
+                                    <span class="invalid-feedback m-auto position-static">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div>                            
                         </div>
 
                         <div class="form-group row">
@@ -28,7 +28,7 @@
                             <div class="col-md-6 passIcon passIconBg">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"><span class="icon-key"></span>
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert" style="margin-top: 35px">
+                                    <span class="invalid-feedback m-auto position-static">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

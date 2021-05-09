@@ -12,6 +12,7 @@
 */
 //
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\TradeController;
 use App\Mail\response_to_request;
 use App\Models\Product;
@@ -39,6 +40,7 @@ Route::post('/permission/add', 'AccessController@permissionaddrole')->name('perm
 
 //ruta usuarios
 Route::get('/users','AccessController@usersindex')->name('access.users');
+Route::post('/users/assignRole', 'AccessController@assignrole')->name('role.assign');
 
 //ruta Ubicaciones
 Route::get('/locations', 'LocationController@locationindex')->name('location.located');

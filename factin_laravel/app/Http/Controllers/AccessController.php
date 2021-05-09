@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Record;
 use App\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -86,6 +87,7 @@ class AccessController extends Controller
             $role->givePermissionTo('access.permission');
             $role->givePermissionTo('access.users');
             $role->givePermissionTo('permission.add');
+            $role->givePermissionTo('role.assign');
         }else{
             $role->revokePermissionTo('access.roles');
             $role->revokePermissionTo('access.save');
@@ -94,6 +96,7 @@ class AccessController extends Controller
             $role->revokePermissionTo('access.permission');
             $role->revokePermissionTo('access.users');
             $role->revokePermissionTo('permission.add');
+            $role->revokePermissionTo('role.assign');
         }
         if ($request->location == 'on') {
             $role->givePermissionTo('location.located');
@@ -375,8 +378,24 @@ class AccessController extends Controller
 
     function usersindex()
     {
-        $users = User::all();
-        $roles = Role::all();        
-        return view('partials.Access.users', compact('users','roles'));
+        $data = Record::all();
+        $rol = Role::all();
+        return view('partials.Access.users', compact('data','rol'));
+    }
+    function assignrole(Request $request)
+    {
+        // return $request;
+        $user = User::where('name',$request->user)->first();
+        if ($user != null) {
+            $user->assignRole($request->rol_User);
+            $record = Record::find($request->userid);
+            if ($record != null) {
+                $record->rec_rol = $request->rol_User;
+                $record->save();
+            }
+            return \redirect()->route('access.users')->with('SuccessAssign','Rol Asignado');
+        } else {
+            return \redirect()->route('access.users')->with('SecondaryAssign','Error al asignar el rol');
+        }
     }
 }

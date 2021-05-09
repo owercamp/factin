@@ -7,31 +7,22 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registro') }}</div>
+                <div class="card-header text-iva font-weight-bold border-bottom border-secondary">{{ __('Registro') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombres Completos') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <select name="nameselect" id="nameselect" class="form-control @error('name') is-invalid @enderror" name="name" required autofocus>
+                                    <option value="">Seleccione Colaborador</option>
+                                    {{-- option dinamico --}}
+                                </select>
+                                {{-- input oculto para almacenar mi valor --}}
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus hidden>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -77,12 +68,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
-                                </button>
-                            </div>
+                        <div class="w-100 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-outline-primary">
+                                {{ __('Registrar') }}
+                            </button>                            
                         </div>
                     </form>
                 </div>
@@ -90,4 +79,21 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('ScriptZone')
+    <script>
+        $('select[name=nameselect]').change(function (e) { 
+            e.preventDefault();
+            let name = $('select[name=nameselect]').val();
+            $('input[name=name]').val(name);
+        });
+        $.get("{{route('getColUsers')}}",
+            function (objectColaborator) {
+                objectColaborator.forEach(element => {                    
+                    $('select[name=nameselect]').append("<option value='"+element.col_name+"'>"+element.col_name+"</option>");
+                });
+            }
+        );
+    </script>
 @endsection

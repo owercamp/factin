@@ -26,7 +26,7 @@
                         <div class="form-group row">
                             <label for="password" class="col-md-4 p-3 col-form-label text-md-right">{{ __('Contraseña') }}</label>
                             <div class="col-md-6 passIcon passIconBg">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="**********"><span class="icon-key"></span>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"><span class="icon-key"></span>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert" style="margin-top: 35px">
                                         <strong>{{ $message }}</strong>

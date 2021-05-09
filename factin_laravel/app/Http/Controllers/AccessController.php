@@ -375,6 +375,8 @@ class AccessController extends Controller
 
     function usersindex()
     {
-        return view('partials.Access.users');
+        $users = User::all();
+        $roles = Role::all();        
+        return view('partials.Access.users', compact('users','roles'));
     }
 }

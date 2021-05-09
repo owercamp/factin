@@ -266,3 +266,8 @@ Route::get('getPermissionRol',function(Request $request){
     ->join('role_has_permissions','role_has_permissions.role_id','=','roles.id')->get();
     return response()->json($query);
 })->name('getPermissionRol');
+
+Route::get('getColUsers',function(){
+    $query = Collaborator::all();
+    return response()->json($query);
+})->name('getColUsers');

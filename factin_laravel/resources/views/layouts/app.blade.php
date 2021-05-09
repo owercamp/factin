@@ -57,48 +57,120 @@
                         <strong class="legend">Factin Online Service versión 21.01.01  |  <em>Copyright © Javapri</em></strong>
                     </div>
                     @auth
-                    <div class="navbar-collapse flex-justified marge-list">
-                        <div class="navbar">
+                    <div class="navbar-collapse flex-justified marge-list d-flex row flex-nowrap align-items-center">
+                        <div>
+                            <a href="{{route('home')}}" class="btn btn-default text-center" style="font-size: 200%; width: 70px; margin-left: 20px;"><span class="icon-building-o"></span><p style="font-size: 15px;">Home</p></a>
+                            
+                        </div>
+                        <div class="navbar w-100 justify-content-around">
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">CONFIGURACION</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('access.roles')}}">ACCESO</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('location.located')}}">UBICACIONES</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('company.information')}}">EMPRESA</a>
+                                    @can('access.roles')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('access.roles')}}">ACCESO</a>
+                                    @else
+                                        <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('access.roles')}}">ACCESO</a>
+                                    @endcan
+                                    @can('location.located')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('location.located')}}">UBICACIONES</a>
+                                    @else
+                                        <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('location.located')}}">UBICACIONES</a>
+                                    @endcan
+                                    @can('company.information')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('company.information')}}">EMPRESA</a>
+                                    @else
+                                        <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('company.information')}}">EMPRESA</a>
+                                    @endcan
                                 </ul>
                             </div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">ADMINISTRACION</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('product.index')}}">TIPO DE PRODUCTOS</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('services.index')}}">TIPO DE SERVICIOS</a>
+                                    @can('collaborator.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('collaborator.index')}}">RECURSOS HUMANOS</a>
+                                    @endcan
+                                    @can('product.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('product.index')}}">TIPO DE PRODUCTOS</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('product.index')}}">TIPO DE PRODUCTOS</a>
+                                    @endcan
+                                    @can('services.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('services.index')}}">TIPO DE SERVICIOS</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('services.index')}}">TIPO DE SERVICIOS</a>
+                                    @endcan
                                 </ul>
                             </div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">COMERCIAL</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('factin.index')}}">PORTAFOLIO</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a>
+                                    @can('factin.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('factin.index')}}">PORTAFOLIO</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('factin.index')}}">PORTAFOLIO</a>
+                                    @endcan
+                                    @can('oportunity.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('oportunity.index')}}">PLAN DE MERCADEO</a>
+                                    @endcan
+                                    @can('proposal.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('proposal.index')}}">CLIENTES POTENCIALES</a>
+                                    @endcan
+                                    @can('ClientLegalization.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('ClientLegalization.index')}}">CONTRATACIÓN</a>
+                                    @endcan
                                 </ul>
                             </div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">SOPORTE</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('request.index')}}">SOLICITUDES</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('programming.index')}}">PROGRAMACION</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('tracing.index')}}">SEGUIMIENTO</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('qualification.index')}}">CALIFICACION</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('archiverequest.index')}}">ARCHIVO</a>
+                                    @can('request.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('request.index')}}">SOLICITUDES</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('request.index')}}">SOLICITUDES</a>
+                                    @endcan
+                                    @can('programming.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('programming.index')}}">PROGRAMACION</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('programming.index')}}">PROGRAMACION</a>
+                                    @endcan
+                                    @can('tracing.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('tracing.index')}}">SEGUIMIENTO</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('tracing.index')}}">SEGUIMIENTO</a>
+                                    @endcan
+                                    @can('qualification.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('qualification.index')}}">CALIFICACION</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('qualification.index')}}">CALIFICACION</a>
+                                    @endcan
+                                    @can('archiverequest.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('archiverequest.index')}}">ARCHIVO</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('archiverequest.index')}}">ARCHIVO</a>
+                                    @endcan
                                 </ul>
                             </div>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" style="box-shadow: none" type="button" data-toggle="dropdown" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">FINANCIERA</button>
                                 <ul class="dropdown-menu row-cols-1 text-center m-0 p-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('account.index')}}">ESTADO DE CUENTA</a>
-                                    <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('billingorder.finance')}}">MOVIMIENTOS COMERCIALES</a>
+                                    @can('account.index')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('account.index')}}">ESTADO DE CUENTA</a>
+                                    @else
+                                    <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('account.index')}}">ESTADO DE CUENTA</a>
+                                    @endcan
+                                    @can('billingorder.finance')
+                                        <a class="btn btn-outline-primary border-left-0 border-right-0 w-100" href="{{route('billingorder.finance')}}">MOVIMIENTOS COMERCIALES</a>
+                                    @else
+                                        <a class="btn btn-outline-secondary border-left-0 border-right-0 w-100 disabled" href="{{route('billingorder.finance')}}">MOVIMIENTOS COMERCIALES</a>
+                                    @endcan
                                 </ul>
                             </div>
                         </div>

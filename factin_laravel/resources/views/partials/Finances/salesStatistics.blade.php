@@ -45,18 +45,21 @@
             }
             let year = $('select[name=yearSelected]').val();
             let Arr = [];
+            let count = 0;
             $.get("{{route('getChartSales')}}", {data: year},
             function (objectDataMonth) {
                 let Mes = {'Enero': 0,'Febrero': 0,'Marzo': 0,'Abril': 0,'Mayo': 0,'Junio': 0,'Julio': 0,'Agosto': 0,'Septiembre': 0,'Octubre': 0,'Noviembre': 0,'Diciembre': 0};
                 for (const key in Mes) {
+                    count = 0;
                     for (const iterator of objectDataMonth) {
                         let month = iterator['bo_month'];
                         let value = iterator['bo_sale_month'];
                         if(key == month)
                         {
-                            Mes[key] = value;
+                            count += value;
                         }
                     }
+                    Mes[key] = count;
                 } 
                 for (const key in Mes) {
                     Arr.push(Mes[key]);
@@ -141,17 +144,20 @@
         let Arr = [];
         $.get("{{route('getChartSales')}}", {data: year},
         function (objectDataMonth) {
+            let count = 0;
             let Mes = {'Enero': 0,'Febrero': 0,'Marzo': 0,'Abril': 0,'Mayo': 0,'Junio': 0,'Julio': 0,'Agosto': 0,'Septiembre': 0,'Octubre': 0,'Noviembre': 0,'Diciembre': 0};
             for (const key in Mes) {
+                count = 0;
                 for (const iterator of objectDataMonth) {
                     let month = iterator['bo_month'];
                     let value = iterator['bo_sale_month'];
                     if(key == month)
                     {
-                        Mes[key] = value;
+                        count += value;
                     }
                 }
-            } 
+                Mes[key] = count;
+            }
             for (const key in Mes) {
                 Arr.push(Mes[key]);
             }           

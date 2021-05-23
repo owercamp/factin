@@ -28,7 +28,7 @@ class FinanceController extends Controller
         $month = $data[0]['bo_month'];
         $year = $data[0]['bo_year'];
         $JsonData = \json_decode($data[0]['bo_data']);
-
+        
         $pdf = PDF::loadView('partials.pdf.BillingOrderPDF', \compact('sale_month','month','year','JsonData'));
         return $pdf->stream('Orden Factura.pdf');
     }

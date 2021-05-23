@@ -118,7 +118,7 @@
                 <td class="text-dark text-center">{{__('TOTAL FACTURADO: ')}}</td>
                 <td class="text-center text-primary"><strong>{{number_format($sale_month,0,',','.')}}</strong></td>
             </tfoot>
-        </table>
+        </table>        
     </div>
     <footer class="pdf-footer">
         <strong class="text">Factin Online Service versión 21.01.01  |  <em>Copyright © Javapri</em></strong>

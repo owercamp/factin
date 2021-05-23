@@ -181,4 +181,25 @@ function loadDatatables(){
 			}
 		},
 	});
+	$('#tableFactura').DataTable({
+		language: {
+			processing:     "Procesado...",
+			search: 		"Buscar:",
+			lengthMenu:    	"Mostrar _MENU_ registros",
+			info:           "Mostrando _END_ de _TOTAL_ registros. ",
+			infoEmpty:      "Seleccione los registros a facturar",	
+			emptyTable:     "No hay registros disponibles",
+			infoFiltered:   "Filtrado de _MAX_ elementos totales",
+			infoPostFix:    "",
+			loadingRecords: "Cargando...",
+			zeroRecords:    "No hay registros para mostrar",
+			infoFiltered:   "Filtrado de _MAX_ registros",
+			paginate: {
+				first:      "|<",
+				previous:   "<",
+				next:       ">",
+				last:       ">|"
+			}
+		},
+	});
 }

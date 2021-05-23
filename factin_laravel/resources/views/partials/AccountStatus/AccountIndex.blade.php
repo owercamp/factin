@@ -62,14 +62,15 @@
             <div class="mt-3 carga">
                 <form action="{{route('account.fact')}}" method="post" class="formFact">
                     @csrf
-                    <table id="tableDatatable" class="w-100 table table-hover table-bordered text-center top-modal tcount" style="font-size: 15px;">
+                    <table id="tableFactura" class="w-100 table table-hover table-bordered text-center top-modal tcount" style="font-size: 15px;">
                         <thead>
                             <tr>
                                 <th># CONTRATO</th>
                                 <th>IDENTIFICACION</th>
                                 <th>RAZON SOCIAL</th>
                                 <th>VALOR CUOTA</th>
-                                <th>COLABORADOR</th>
+                                <th>COLABORADOR</th>                                
+                                <th>FACTURAR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,16 +78,16 @@
                         </tbody>
                     </table>
                     <div class="d-flex" style="height: 112px !important">
-                        <div class="inputWithIcon inputIconBg form-group w-50">
+                        {{-- <div class="inputWithIcon inputIconBg form-group w-50">
                             <label class="text-center text-info font-weight-light" style="margin: 1.3% 2%">VENTAS DEL MES</label>
                             <input class="form-control form-control-sm font-weight-bold text-danger w-50" type="text" name="subtotal" value="0"><span class="icon-credit-card-alt" aria-hidden="true"></span>
-                        </div>
-                        <div class="w-50 m-auto">
+                        </div> --}}
+                        <div class="w-100 d-flex justify-content-center">
                             <button type="submit" class="btn btn-outline-info font-weight-bold btn-group-sm m-auto fact">FACTURAR</button>
                         </div>
                     </div>
                     <input type="hidden" name="Month">
-                    <input type="hidden" name="Year">
+                    <input type="hidden" name="Year">                    
                 </form>
             </div>
         </div>
@@ -128,20 +129,25 @@
                 $.get("{{route('getCountsMonth')}}",
                     function (objectDataMonth) { 
                         $('.tcount tbody').empty();
-                        var Valueegress = 0;
+                        var Valueegress = 0, num = 0;
                         objectDataMonth.forEach(element => {
-                            let {con_final, conNumber, con_typeiderepre, bt_social, con_valueqouta, col_name} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let monthSearch = yearDate.getMonth();                            
+                            let {con_final, conNumber, con_typeiderepre, bt_social, con_valueqouta, col_name, con_id} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let monthSearch = yearDate.getMonth();                            
                             if (yearSearch == year && index <= monthSearch) {                                
+                                num++;
                                 $('.tcount tbody').append(
                                     "<tr>"+
-                                        "<td>"+('0000'+conNumber).slice(-4)+"</td>"+
-                                        "<td>"+con_typeiderepre+"</td>"+
-                                        "<td>"+bt_social+"</td>"+
-                                        "<td>"+con_valueqouta+"</td>"+
-                                        "<td>"+col_name+"</td>"+
+                                        "<td><input type='hidden' name='NContract[]' value='"+con_id+"'><input type='hidden' name='Contracts[]' value="+('0000'+conNumber).slice(-4)+">"+('0000'+conNumber).slice(-4)+"</td>"+
+                                        "<td><input type='hidden' name='typedoc[]' value='"+con_typeiderepre+"'>"+con_typeiderepre+"</td>"+
+                                        "<td><input type='hidden' name='social[]' value='"+bt_social+"'>"+bt_social+"</td>"+
+                                        "<td><input type='hidden' name='quota[]' value='"+con_valueqouta+"'>"+con_valueqouta+"</td>"+
+                                        "<td><input type='hidden' name='cola[]' value='"+col_name+"'>"+col_name+"</td>"+
+                                        "<td class='d-flex justify-content-center'><select style='width: 62px' class='form-control form-control-sm' name='selection[]'>"+
+                                        "<option value='No'>No</option>"+
+                                        "<option value='Si'>Si</option>"+
+                                        "</select></td>"+
                                     "</tr>"
                                     );
-                                    Valueegress += con_valueqouta;
+                                    Valueegress += con_valueqouta;                                    
                             }
                         });
                         $('input[name=subtotal]').val(Valueegress);
@@ -154,7 +160,7 @@
                 $('.loader').fadeOut(2200);
                 $('.carga').fadeIn(2200);
             });            
-        });
+        });        
 
         $('input[name=subtotal]').focus(function (e) { 
             e.preventDefault();

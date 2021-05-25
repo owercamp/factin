@@ -131,23 +131,44 @@
                         $('.tcount tbody').empty();
                         var Valueegress = 0, num = 0;
                         objectDataMonth.forEach(element => {
-                            let {con_final, conNumber, con_typeiderepre, bt_social, con_valueqouta, col_name, con_id} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let monthSearch = yearDate.getMonth();                            
+                            let {con_final, conNumber, con_typeiderepre, bt_social, con_valueqouta, col_name, con_id} = element; let yearDate = new Date(con_final); let yearSearch = yearDate.getFullYear(); let monthSearch = yearDate.getMonth();
                             if (yearSearch == year && index <= monthSearch) {                                
                                 num++;
-                                $('.tcount tbody').append(
-                                    "<tr>"+
-                                        "<td><input type='hidden' name='NContract[]' value='"+con_id+"'><input type='hidden' name='Contracts[]' value="+('0000'+conNumber).slice(-4)+">"+('0000'+conNumber).slice(-4)+"</td>"+
-                                        "<td><input type='hidden' name='typedoc[]' value='"+con_typeiderepre+"'>"+con_typeiderepre+"</td>"+
-                                        "<td><input type='hidden' name='social[]' value='"+bt_social+"'>"+bt_social+"</td>"+
-                                        "<td><input type='hidden' name='quota[]' value='"+con_valueqouta+"'>"+con_valueqouta+"</td>"+
-                                        "<td><input type='hidden' name='cola[]' value='"+col_name+"'>"+col_name+"</td>"+
-                                        "<td class='d-flex justify-content-center'><select style='width: 62px' class='form-control form-control-sm' name='selection[]'>"+
-                                        "<option value='No'>No</option>"+
-                                        "<option value='Si'>Si</option>"+
-                                        "</select></td>"+
-                                    "</tr>"
-                                    );
-                                    Valueegress += con_valueqouta;                                    
+                                switch (index) {
+                                    case 0: month = 'Enero'; break;
+                                    case 1: month = 'Febrero'; break;
+                                    case 2: month = 'Marzo'; break;
+                                    case 3: month = 'Abril'; break;
+                                    case 4: month = 'Mayo'; break;
+                                    case 5: month = 'Junio'; break;
+                                    case 6: month = 'Julio'; break;
+                                    case 7: month = 'Agosto'; break;
+                                    case 8: month = 'Septiembre'; break;
+                                    case 9: month = 'Octubre'; break;
+                                    case 10: month = 'Noviembre'; break;
+                                    case 11: month = 'Diciembre'; break;
+                                }
+                                $.get("{{route('getFactCheck')}}", {month: month, year: year, quota: con_valueqouta},
+                                    function (objectFactCheck) {
+                                        console.log(objectFactCheck);
+                                        if (objectFactCheck == "") {
+                                            $('.tcount tbody').append(
+                                                "<tr>"+
+                                                    "<td><input type='hidden' name='NContract[]' value='"+con_id+"'><input type='hidden' name='Contracts[]' value="+('0000'+conNumber).slice(-4)+">"+('0000'+conNumber).slice(-4)+"</td>"+
+                                                    "<td><input type='hidden' name='typedoc[]' value='"+con_typeiderepre+"'>"+con_typeiderepre+"</td>"+
+                                                    "<td><input type='hidden' name='social[]' value='"+bt_social+"'>"+bt_social+"</td>"+
+                                                    "<td><input type='hidden' name='quota[]' value='"+con_valueqouta+"'>"+con_valueqouta+"</td>"+
+                                                    "<td><input type='hidden' name='cola[]' value='"+col_name+"'>"+col_name+"</td>"+
+                                                    "<td class='d-flex justify-content-center'><select style='width: 62px' class='form-control form-control-sm' name='selection[]'>"+
+                                                    "<option value='No'>No</option>"+
+                                                    "<option value='Si'>Si</option>"+
+                                                    "</select></td>"+
+                                                "</tr>"
+                                                );
+                                                Valueegress += con_valueqouta;                                    
+                                        }
+                                    }
+                                );
                             }
                         });
                         $('input[name=subtotal]').val(Valueegress);
@@ -157,8 +178,8 @@
                         $('input[name=Year]').val(year);
                     }
                 );
-                $('.loader').fadeOut(2200);
-                $('.carga').fadeIn(2200);
+                $('.loader').fadeOut(2800);
+                $('.carga').fadeIn(2800);
             });            
         });        
 

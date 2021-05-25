@@ -260,14 +260,22 @@ Route::get('getContractIndicators',function(Request $request){
     $query = Contract::all();
     return response()->json($query);
 })->name('getContractIndicators');
-
+// consulta los permisos
 Route::get('getPermissionRol',function(Request $request){
     $query = Role::where('id', $request->data)
     ->join('role_has_permissions','role_has_permissions.role_id','=','roles.id')->get();
     return response()->json($query);
 })->name('getPermissionRol');
-
+// consulta los usuarios
 Route::get('getColUsers',function(){
     $query = Collaborator::all();
     return response()->json($query);
 })->name('getColUsers');
+
+// consulta las facturas emitidas
+Route::get('getFactCheck',function(Request $request){
+    $query = BillingOrder::where('bo_month',$request->month)
+    ->where('bo_year',$request->year)
+    ->where('bo_sale_month',$request->quota)->get();
+    return response()->json($query);
+})->name('getFactCheck');

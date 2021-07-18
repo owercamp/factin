@@ -29,7 +29,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //ruta Accesos
-Route::get('/access','AccessController@accessindex')->name('access.roles');
+Route::get('/access', 'AccessController@accessindex')->name('access.roles');
 Route::post('/access/save', 'AccessController@accesssave')->name('access.save');
 Route::post('/access/update', 'AccessController@accessupdate')->name('access.update');
 Route::post('/access/delete', 'AccessController@accessdelete')->name('access.delete');
@@ -39,7 +39,7 @@ Route::get('/permission', 'AccessController@permissionindex')->name('access.perm
 Route::post('/permission/add', 'AccessController@permissionaddrole')->name('permmission.add');
 
 //ruta usuarios
-Route::get('/users','AccessController@usersindex')->name('access.users');
+Route::get('/users', 'AccessController@usersindex')->name('access.users');
 Route::post('/users/assignRole', 'AccessController@assignrole')->name('role.assign');
 
 //ruta Ubicaciones
@@ -76,9 +76,9 @@ Route::post('users-clients/delete', 'CollaboratorController@usersclientdelete')-
 Route::post('users-clients/printer', 'CollaboratorController@usersclientprinter')->name('userclient.printer');
 //rutas productos
 Route::get('/product', 'ProductController@productindex')->name('product.index');
-Route::post('/product/save','ProductController@productsave')->name('product.save');
-Route::post('/product/update','ProductController@productupdate')->name('product.update');
-Route::post('/product/delete','ProductController@productdelete')->name('product.delete');
+Route::post('/product/save', 'ProductController@productsave')->name('product.save');
+Route::post('/product/update', 'ProductController@productupdate')->name('product.update');
+Route::post('/product/delete', 'ProductController@productdelete')->name('product.delete');
 //rutas modulos productos
 Route::get('/module-product', 'ProductController@moduleproductindex')->name('module.index');
 Route::post('/module-product/save', 'ProductController@moduleproductsave')->name('module.save');
@@ -134,13 +134,13 @@ Route::post('/Commercial-Proposal/update', 'TradeController@commercialproposalup
 //rutas  monitoreo comercial
 Route::get('/Commercial-Monitoring', 'TradeController@commercialmonitoringindex')->name('monitoring.index');
 Route::post('/Commercial-Monitoring/teken', 'TradeController@commercialmonitoringteken')->name('tekencommercial.index');
-Route::post('/Commercial-Monitoring/status-approved','TradeController@commercialmonitoringapproved')->name('status.approvedcommercial');
-Route::post('/Commercial-Monitoring/status-nonapproved','TradeController@commercialmonitoringnonapproved')->name('status.non-approvedcommercial');
+Route::post('/Commercial-Monitoring/status-approved', 'TradeController@commercialmonitoringapproved')->name('status.approvedcommercial');
+Route::post('/Commercial-Monitoring/status-nonapproved', 'TradeController@commercialmonitoringnonapproved')->name('status.non-approvedcommercial');
 Route::get('/Commercial-File', 'TradeController@commercialfileindex')->name('file.index');
 Route::get('/Commercial-Indicator', 'TradeController@commercialindicatorsindex')->name('indic.index');
 //pdf
-Route::post('/Commercial-Monitoring/PDF','TradeController@CommercialPDF')->name('commercial.pdf');
-Route::post('/Commercial-Monitoring/StatusPDF','TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');
+Route::post('/Commercial-Monitoring/PDF', 'TradeController@CommercialPDF')->name('commercial.pdf');
+Route::post('/Commercial-Monitoring/StatusPDF', 'TradeController@CommercialstatusPDF')->name('commercialstatus.pdf');
 //contratación cliente
 Route::get('/Agreement-ClientLegalization', 'AgreementController@ClienteLegalization')->name('ClientLegalization.index');
 Route::post('/Agreement-ClientLegalization/save', 'AgreementController@ClientLegalizationSave')->name('ClientLegalization.save');
@@ -180,7 +180,7 @@ Route::post('/Archive/follow', 'RequestController@archivePDF')->name('archive.pr
 // ruta de correo envio
 Route::post('/Emails', 'RequestController@responsetorequest')->name('responsetorequest.response');
 //ruta estado de cuentas
-Route::get('/AccountStatus','AccountstatusController@Accountindex')->name('account.index');
+Route::get('/AccountStatus', 'AccountstatusController@Accountindex')->name('account.index');
 Route::post('/AccountStatus/factura', 'AccountstatusController@accountfact')->name('account.fact');
 //rutas financiera
 Route::get('/BillingOrder', 'FinanceController@billingorderindex')->name('billingorder.finance');
@@ -191,4 +191,3 @@ Route::post('/Commissions/PrinterCommission', 'FinanceController@commissionpdf')
 // rutas de mis graficas con chard js
 Route::get('/YearSales', 'FinanceController@salesindex')->name('sales.index');
 Route::get('/YearCommissions', 'FinanceController@commissionindex')->name('commission.index');
-
